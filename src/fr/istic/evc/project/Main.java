@@ -11,7 +11,7 @@ public class Main {
 		// Environment
 		Environment environment = new Environment();
 		environment.init();
-		environment.loadWorld("Resources/World/01.xml");
+		environment.loadWorld("resources/World/01.xml");
 		environment.createWorld();
 		environment.start(user);
 	}
