@@ -1,9 +1,6 @@
 package fr.istic.evc.project;
 
-import fr.istic.evc.factory.Factory;
-import fr.istic.evc.gui.InterfaceItem;
-import fr.istic.evc.object.common.controller.IDevice;
-import fr.istic.evc.object.common.controller.Object;
+import fr.istic.evc.factory.UniversFactory;
 import fr.istic.evc.object.common.controller.Univers;
 import fr.istic.evc.object.common.controller.World;
 
@@ -21,13 +18,10 @@ public class Environment {
 	// Load world, prepare object, detect devices, load GUI
 	public void loadWorld(String url) {
 		
-		// World
-		world = Factory.getInstance().createWorld();
-		world.load(url);
-		
 		// Univers
-		univers = Factory.getInstance().createUnivers();
-		
+		univers = UniversFactory.getInstance().createUnivers(url);
+
+		/*
 		// Objects
 		for ( Object object : world.getObjects() ) {
 			univers.add(object);
@@ -42,7 +36,7 @@ public class Environment {
 		// Interface
 		for ( InterfaceItem item : world.getInterface() ) {
 			univers.addInterfaceItem(item);
-		}
+		}*/
 	}
 
 	// Call web service to add world
@@ -52,7 +46,7 @@ public class Environment {
 
 	// Show window and start interaction
 	public void start(User user) {
-
+		univers.showInterface();
 	}
 
 }

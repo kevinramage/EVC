@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.istic.evc.gui.InterfaceItem;
+import fr.istic.evc.gui.MainFrame;
 
 public class World {
 

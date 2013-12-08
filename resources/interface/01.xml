@@ -1,0 +1,25 @@
+<MainFrame>
+	<Title>Mon monde</Title>
+	<Size>1024 768</Size>
+	<Interfaces>
+		<WorldArea>
+			<Position>0 0</Position>
+			<Size>100 80</Size>
+		</WorldArea>
+		<CustomArea>
+			<Position>0 80</Position>
+			<Size>30 20</Size>
+		</CustomArea>
+		<ActionArea>
+			<Position>30 80</Position>
+			<Size>70 20</Size>
+			<Actions>
+				<MoveAction />
+<!-- 				<RotateAction /> -->
+<!-- 				<Cursor1 /> -->
+<!-- 				<Cursor2 /> -->
+<!-- 				<UnSelect /> -->
+			</Actions>
+		</ActionArea>
+	</Interfaces>
+</MainFrame>

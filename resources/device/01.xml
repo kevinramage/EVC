@@ -1,0 +1,10 @@
+<Devices>
+	<Device>
+		<Mouse>
+			<Name>mouse1</Name>
+		</Mouse>
+		<Keyboard>
+			<Name>keyboard1</Name>
+		</Keyboard>
+	</Device>
+</Devices>

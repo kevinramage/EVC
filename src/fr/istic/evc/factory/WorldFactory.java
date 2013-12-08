@@ -6,6 +6,9 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
+import fr.istic.evc.gui.MainFrame;
+import fr.istic.evc.object.common.controller.World;
+
 public class WorldFactory {
 	
 	private static WorldFactory instance;
@@ -15,7 +18,10 @@ public class WorldFactory {
 		
 	}
 	
-	public void load(String url) {
+	public World createWorld(String url) {
+		
+		// World
+		World world = new World();
 		
 		// Open file
 		Document document = null;
@@ -31,15 +37,12 @@ public class WorldFactory {
 		// Objects
 		Element childObjects = root.getChild("Objects");
 		
-		// Devices
-		
-		// Main frame
-		//Element childMainFrame = rro
+		return world;
 	}
 	
 	
 	public static WorldFactory getInstance() {
-		if (instance != null) {
+		if (instance == null) {
 			instance = new WorldFactory();
 		}
 		return instance;

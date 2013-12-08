@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.istic.evc.gui.InterfaceItem;
+import fr.istic.evc.gui.MainFrame;
 
 public class Univers {
 
 	protected List<Object> objects;
 	protected List<IDevice> devices;
 	protected List<InterfaceItem> items;
+	protected MainFrame mainFrame;
 	
 	
 	public Univers() {
@@ -27,6 +29,19 @@ public class Univers {
 
 	public void addInterfaceItem(InterfaceItem item) {
 		items.add(item);
+	}
+
+	public void showInterface() {
+		mainFrame.show();
+	}
+	
+	
+
+	public MainFrame getMainFrame() {
+		return mainFrame;
+	}
+	public void setMainFrame(MainFrame mainFrame) {
+		this.mainFrame = mainFrame;
 	}
 
 }

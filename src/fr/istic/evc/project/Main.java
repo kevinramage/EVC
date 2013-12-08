@@ -1,5 +1,6 @@
 package fr.istic.evc.project;
 
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -11,7 +12,7 @@ public class Main {
 		// Environment
 		Environment environment = new Environment();
 		environment.init();
-		environment.loadWorld("resources/World/01.xml");
+		environment.loadWorld("resources/univers/01.xml");
 		environment.createWorld();
 		environment.start(user);
 	}
