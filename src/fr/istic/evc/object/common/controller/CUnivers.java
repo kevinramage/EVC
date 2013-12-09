@@ -9,6 +9,7 @@ import fr.istic.evc.gui.MainFrame;
 public class CUnivers {
 
 	private static CUnivers instance;
+	
 	protected List<CObject> objects;
 	protected List<IDevice> devices;
 	protected List<InterfaceItem> items;
