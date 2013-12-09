@@ -7,8 +7,8 @@ import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
 import fr.istic.evc.gui.MainFrame;
-import fr.istic.evc.object.common.controller.Univers;
-import fr.istic.evc.object.common.controller.World;
+import fr.istic.evc.object.common.controller.CUnivers;
+import fr.istic.evc.object.common.controller.CWorld;
 
 public class UniversFactory {
 
@@ -20,9 +20,10 @@ public class UniversFactory {
 	}
 	
 	
-	public Univers createUnivers(String url) {
+	public CUnivers createUnivers(String url) {
 		
-		Univers univers = new Univers();
+		// Create univers
+		CUnivers univers = CUnivers.getInstance();
 		
 		// Open file
 		Document document = null;
@@ -37,7 +38,7 @@ public class UniversFactory {
 		
 		// World
 		Element childWorld = root.getChild("World");
-		World world = WorldFactory.getInstance().createWorld(childWorld.getText());
+		CWorld world = WorldFactory.getInstance().createWorld(childWorld.getText());
 		
 		// Device
 		Element childDevice = root.getChild("Device");

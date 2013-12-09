@@ -13,12 +13,12 @@ public class Action {
 	
 	public Action() {
 		panel = new JPanel();
-		//panel.setLayout(new BorderLayout());
-		//panel.setLocation(0,0);
-		//panel.setPreferredSize(new Dimension(30, 30));
-		//panel.setSize(30, 30);
-		panel.setBackground(Color.yellow);
-		System.out.println("Action");
+		panel.setLayout(null);
+		panel.setLocation(0,0);
+		panel.setPreferredSize(new Dimension(30, 30));
+		panel.setSize(30, 30);
+		
+		
 	}
 	
 	

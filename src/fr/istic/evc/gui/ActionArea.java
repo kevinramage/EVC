@@ -11,8 +11,8 @@ import fr.istic.evc.interaction.Action;
 public class ActionArea extends InterfaceItem {
 
 	public ActionArea() {
-		panel.setLayout(new GridLayout(10, 2));
-		panel.setBackground(Color.blue);
+		panel.setLayout(null);
+//		panel.setLayout(new GridLayout(10, 2));
 	}
 	
 	public void load(Element elt, int widthParent, int heightParent) {
@@ -31,8 +31,7 @@ public class ActionArea extends InterfaceItem {
 				System.out.println("Action: " + actionName);
 				panel.add(action.getPanel());
 				
-			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

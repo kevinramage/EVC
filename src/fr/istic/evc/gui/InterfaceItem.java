@@ -2,6 +2,7 @@ package fr.istic.evc.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
@@ -13,7 +14,7 @@ public class InterfaceItem {
 	
 	public InterfaceItem() {
 		panel = new JPanel();
-		panel.setLayout(new BorderLayout());
+		panel.setLayout(new FlowLayout());
 	}
 	
 	public void load(Element elt, int widthParent, int heightParent) {

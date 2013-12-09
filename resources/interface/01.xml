@@ -8,14 +8,14 @@
 		</WorldArea>
 		<CustomArea>
 			<Position>0 80</Position>
-			<Size>30 20</Size>
+			<Size>30 16</Size>
 		</CustomArea>
 		<ActionArea>
 			<Position>30 80</Position>
 			<Size>70 20</Size>
 			<Actions>
 				<MoveAction />
-<!-- 				<RotateAction /> -->
+				<RotateAction />
 <!-- 				<Cursor1 /> -->
 <!-- 				<Cursor2 /> -->
 <!-- 				<UnSelect /> -->

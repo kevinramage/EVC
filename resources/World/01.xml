@@ -1,9 +1,10 @@
 <World>
 	<Name>world 1</Name>
-	<Object>
-		<Tool>
-			<Name>table1</Name>
-			<Visual>resources/VRML/table.wrml</Visual>
-		</Tool>
-	</Object>
+	<Objects>
+		<Object>
+			<ID>table1</ID>
+			<Position>0 0 0</Position>
+			<Geometry>resources/VRML/table.wrml</Geometry>
+		</Object>
+	</Objects>
 </World>

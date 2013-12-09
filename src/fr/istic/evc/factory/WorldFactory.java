@@ -7,21 +7,23 @@ import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
 import fr.istic.evc.gui.MainFrame;
-import fr.istic.evc.object.common.controller.World;
+import fr.istic.evc.object.common.controller.CObject;
+import fr.istic.evc.object.common.controller.CWorld;
 
 public class WorldFactory {
 	
 	private static WorldFactory instance;
+	public static final String PATH_OBJECT = "fr.istic.evc.object.common.controller.";
 	
 	
 	private WorldFactory(){
 		
 	}
 	
-	public World createWorld(String url) {
+	public CWorld createWorld(String url) {
 		
 		// World
-		World world = new World();
+		CWorld world = new CWorld();
 		
 		// Open file
 		Document document = null;
@@ -36,6 +38,17 @@ public class WorldFactory {
 		
 		// Objects
 		Element childObjects = root.getChild("Objects");
+		for ( Element elt : childObjects.getChildren()) {
+			
+			try {
+				CObject object = (CObject)Class.forName(  PATH_OBJECT + "C" + elt.getName()).newInstance();
+				object.load(elt);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
 		
 		return world;
 	}

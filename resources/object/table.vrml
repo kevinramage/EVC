@@ -1,0 +1,16 @@
+#VRML V1.0 ascii
+
+Separator {
+   Info {
+      string "Platinum Edition, Using HTML, Java, and CGI"
+   }
+   DEF BackgroundColor Info {
+      string "1 1 1"
+   }
+   Separator {
+      Material {
+         diffuseColor 1 0 0 # the color red
+      }
+      Sphere { }
+   }
+}

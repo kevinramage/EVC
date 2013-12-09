@@ -1,13 +1,13 @@
 package fr.istic.evc.project;
 
 import fr.istic.evc.factory.UniversFactory;
-import fr.istic.evc.object.common.controller.Univers;
-import fr.istic.evc.object.common.controller.World;
+import fr.istic.evc.object.common.controller.CUnivers;
+import fr.istic.evc.object.common.controller.CWorld;
 
 public class Environment {
 
-	private World world;
-	private Univers univers;
+	private CWorld world;
+	private CUnivers univers;
 	
 	
 	

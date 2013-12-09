@@ -1,6 +1,6 @@
 package fr.istic.evc.gui;
 
-import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -14,7 +14,7 @@ public class MainFrame{
 		// Frame
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
+		frame.setLayout(null);
 	}
 	
 	public void show() {
@@ -28,10 +28,15 @@ public class MainFrame{
 	public void setSize(int width, int height) {
 		frame.setPreferredSize(new Dimension(width, height));
 		frame.setSize(width, height);
+		frame.setLocationRelativeTo(null);
 	}
 
 	public void addInterface(InterfaceItem item) {
-		frame.add(item.getPanel());
+		frame.getContentPane().add(item.getPanel());
 		item.init();
+	}
+
+	public Container getContentPane() {
+		return frame.getContentPane();
 	}
 }

@@ -52,8 +52,7 @@ public class MainFrameFactory {
 				item.load(elt, width, height);
 				mainFrame.addInterface(item);
 				
-			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
