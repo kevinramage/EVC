@@ -31,7 +31,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 	private static final int updateDiffusionPort = 4322;
 	private static final String hostName = "127.0.0.1";
 	private static final String serverName = "williamServer";
-	private static final String groupName = "230.19.10.10";
+	private static final String groupName = "230.19.10.50";
 	
 	transient MulticastSender sender ;
 	ICWorld world;
@@ -110,8 +110,8 @@ public class Server extends UnicastRemoteObject implements IServer {
 		world.show();
 		
 		// IHM
-		IHM ihm = new IHM(world, systemCamera);
-		ihm.setTitle(title);
+		//IHM ihm = new IHM(world, systemCamera);
+		//ihm.setTitle(title);
 	}
 	
 

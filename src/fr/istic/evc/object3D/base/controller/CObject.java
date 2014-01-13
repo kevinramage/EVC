@@ -104,12 +104,13 @@ public class CObject implements ICObject{
 		abstraction.setAmbientColor(ambientColor);
 		presentation.setAmbientColor(ambientColor);
 		
+		/*
 		if ( !referent ) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("setId", getId());
 			map.put("setAmbientColor", ambientColor);
 			server.changed(map);
-		}
+		}*/
 	}
 
 	/**

@@ -66,6 +66,7 @@ public class MulticastSender implements Serializable {
             oos = new ObjectOutputStream (baos) ;
             oos.writeObject (o) ;
             oos.flush () ;
+            System.out.println("Server - Create object");
        } catch (IOException e) {
            e.printStackTrace();
        }

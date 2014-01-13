@@ -58,11 +58,17 @@ public class MulticastReceiver extends Thread implements Runnable {
             IAObject object = new AObject();
             object = (IAObject)ois.readObject () ;
             
-            // 
+            // Create controller
             ICObject controller = new CObject();
             controller.setAbstraction(object);
+            
+            // Reload presentation
             controller.reload();
+            
+            // Add controller to the world
             world.add(controller);
+            System.out.println("Client - New object created");
+            
         } catch (Exception e) {
             e.printStackTrace () ;
         }
