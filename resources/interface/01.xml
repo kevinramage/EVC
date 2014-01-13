@@ -1,25 +1,71 @@
-<MainFrame>
-	<Title>Mon monde</Title>
-	<Size>1024 768</Size>
-	<Interfaces>
-		<WorldArea>
-			<Position>0 0</Position>
-			<Size>100 80</Size>
-		</WorldArea>
-		<CustomArea>
-			<Position>0 80</Position>
-			<Size>30 16</Size>
-		</CustomArea>
-		<ActionArea>
-			<Position>30 80</Position>
-			<Size>70 20</Size>
-			<Actions>
-				<MoveAction />
-				<RotateAction />
-<!-- 				<Cursor1 /> -->
-<!-- 				<Cursor2 /> -->
-<!-- 				<UnSelect /> -->
-			</Actions>
-		</ActionArea>
-	</Interfaces>
-</MainFrame>
+<Window>
+	<Size>1024px 768px</Size>
+	<Alignment>Vertical</Alignment>
+	<Components>
+		<Menu id="menu">
+			<Size>100% 30px</Size>
+			<Items>
+				<MenuItem text="Fichier" command="">
+					<Items>
+						<MenuItem text="Ouvrir" command="CmdOpen" />
+						<MenuItem text="Sauvegarder">
+						<Items>
+							<MenuItem text="Format 1" command="CmdFormat1"/>
+							<MenuItem text="Format 2" command="CmdFormat2"/>
+						</Items>
+						</MenuItem>
+					<MenuItem text="Quitter" command="CmdQuit" />
+					</Items>
+				</MenuItem>		
+				<MenuItem text="Edition" command="">
+				</MenuItem>		
+				<MenuItem text="Affichage" command="">
+				</MenuItem>
+			</Items>
+		</Menu>
+		<Container id="topPanel">
+			<Size>100% 30px</Size>
+			<Components>
+				<CameraPanel id="cameraPanel">
+					<Size>100% 100%</Size>
+				</CameraPanel>
+			</Components>
+			<!-- 
+			<CameraPanel id="cameraPanel">
+				<Size>100% 100%</Size>
+				<Actions>
+					<CameraAction value="System" />
+					<CameraAction value="user1" />
+					<CameraAction value="user2" />
+				</Actions>
+			</CameraPanel>
+			<NavigationModePanel id="navigationModePanel">
+				<Size>100px 100%</Size>
+				<Actions>
+					<NavigationModeAction value="examine" />
+					<NavigationModeAction value="walk" />
+					<NavigationModeAction value="fly" />
+				</Actions>
+			</NavigationModePanel>
+			<ViewPanel id="viewPanel">
+				<Size>200px 100%</Size>
+				<Actions>
+					<ViewAction value="front" />
+					<ViewAction value="back" />
+					<ViewAction value="right" />
+					<ViewAction value="left" />
+					<ViewAction value="top" />
+					<ViewAction value="bottom" />
+				</Actions>
+			</ViewPanel>
+			 -->
+		</Container>
+		<MainView id="mainView">
+			<Size>100% 100%</Size>
+		</MainView>
+		<Container id="bottomPanel">
+			<Size>100% 150px</Size>
+		</Container>
+	</Components>
+</Window>
+	
