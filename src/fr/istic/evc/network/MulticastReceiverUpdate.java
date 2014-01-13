@@ -24,7 +24,7 @@ public class MulticastReceiverUpdate extends Thread implements Runnable {
             receptionSocket = new MulticastSocket (diffusionPort) ;
             receptionSocket.joinGroup (adresseDiffusion) ;
             // pour pouvoir envoyer du multicast aussi en local
-            receptionSocket.setLoopbackMode (true) ;
+            receptionSocket.setLoopbackMode (false) ;
             //System.out.println ("reception socket : " + receptionSocket.getLocalPort() + " " + receptionSocket.getInetAddress ()) ;
         } catch (Exception e) {
             e.printStackTrace () ;

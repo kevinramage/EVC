@@ -33,7 +33,7 @@ public class MulticastSender implements Serializable {
             diffusionAddress = InetAddress.getByName (groupName) ;
             diffusionSocket = new MulticastSocket () ;
             diffusionSocket.setTimeToLive (64) ;
-            //socketDiffusion.setLoopbackMode (true) ;
+            diffusionSocket.setLoopbackMode (false) ;
         } catch (IOException e) {
             e.printStackTrace () ;
         }

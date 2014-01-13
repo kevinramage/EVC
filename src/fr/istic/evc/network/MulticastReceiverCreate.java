@@ -26,7 +26,7 @@ public class MulticastReceiverCreate extends Thread implements Runnable {
             receptionSocket = new MulticastSocket (diffusionPort) ;
             receptionSocket.joinGroup (adresseDiffusion) ;
             // pour pouvoir envoyer du multicast aussi en local
-            receptionSocket.setLoopbackMode (true) ;
+            receptionSocket.setLoopbackMode (false) ;
            // System.out.println ("reception socket : " + receptionSocket.getLocalPort() + " " + receptionSocket.getInetAddress ()) ;
         } catch (Exception e) {
             e.printStackTrace () ;
@@ -51,7 +51,7 @@ public class MulticastReceiverCreate extends Thread implements Runnable {
             
             controller.reload();
             client.addObject(controller);
-            
+            System.out.println("Client - new object");
             
         } catch (Exception e) {
             e.printStackTrace () ;
