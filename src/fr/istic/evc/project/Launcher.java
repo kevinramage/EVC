@@ -9,5 +9,4 @@ public class Launcher {
 		new Client("Domestique 1");
 		//new Client("Domestique 2");
 	}
-
 }
