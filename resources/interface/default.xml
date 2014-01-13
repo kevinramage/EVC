@@ -1,0 +1,54 @@
+<Window>
+	<Position>center</Position>
+	<Size>1024px 768px</Size>
+	<Menu>
+		<Position>0px 0px</Position>
+		<Size>100% 30px</Size>
+		<MenuItem text="Fichier" command="">
+			<MenuItem text="Quitter" command="CmdQuit" />
+		</MenuItem>		
+		<MenuItem text="Edition" command="">
+		</MenuItem>		
+		<MenuItem text="Affichage" command="">
+		</MenuItem>
+	</Menu>
+	<Container>
+		<Position>0px 30px</Position>
+		<Size>100% 30px</Size>
+		<CameraPanel>
+			<Size>100% 100%</Size>
+			<Actions>
+				<CameraAction value="System" />
+				<CameraAction value="user1" />
+				<CameraAction value="user2" />
+			</Actions>
+		</CameraPanel>
+		<NavigationModePanel>
+			<Size>100px 100%</Size>
+			<Actions>
+				<NavigationModeAction value="examine" />
+				<NavigationModeAction value="walk" />
+				<NavigationModeAction value="fly" />
+			</Actions>
+		</NavigationModePanel>
+		<ViewPanel>
+			<Size>200px 100%</Size>
+			<Actions>
+				<ViewAction value="front" />
+				<ViewAction value="back" />
+				<ViewAction value="right" />
+				<ViewAction value="left" />
+				<ViewAction value="top" />
+				<ViewAction value="bottom" />
+			</Actions>
+		</ViewPanel>
+	</Container>
+	<MainView>
+		<Position>0px 60px</Position>
+		<Size>100% 100%</Size>
+	</MainView>
+	<Container>
+		<Size>100% 150px</Size>
+	</Container>
+</Window>
+	
