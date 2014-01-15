@@ -47,6 +47,7 @@ public class MulticastReceiverCreate extends Thread implements Runnable {
             
             // 
             ICObject controller = new CObject();
+            controller.setEntity(client);
             controller.setAbstraction(object);
             
             controller.reload();

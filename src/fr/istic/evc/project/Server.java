@@ -24,7 +24,7 @@ import fr.istic.evc.object3D.base.controller.interfaces.ICDirectionalLight;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
 
-public class Server extends UnicastRemoteObject implements IServer {
+public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	
 	private static final long serialVersionUID = 1L;
 	private static final int rmiPort = 1234;
@@ -70,9 +70,10 @@ public class Server extends UnicastRemoteObject implements IServer {
 		
 		// Box1
 		ICObject box1 = new CObject();
+		box1.setEntity(this);
 		box1.setId("box1");
 		box1.setGeometry("cube");
-		box1.setAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
+		box1.updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
 		box1.setDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
 		box1.setPosition(new Vector3d(-10, 0, -5));
 		box1.IsPickable(true);
@@ -80,9 +81,10 @@ public class Server extends UnicastRemoteObject implements IServer {
 		
 		// Box2
 		ICObject box2 = new CObject();
+		box2.setEntity(this);
 		box2.setId("box2");
 		box2.setGeometry("cube");
-		box2.setAmbientColor(new Color3f(0.5f, 0.5f, 0.5f));
+		box2.updateAmbientColor(new Color3f(0.5f, 0.5f, 0.5f));
 		box2.setDiffuseColor(new Color3f(0.5f, 0.5f, 0.5f));
 		box2.setPosition(new Vector3d(10, 0, 5));
 		box2.IsPickable(true);
@@ -90,9 +92,10 @@ public class Server extends UnicastRemoteObject implements IServer {
 		
 		// Box3
 		ICObject box3 = new CObject();
+		box3.setEntity(this);
 		box3.setId("box3");
 		box3.setGeometry("cube");
-		box3.setAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
+		box3.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
 		box3.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
 		box3.setPosition(new Vector3d(0, 0, -5 ));
 		box3.IsPickable(true);
@@ -100,12 +103,14 @@ public class Server extends UnicastRemoteObject implements IServer {
 		
 		// Ambient light 1
 		ICAmbientLight ambientLight1 = new CAmbientLight();
+		ambientLight1.setEntity(this);
 		ambientLight1.setId("ambientLight1");
-		ambientLight1.setAmbientColor(new Color3f(0.2f, 0.2f, 0.2f));
+		ambientLight1.updateAmbientColor(new Color3f(0.2f, 0.2f, 0.2f));
 		world.add(ambientLight1);
 
 		// Directional light 1
 		ICDirectionalLight directionalLight1 = new CDirectionalLight();
+		directionalLight1.setEntity(this);
 		directionalLight1.setId("directionalLight1");
 		world.add(directionalLight1);
 		
@@ -156,7 +161,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 	@Override
 	public void sendCommand(Command cmd) {
 		cmd.execute(world.getObjects());
-		//sender.updateObject(cmd);
+		sender.updateObject(cmd);
 	}
 
 	/*
@@ -169,12 +174,20 @@ public class Server extends UnicastRemoteObject implements IServer {
 	/* -------- Methodes Diffusion -------- */ 
 	@Override
 	public void reSend(ICObject o) {
+		o.setEntity(this);
 		sender.createObject(o.getAbstraction());
 	}
 
 	@Override
 	public void update(Command cmd) {
 		sender.updateObject(cmd);
+	}
+
+
+	
+	@Override
+	public boolean isServer() {
+		return true;
 	}
 	
 }

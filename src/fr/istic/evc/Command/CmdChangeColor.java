@@ -12,8 +12,10 @@ public class CmdChangeColor implements Command {
 	// ---------------------------------------------------------
 	// 						Attributes
 	// ---------------------------------------------------------
+	private static final long serialVersionUID = 1L;
 	protected String id;
 	protected Color3f color;
+	private boolean toPropagate;
 	
 	
 	
@@ -23,6 +25,7 @@ public class CmdChangeColor implements Command {
 	public CmdChangeColor(String id, Color3f color) {
 		this.id = id;
 		this.color = color;
+		this.toPropagate = true;
 	}
 	
 	
@@ -36,9 +39,12 @@ public class CmdChangeColor implements Command {
 		System.out.println("CmdChangeColor.execute()");
 		System.out.println("Etape 3");
 		ICObject obj = CObject.getObjectById(objs, id);
-		obj.setAmbientColor(color);
-		
+		obj.updateAmbientColor(color);
+		toPropagate = false;
 	}
-	
 
+
+	public boolean isToPropagate() {
+		return toPropagate;
+	}
 }

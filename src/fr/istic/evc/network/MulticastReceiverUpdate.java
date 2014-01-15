@@ -40,8 +40,11 @@ public class MulticastReceiverUpdate extends Thread implements Runnable {
             ObjectInputStream ois = new ObjectInputStream (bais) ;
            
             // Get object
-            Command cmd = (CmdChangeColor)ois.readObject () ;
+            System.out.println("MulticastReceiverUpdate.receiveMessage()");
+            System.out.println(client.title + " - Etape 2.5");
+            Command cmd = (Command)ois.readObject () ;
             cmd.execute(client.getObjects());
+            
             
         } catch (Exception e) {
             e.printStackTrace () ;

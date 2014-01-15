@@ -13,6 +13,7 @@ import javax.media.j3d.WakeupCriterion;
 import javax.media.j3d.WakeupOnAWTEvent;
 import javax.media.j3d.WakeupOr;
 import javax.vecmath.Color3f;
+import javax.vecmath.Vector3d;
 
 import com.sun.j3d.utils.picking.PickCanvas;
 import com.sun.j3d.utils.picking.PickResult;
@@ -24,6 +25,7 @@ import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
 
 public class Mouse extends Behavior implements IDevice {
 	
+	private IPObject objectSelected;
 	private BranchGroup branchGroup;
 	private WakeupOr wEvents ;
 	private int buttonsInUse ;
@@ -70,20 +72,18 @@ public class Mouse extends Behavior implements IDevice {
 					if (((MouseEvent)events [i]).getButton () == MouseEvent.BUTTON3) {
 						button3Pressed = true ;
 					}
-					if (buttonsInUse == 0) {
+					if (buttonsInUse == 0 && objectSelected == null) {
 						PickCanvas pickShape = new PickCanvas ((Canvas3D)events [i].getSource (), branchGroup) ;
 						pickShape.setShapeLocation ((MouseEvent)events [i]) ;
 						x1 = ((MouseEvent)events [i]).getX () ;
 						y1 = ((MouseEvent)events [i]).getY () ;
 						PickResult [] sgPath = pickShape.pickAllSorted () ;
-						//System.out.println("shPath: " + sgPath.length);
 						if (sgPath != null) {
-							//System.out.println (sgPath [1]) ;
 							try {
 								Shape3D shape  = (Shape3D)sgPath [1].getNode (PickResult.SHAPE3D) ;
-								IPObject object = (PObject)shape.getParent().getParent().getParent();
-								object.getController().setDiffuseColor(new Color3f(1, 1, 0));
-								object.getController().setAmbientColor(new Color3f(1, 1, 0));
+								objectSelected = (PObject)shape.getParent().getParent().getParent();
+								objectSelected.getController().setDiffuseColor(new Color3f(1, 1, 0));
+								objectSelected.getController().setAmbientColor(new Color3f(1, 1, 0));
 								
 							} catch (Exception e) {
 								System.out.println (e) ;
@@ -106,7 +106,7 @@ public class Mouse extends Behavior implements IDevice {
 						button3Pressed = false ;
 					}
 				} else if (events [i].getID () == MouseEvent.MOUSE_DRAGGED) {
-					if (objectInInteraction != null) {
+					if (objectSelected != null) {
 						double dx = 0, dy = 0, dz = 0 ;
 						double dh = 0, dp = 0, dr = 0 ;
 						x2 = ((MouseEvent)events [i]).getX () ;
@@ -123,6 +123,10 @@ public class Mouse extends Behavior implements IDevice {
 							dx = (x2 - x1) / 40.0 ;
 							dy = (y1 - y2) / 40.0 ;
 						}
+						
+						System.out.println("Change position: " + dx + " - " + dy + " - " + dz);
+						System.out.println("Button: " + button1Pressed + " - " + button2Pressed + " - " + button3Pressed) ;
+						objectSelected.getController().setPosition(new Vector3d(dx, dy, dz));
 						//translate (dx, dy, dz) ;
 						//rotate (dh, dp, dr) ;
 						x1 = x2 ;

@@ -14,7 +14,7 @@ import javax.vecmath.Vector3d;
 
 import fr.istic.evc.object3D.base.abstraction.IAObject;
 import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
-import fr.istic.evc.project.Client;
+import fr.istic.evc.project.IEntity;
 
 
 public interface ICObject {
@@ -24,6 +24,7 @@ public interface ICObject {
 	 * @param position a vector3 which contains the position x, y, z of the object
 	 */
 	void setPosition(Vector3d position);
+	void updatePosition(Vector3d position);
 	
 	/**
 	 * Set the orientation of the object
@@ -54,6 +55,12 @@ public interface ICObject {
 	 * @param ambientColor a float vector3 which contains the ambient color r, g, b of the object
 	 */
 	void setAmbientColor(Color3f ambientColor);
+	
+	/**
+	 * Update the ambient color of the object
+	 * @param ambientColor a float vector3 which contains the ambient color r, g, b of the object
+	 */
+	void updateAmbientColor(Color3f ambientColor);	
 
 	/**
 	 * Set the diffuse color of the object
@@ -104,7 +111,7 @@ public interface ICObject {
 	 */
 	String getId();
 	
-	void setClient(Client c);
+	void setEntity(IEntity c);
 
 
 

@@ -86,6 +86,7 @@ public class PObject extends TransformGroup implements IPObject{
 		Material material = primitive.getAppearance().getMaterial();
 		material.setAmbientColor(ambientColor);
 		primitive.getAppearance().setMaterial(material);
+		System.out.println("Material: " + material);
 	}
 
 	@Override

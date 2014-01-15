@@ -24,7 +24,7 @@ import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
 
 
-public class Client {
+public class Client implements IEntity{
 	
 	private static final String hostName = "127.0.0.1";
 	private static final int port = 1234;
@@ -32,6 +32,7 @@ public class Client {
 	// ---------------------------------------------------------
 	// 						Attributes
 	// ---------------------------------------------------------
+	public String title;
 	ICWorld world;
 	ICObject box1;
 	Camera systemCamera;
@@ -47,21 +48,7 @@ public class Client {
 	// ---------------------------------------------------------
 	public Client(String title) throws RemoteException {
 		
-		// World
-		world = new CWorld();
-		world.addDevice(new Mouse());
-		world.show();
-		
-		// Ambient light 1
-		ICAmbientLight ambientLight1 = new CAmbientLight();
-		ambientLight1.setId("ambientLight1");
-		ambientLight1.setAmbientColor(new Color3f(0.2f, 0.2f, 0.2f));
-		world.add(ambientLight1);
-
-		// Directional light 1
-		ICDirectionalLight directionalLight1 = new CDirectionalLight();
-		directionalLight1.setId("directionalLight1");
-		world.add(directionalLight1);
+		this.title = title;
 		
 		try {
             is = (IServer)Naming.lookup ("//" + hostName + ":" + port + "/" + serverName) ;
@@ -76,6 +63,23 @@ public class Client {
             System.exit (1) ;
         }
 		
+		// World
+		world = new CWorld();
+		world.addDevice(new Mouse());
+		world.show();
+
+		// Ambient light 1
+		ICAmbientLight ambientLight1 = new CAmbientLight();
+		ambientLight1.setEntity(this);
+		ambientLight1.setId("ambientLight1");
+		ambientLight1.updateAmbientColor(new Color3f(0.2f, 0.2f, 0.2f));
+		world.add(ambientLight1);
+
+		// Directional light 1
+		ICDirectionalLight directionalLight1 = new CDirectionalLight();
+		directionalLight1.setEntity(this);
+		directionalLight1.setId("directionalLight1");
+		world.add(directionalLight1);
 
 		// System Camera
 		systemCamera = new Camera();
@@ -101,8 +105,7 @@ public class Client {
 
 	public void changed(Command cmd) {
 		System.out.println("Client.changed()");
-		System.out.println("ETape 2");
-		//cmd.execute(world.getObjects());
+		System.out.println(title + " - Etape 2: ");
 		try {
 			is.sendCommand(cmd);
 		} catch (RemoteException e) {
@@ -112,11 +115,17 @@ public class Client {
 
 	public void addObject(ICObject controller) {
 		world.add(controller);
-		controller.setClient(this);
+		controller.setEntity(this);
 	}
 	
 	public List<ICObject> getObjects() {
 		return world.getObjects();
+	}
+	
+
+	@Override
+	public boolean isServer() {
+		return false;
 	}
 	
 

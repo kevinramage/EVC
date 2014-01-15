@@ -37,6 +37,7 @@ public class AObject implements IAObject{
 	 */
 	public void setId(String id) {
 		this.id = id;
+		position = new Vector3d();
 	}
 	
 	

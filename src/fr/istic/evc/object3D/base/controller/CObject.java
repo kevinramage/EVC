@@ -17,6 +17,7 @@ import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
 import fr.istic.evc.Command.CmdChangeColor;
+import fr.istic.evc.Command.CmdChangePosition;
 import fr.istic.evc.Command.Command;
 import fr.istic.evc.object3D.base.abstraction.AObject;
 import fr.istic.evc.object3D.base.abstraction.IAObject;
@@ -24,6 +25,7 @@ import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.presentation.PObject;
 import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
 import fr.istic.evc.project.Client;
+import fr.istic.evc.project.IEntity;
 
 
 public class CObject implements ICObject{
@@ -33,8 +35,7 @@ public class CObject implements ICObject{
 	// ---------------------------------------------------------	
 	protected IAObject abstraction;
 	protected IPObject presentation;
-	//protected boolean referent;
-	protected Client client;
+	protected IEntity entity;
 	protected Map<String, Object> propertiesChanged;
 	
 	
@@ -61,8 +62,16 @@ public class CObject implements ICObject{
 	 * @param position a vector3 which contains the position x, y, z of the object
 	 */
 	public void setPosition(Vector3d position) {
+		if ( !entity.isServer() ) {
+			Command cmd = new CmdChangePosition(this.getId(), position);
+			((Client)entity).changed(cmd);
+		} else {
+			updatePosition(position);
+		}
+	}
+	public void updatePosition(Vector3d position) {
 		abstraction.setPosition(position);
-		presentation.setPosition(position);
+		presentation.setPosition(position);		
 	}
 	
 	/**
@@ -104,16 +113,31 @@ public class CObject implements ICObject{
 	 * @param ambientColor a float vector3 which contains the ambient color r, g, b of the object
 	 */
 	public void setAmbientColor(Color3f ambientColor) {
-		abstraction.setAmbientColor(ambientColor);
-		presentation.setAmbientColor(ambientColor);
+
 		System.out.println("CObject.setClient()");
-		System.out.println("Creation client "+client);
-		if ( client != null ) {
+		System.out.println("Creation client "+ entity);
+		if ( !entity.isServer() ) {
 			System.out.println("CObject.setAmbientColor()");
 			System.out.println("Etape 1\n");
-			Command cmd = new CmdChangeColor(this.getId(), this.getAmbientColor());
-			client.changed(cmd);
-		} 
+			Command cmd = new CmdChangeColor(this.getId(), ambientColor);
+			((Client)entity).changed(cmd);
+		} else {
+			updateAmbientColor(ambientColor);
+		}
+	}
+	
+	/**
+	 * Update the ambient color of the object
+	 * @param ambientColor a float vector3 which contains the ambient color r, g, b of the object
+	 */
+	public void updateAmbientColor(Color3f ambientColor) {
+		
+
+		abstraction.setAmbientColor(ambientColor);
+		presentation.setAmbientColor(ambientColor);
+		System.out.println("CObject.updateAmbientColor()");
+		if ( !entity.isServer() )
+			System.out.println("Etape 4: " + ((Client)entity).title + " " + abstraction.getAmbientColor() + "\n");
 	}
 
 	/**
@@ -182,9 +206,11 @@ public class CObject implements ICObject{
 	@Override
 	public void reload() {
 		setGeometry(getGeometry());
-		setAmbientColor(getAmbientColor());
+		//updateAmbientColor(getAmbientColor());
 		setDiffuseColor(getDiffuseColor());
-		setPosition(getPosition());
+		
+		presentation.setPosition(getPosition());
+		presentation.setAmbientColor(getAmbientColor());
 	}
 
 
@@ -216,11 +242,11 @@ public class CObject implements ICObject{
 		return null;
 	}
 
-	public Client getClient() {
-		return client;
+	public IEntity getEntity() {
+		return entity;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setEntity(IEntity entity) {
+		this.entity = entity;
 	}
 }
