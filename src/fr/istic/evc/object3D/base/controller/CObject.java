@@ -243,23 +243,23 @@ public class CObject implements ICObject{
 		return abstraction;
 	}
 
-	private Vector3d getPosition() {
+	public Vector3d getPosition() {
 		return abstraction.getPosition();
 	}
 
-	private Color3f getAmbientColor() {
+	public Color3f getAmbientColor() {
 		return abstraction.getAmbientColor();
 	}
 
-	private Color3f getDiffuseColor() {
+	public Color3f getDiffuseColor() {
 		return abstraction.getDiffuseColor();
 	}
 	
-	private Color3f getSelectColor() {
+	public Color3f getSelectColor() {
 		return abstraction.getSelectColor();
 	}
 	
-	private Color3f getBackupColor() {
+	public Color3f getBackupColor() {
 		return abstraction.getBackupColor();
 	}
 

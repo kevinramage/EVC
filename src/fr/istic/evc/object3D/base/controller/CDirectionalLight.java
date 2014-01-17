@@ -29,4 +29,10 @@ public class CDirectionalLight extends CObject implements ICDirectionalLight {
 	public I_CreateCommand getCreateCommand() {
 		return new CmdCreateDirectional(this.getAbstraction());
 	}
+	
+	@Override
+	public void reload() {
+	}
+	
+	
 }

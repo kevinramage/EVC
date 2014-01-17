@@ -21,6 +21,7 @@ public class IHM extends JFrame{
 		setSize(1024, 768);
 		setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		
 		// Camera Manager
 		CameraManager cameraManager = new CameraManager(world.getPresentation().getWorldTransform());

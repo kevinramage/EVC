@@ -36,9 +36,13 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	private static final String serverName = "williamServer";
 	private static final String groupName = "239.19.10.10";
 	
+	private int compteur;
+	
 	transient MulticastSender sender ;
 	ICWorld world;
 	ICAmbientLight ambientLight1;
+	
+	
 	
 	public Server(String title) throws RemoteException {
 		
@@ -47,8 +51,8 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
             //Object serverRMIPort;
             LocateRegistry.createRegistry (rmiPort) ;
             Naming.rebind ("//" + hostName + ":" + rmiPort + "/" + serverName, this) ;
-            System.out.println ("Ready to serve") ;
             sender = new MulticastSender (groupName, createDiffusionPort, updateDiffusionPort) ;
+            compteur = 0;
         } catch (Exception e) {
             e.printStackTrace() ;
         }
@@ -150,30 +154,24 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	}
 
 
-//	@Override
-//	public void reSend() {
-//		for ( ICObject o : world.getObjects()) {
-//			System.out.println(o.getPresentation().getClass().getName());
-//			if ( !o.getPresentation().getClass().getName().equals("fr.istic.evc.object3D.base.presentation.PAmbientLight") &&  
-//					!o.getPresentation().getClass().getName().equals("fr.istic.evc.object3D.base.presentation.PDirectionalLight"))
-//				sender.createObject(o.getAbstraction());
-//		}
-//	}
 
 	@Override
 	public void sendCommand(I_Command cmd) {
 		cmd.execute(world.getObjects());
 		sender.updateObject(cmd);
 	}
-
-	/*
-	@Override
-	public List<ICObject> getObjects() {
-		// TODO Auto-generated method stub
-		return null;
-	}*/
+	
+	
 	
 	/* -------- Methodes Diffusion -------- */ 
+	
+	@Override
+	public synchronized int obtainID() {
+		compteur++;
+		return compteur;
+		
+	}
+	
 	@Override
 	public void reSend(ICObject o) {
 		o.setEntity(this);

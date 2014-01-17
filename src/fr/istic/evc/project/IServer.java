@@ -17,5 +17,6 @@ public interface IServer extends Remote{
 	void reSend(ICObject o) throws RemoteException;
 	List<I_CreateCommand> getListObjs() throws RemoteException;
 	void update(I_Command cmd) throws RemoteException;
+	int obtainID() throws RemoteException;
 
 }

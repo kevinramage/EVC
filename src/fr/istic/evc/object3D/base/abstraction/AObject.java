@@ -30,6 +30,8 @@ public class AObject implements I_AObject{
 	/* ---------- Constructors---------- */
 	
 	public AObject() {
+		
+		diffuseColor = new Color3f();
 		this.selectColor = new Color3f(1.0f, 1.0f, 0.0f);
 	}
 

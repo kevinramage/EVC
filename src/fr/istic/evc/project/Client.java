@@ -27,12 +27,11 @@ public class Client implements IEntity{
 	// 						Attributes
 	// ---------------------------------------------------------
 	public String title;
-	ICWorld world;
-	ICObject box1;
-	Camera systemCamera;
-    IServer is ;
-    IServer clone ;
-    MulticastReceiverUpdate multUpdate;
+	private int id;
+	private ICWorld world;
+	private Camera systemCamera;
+    private IServer is ;
+    private MulticastReceiverUpdate multUpdate;
 	
 
 	
@@ -45,11 +44,11 @@ public class Client implements IEntity{
 		
 		try {
             is = (IServer)Naming.lookup ("//" + hostName + ":" + port + "/" + serverName) ;
+            id = is.obtainID();
         	multUpdate = new MulticastReceiverUpdate(this, is.getDiffusionGroupName(), is.getUpdatePort());
         	multUpdate.start();
         	
         } catch (Exception e) {
-            System.out.println ("There is a problem with the server") ;
             e.printStackTrace () ;
             System.exit (1) ;
         }
@@ -69,17 +68,6 @@ public class Client implements IEntity{
 		ihm.setTitle(title);
 		
 		this.recuperateObjects();
-		
-		// Start the creation of the world
-//		List<IAObject> la = is.getListObjs();
-//		for (IAObject a:la) {
-//			System.out.println("Client.Client()");
-//			System.out.println("Abstraction : "+a);
-//			System.out.println("Geometry: " + a.getGeometry());
-//			ICObject c = new CObject(a);
-//			c.reload();
-//			this.addObject(c);
-//		}
 	}
 
 	// ---------------------------------------------------------
@@ -103,8 +91,6 @@ public class Client implements IEntity{
 	}
 
 	public void changed(I_Command cmd) {
-		System.out.println("Client.changed()");
-		System.out.println(title + " - Etape 2: ");
 		try {
 			is.sendCommand(cmd);
 		} catch (RemoteException e) {

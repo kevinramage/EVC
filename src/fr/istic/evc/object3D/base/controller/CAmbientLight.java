@@ -29,4 +29,11 @@ public class CAmbientLight extends CObject implements ICAmbientLight {
 	public I_CreateCommand getCreateCommand() {
 		return new CmdCreateAmbient(this.getAbstraction());
 	}
+	
+	@Override
+	public void reload() {
+		presentation.setGeometry(getGeometry());
+		presentation.setPosition(getPosition());
+		presentation.setAmbientColor(getAmbientColor());
+	}
 }

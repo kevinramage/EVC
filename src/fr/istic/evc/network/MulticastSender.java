@@ -95,8 +95,6 @@ public class MulticastSender implements Serializable {
             oos = new ObjectOutputStream (baos) ;
             oos.writeObject (cmd) ;
             oos.flush () ;
-            System.out.println("Paquet envoyé");
-            System.out.println("MulticastSender.updateObject()");
        } catch (IOException e) {
            e.printStackTrace();
        }
