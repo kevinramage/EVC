@@ -9,7 +9,7 @@
 package fr.istic.evc.object3D.base.presentation.interfaces;
 
 import javax.vecmath.Color3f;
-import javax.vecmath.Quat4d;
+import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
 
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
@@ -26,7 +26,7 @@ public interface IPObject {
 	 * Set the orientation of the object
 	 * @param orientation a quaternion which define the orientation of the object
 	 */
-	void setOrientation(Quat4d orientation);
+	void setOrientation(Quat4f orientation);
 	
 	/**
 	 * Set the geometry of the object
@@ -56,7 +56,7 @@ public interface IPObject {
 	 * Set the diffuse color of the object
 	 * @param diffuseColor a float vector3 which contains the diffuse color r, g, b of the object
 	 */
-	void setDiffuseColor(Color3f diffuseColor);
+	void setDiffuseColor(Color3f diffuseColor);	
 
 	ICObject getController();
 	

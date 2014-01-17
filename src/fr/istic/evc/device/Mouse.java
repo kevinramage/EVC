@@ -23,6 +23,7 @@ import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
 
 
 
+@SuppressWarnings("unused")
 public class Mouse extends Behavior implements IDevice {
 	
 	private IPObject objectSelected;

@@ -4,7 +4,6 @@ import javax.media.j3d.Behavior;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
-import javax.media.j3d.Node;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Point3d;
 

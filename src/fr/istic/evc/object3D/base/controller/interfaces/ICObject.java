@@ -9,10 +9,11 @@
 package fr.istic.evc.object3D.base.controller.interfaces;
 
 import javax.vecmath.Color3f;
-import javax.vecmath.Quat4d;
+import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.object3D.base.abstraction.IAObject;
+import fr.istic.evc.Command.I_CreateCommand;
+import fr.istic.evc.object3D.base.abstraction.I_AObject;
 import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
 import fr.istic.evc.project.IEntity;
 
@@ -25,12 +26,18 @@ public interface ICObject {
 	 */
 	void setPosition(Vector3d position);
 	void updatePosition(Vector3d position);
-	
+
 	/**
 	 * Set the orientation of the object
 	 * @param orientation a quaternion which define the orientation of the object
 	 */
-	void setOrientation(Quat4d orientation);
+	void setOrientation(Quat4f orientation);
+
+	/**
+	 * Update the orientation of the object
+	 * @param orientation a quaternion which define the orientation of the object
+	 */
+	void updateOrientation(Quat4f orientation);
 	
 	/**
 	 * Set the geometry of the object
@@ -67,18 +74,22 @@ public interface ICObject {
 	 * @param diffuseColor a float vector3 which contains the diffuse color r, g, b of the object
 	 */
 	void setDiffuseColor(Color3f diffuseColor);
+	
+	/**
+	 * Update the diffuse color of the object
+	 * @param diffuseColor a float vector3 which contains the ambient color r, g, b of the object
+	 */
+	void updateDiffuseColor(Color3f diffuseColor);	
+	
+	
+	
+	
 
 	/**
 	 * Set the id of the object
 	 * @param string id of the object
 	 */
 	void setId(String id);
-	
-	/**
-	 * Set the abstractoion layer of the object
-	 * @param object abstraction layer
-	 */
-	void setAbstraction(IAObject object);
 	
 
 	void reload();
@@ -95,7 +106,7 @@ public interface ICObject {
 	 * Get the abstraction layer of the object
 	 * @return the abstraction layer
 	 */
-	IAObject getAbstraction();
+	I_AObject getAbstraction();
 	
 	/**
 	 * Get the presentation layer of the object
@@ -112,6 +123,9 @@ public interface ICObject {
 	String getId();
 	
 	void setEntity(IEntity c);
+	
+
+	I_CreateCommand getCreateCommand();
 
 
 

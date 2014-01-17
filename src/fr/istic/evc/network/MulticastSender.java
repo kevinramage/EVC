@@ -9,10 +9,14 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.rmi.RemoteException;
 
-import fr.istic.evc.Command.Command;
-import fr.istic.evc.object3D.base.abstraction.IAObject;
+import fr.istic.evc.Command.I_Command;
+import fr.istic.evc.object3D.base.abstraction.I_AObject;
 
 public class MulticastSender implements Serializable {
+	
+
+
+	/* ---------- Attributes ---------- */
 
     private static final long serialVersionUID = 1L;
     private int createDiffusionPort, updateDiffusionPort ;
@@ -20,13 +24,16 @@ public class MulticastSender implements Serializable {
 
     private InetAddress diffusionAddress ;
     private transient MulticastSocket diffusionSocket ;
+	
+
+
+	/* ---------- Constructors ---------- */
 
     public MulticastSender (final String ng, final int createDiffusionPort, final int updateDiffusionPort) throws RemoteException {
         this.createDiffusionPort = createDiffusionPort;
         this.updateDiffusionPort = updateDiffusionPort;
         
         groupName = ng ;
-        System.out.println ("Diffuseur sur le port " + createDiffusionPort + " a destination du groupe " + groupName) ;
         diffusionAddress = null ;
         diffusionSocket = null ;
         try {
@@ -37,8 +44,11 @@ public class MulticastSender implements Serializable {
         } catch (IOException e) {
             e.printStackTrace () ;
         }
-        System.out.println ("socket : " + diffusionSocket.getLocalPort() + " " + diffusionSocket.getInetAddress ()) ;
     }
+	
+
+
+	/* ---------- Methods ---------- */
 
     public void diffuseMessage (String name) {
        ByteArrayOutputStream baos = new ByteArrayOutputStream () ;
@@ -59,7 +69,7 @@ public class MulticastSender implements Serializable {
             e.printStackTrace () ;
         }
     }
-    public void createObject (IAObject o) {
+    public void createObject (I_AObject o) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream () ;
         ObjectOutputStream oos ;
        try {
@@ -78,7 +88,7 @@ public class MulticastSender implements Serializable {
              e.printStackTrace () ;
          }
     }
-    public void updateObject(Command cmd) {
+    public void updateObject(I_Command cmd) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream () ;
         ObjectOutputStream oos ;
        try {

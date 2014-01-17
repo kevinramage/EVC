@@ -13,7 +13,6 @@ import java.util.List;
 
 import fr.istic.evc.device.IDevice;
 import fr.istic.evc.object3D.base.presentation.interfaces.IPWorld;
-import fr.istic.evc.project.Server;
 
 
 public interface ICWorld {

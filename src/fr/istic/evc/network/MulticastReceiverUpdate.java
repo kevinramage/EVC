@@ -6,15 +6,21 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 
-import fr.istic.evc.Command.CmdChangeColor;
-import fr.istic.evc.Command.Command;
-import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
+import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.project.Client;
 
 public class MulticastReceiverUpdate extends Thread implements Runnable {
+	
+
+
+	/* ---------- Attributes ---------- */
 
     private transient MulticastSocket receptionSocket ;
 	private Client client;
+	
+
+
+	/* ---------- Constructors ---------- */
 
     public MulticastReceiverUpdate (final Client client, final String groupName, final int diffusionPort) {
         this.client = client;
@@ -25,11 +31,14 @@ public class MulticastReceiverUpdate extends Thread implements Runnable {
             receptionSocket.joinGroup (adresseDiffusion) ;
             // pour pouvoir envoyer du multicast aussi en local
             receptionSocket.setLoopbackMode (false) ;
-            //System.out.println ("reception socket : " + receptionSocket.getLocalPort() + " " + receptionSocket.getInetAddress ()) ;
         } catch (Exception e) {
             e.printStackTrace () ;
         }
     }
+	
+
+
+	/* ---------- Methods ---------- */
 
     public void receiveMessage() {
         try {
@@ -40,9 +49,7 @@ public class MulticastReceiverUpdate extends Thread implements Runnable {
             ObjectInputStream ois = new ObjectInputStream (bais) ;
            
             // Get object
-            System.out.println("MulticastReceiverUpdate.receiveMessage()");
-            System.out.println(client.title + " - Etape 2.5");
-            Command cmd = (Command)ois.readObject () ;
+            I_Command cmd = (I_Command)ois.readObject () ;
             cmd.execute(client.getObjects());
             
             

@@ -9,30 +9,34 @@
 package fr.istic.evc.object3D.base.abstraction;
 
 import javax.vecmath.Color3f;
-import javax.vecmath.Quat4d;
+import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
 
-public class AObject implements IAObject{
-
-	// ---------------------------------------------------------
-	// 						Attributes
-	// ---------------------------------------------------------
+public class AObject implements I_AObject{
+	
+	/* ---------- Attributes---------- */
+	
 	private static final long serialVersionUID = 1L;
 	protected String id;
 	protected Vector3d position;
-	protected Quat4d orientation;
+	protected Quat4f orientation;
 	protected String geometry;
 	protected Vector3d scale;
 	protected boolean isPickable;
-	protected Color3f ambientColor, diffuseColor;
+	protected Color3f ambientColor, diffuseColor, selectColor, backupColor;
 	
 	
 	
-	// ---------------------------------------------------------
-	//						Setters
-	// ---------------------------------------------------------
+	/* ---------- Constructors---------- */
 	
-	/**System.out.println("geometry: " );
+	public AObject() {
+		this.selectColor = new Color3f(1.0f, 1.0f, 0.0f);
+	}
+
+
+	/* ---------- Setters ---------- */
+	
+	/**
 	 * Set the object id
 	 */
 	public void setId(String id) {
@@ -40,66 +44,54 @@ public class AObject implements IAObject{
 		position = new Vector3d();
 	}
 	
-	
-	/**
-	 * Set the 3D position of the object
-	 * @param position a vector3 which contains the position x, y, z of the object
-	 */
+	@Override
 	public void setPosition(Vector3d position) {
 		this.position = position;
 	}
-	
-	/**
-	 * Set the orientation of the object
-	 * @param orientation a quaternion which define the orientation of the object
-	 */
-	public void setOrientation(Quat4d orientation) {
+
+	@Override
+	public void setOrientation(Quat4f orientation) {
 		this.orientation = orientation;
 	}
-	
-	/**
-	 * Set the geometry of the object
-	 * @param geometry the geometry primitive name or the geometry url of the object
-	 */
+
+	@Override
 	public void setGeometry(String geometry) {
 		this.geometry = geometry;
 	}
-	
-	/**
-	 * Set the scale of the object
-	 * @param scale a vector3 which contains the scale x, y, z of the object
-	 */
+
+	@Override
 	public void setScale(Vector3d scale) {
 		
 	}
-	
-	/**
-	 * Define if the object if pickable or not
-	 * @param b boolean which determine if object is pickable or not
-	 */
+
+	@Override
 	public void IsPickable(boolean b) {
 		isPickable = b;
 	}
-	
-	/**
-	 * Set the ambient color of the object
-	 * @param ambientColor a float vector3 which contains the ambient color r, g, b of the object
-	 */
+
+	@Override
 	public void setAmbientColor(Color3f ambientColor) {
 		this.ambientColor = ambientColor;
 	}
-	
-	/**
-	 * Set the diffuse color of the object
-	 * @param diffuseColor a float vector3 which contains the diffuse color r, g, b of the object
-	 */
+
+	@Override
 	public void setDiffuseColor(Color3f diffuseColor) {
 		this.diffuseColor = diffuseColor;
 	}
 
-	// ---------------------------------------------------------
-	//						Getters
-	// ---------------------------------------------------------
+	@Override
+	public void setSelectColor(Color3f selectColor) {
+		this.selectColor = selectColor;
+	}
+
+	@Override
+	public void setBackupColor(Color3f backupColor) {
+		this.backupColor = backupColor;
+	}
+	
+
+
+	/* ---------- Getters ---------- */
 	
 	/**
 	 * Get the geometry of the object
@@ -132,6 +124,19 @@ public class AObject implements IAObject{
 	public Vector3d getPosition() {
 		return position;
 	}
+
+
+	@Override
+	public Color3f getSelectColor() {
+		return selectColor;
+	}
+	
+	@Override
+	public Color3f getBackupColor() {
+		return backupColor;
+	}
+	
+	
 	
 	
 }

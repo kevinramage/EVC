@@ -4,13 +4,15 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.Command.Command;
+import fr.istic.evc.Command.I_Command;
+import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.device.Mouse;
 import fr.istic.evc.graphic2D.Camera;
 import fr.istic.evc.graphic2D.IHM;
@@ -148,18 +150,18 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	}
 
 
-	@Override
-	public void reSend() {
-		for ( ICObject o : world.getObjects()) {
-			System.out.println(o.getPresentation().getClass().getName());
-			if ( !o.getPresentation().getClass().getName().equals("fr.istic.evc.object3D.base.presentation.PAmbientLight") &&  
-					!o.getPresentation().getClass().getName().equals("fr.istic.evc.object3D.base.presentation.PDirectionalLight"))
-				sender.createObject(o.getAbstraction());
-		}
-	}
+//	@Override
+//	public void reSend() {
+//		for ( ICObject o : world.getObjects()) {
+//			System.out.println(o.getPresentation().getClass().getName());
+//			if ( !o.getPresentation().getClass().getName().equals("fr.istic.evc.object3D.base.presentation.PAmbientLight") &&  
+//					!o.getPresentation().getClass().getName().equals("fr.istic.evc.object3D.base.presentation.PDirectionalLight"))
+//				sender.createObject(o.getAbstraction());
+//		}
+//	}
 
 	@Override
-	public void sendCommand(Command cmd) {
+	public void sendCommand(I_Command cmd) {
 		cmd.execute(world.getObjects());
 		sender.updateObject(cmd);
 	}
@@ -177,9 +179,19 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		o.setEntity(this);
 		sender.createObject(o.getAbstraction());
 	}
+	
+	@Override
+	public List<I_CreateCommand> getListObjs() {
+		List<ICObject> lo = world.getObjects();
+		List<I_CreateCommand> lc = new ArrayList<>();
+		for (ICObject o:lo) {
+			lc.add(o.getCreateCommand());
+		}
+		return lc;
+	}
 
 	@Override
-	public void update(Command cmd) {
+	public void update(I_Command cmd) {
 		sender.updateObject(cmd);
 	}
 

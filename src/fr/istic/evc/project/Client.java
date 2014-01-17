@@ -2,24 +2,18 @@ package fr.istic.evc.project;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.media.j3d.Transform3D;
-import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.Command.Command;
+import fr.istic.evc.Command.I_Command;
+import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.device.Mouse;
 import fr.istic.evc.graphic2D.Camera;
 import fr.istic.evc.graphic2D.IHM;
-import fr.istic.evc.network.MulticastReceiverCreate;
 import fr.istic.evc.network.MulticastReceiverUpdate;
-import fr.istic.evc.object3D.base.controller.CAmbientLight;
-import fr.istic.evc.object3D.base.controller.CDirectionalLight;
 import fr.istic.evc.object3D.base.controller.CWorld;
-import fr.istic.evc.object3D.base.controller.interfaces.ICAmbientLight;
-import fr.istic.evc.object3D.base.controller.interfaces.ICDirectionalLight;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
 
@@ -38,7 +32,6 @@ public class Client implements IEntity{
 	Camera systemCamera;
     IServer is ;
     IServer clone ;
-    MulticastReceiverCreate multCreate ;
     MulticastReceiverUpdate multUpdate;
 	
 
@@ -52,8 +45,6 @@ public class Client implements IEntity{
 		
 		try {
             is = (IServer)Naming.lookup ("//" + hostName + ":" + port + "/" + serverName) ;
-            multCreate = new MulticastReceiverCreate (this, is.getDiffusionGroupName (), is.getCreatePort ()) ;
-        	multCreate.start () ;
         	multUpdate = new MulticastReceiverUpdate(this, is.getDiffusionGroupName(), is.getUpdatePort());
         	multUpdate.start();
         	
@@ -68,19 +59,6 @@ public class Client implements IEntity{
 		world.addDevice(new Mouse());
 		world.show();
 
-		// Ambient light 1
-		ICAmbientLight ambientLight1 = new CAmbientLight();
-		ambientLight1.setEntity(this);
-		ambientLight1.setId("ambientLight1");
-		ambientLight1.updateAmbientColor(new Color3f(0.2f, 0.2f, 0.2f));
-		world.add(ambientLight1);
-
-		// Directional light 1
-		ICDirectionalLight directionalLight1 = new CDirectionalLight();
-		directionalLight1.setEntity(this);
-		directionalLight1.setId("directionalLight1");
-		world.add(directionalLight1);
-
 		// System Camera
 		systemCamera = new Camera();
 		Transform3D transform3D = new Transform3D();
@@ -90,8 +68,18 @@ public class Client implements IEntity{
 		IHM ihm = new IHM(world, systemCamera);
 		ihm.setTitle(title);
 		
+		this.recuperateObjects();
+		
 		// Start the creation of the world
-		is.reSend();
+//		List<IAObject> la = is.getListObjs();
+//		for (IAObject a:la) {
+//			System.out.println("Client.Client()");
+//			System.out.println("Abstraction : "+a);
+//			System.out.println("Geometry: " + a.getGeometry());
+//			ICObject c = new CObject(a);
+//			c.reload();
+//			this.addObject(c);
+//		}
 	}
 
 	// ---------------------------------------------------------
@@ -102,8 +90,19 @@ public class Client implements IEntity{
 //		//return o.getObjects();
 //		return new ArrayList<ICObject>();
 //	}
+	
+	/**
+	 * Build world from server's objects
+	 * @throws RemoteException
+	 */
+	private void recuperateObjects() throws RemoteException {
+		List<I_CreateCommand> lc = is.getListObjs();
+		for (I_CreateCommand cmd: lc) {
+			cmd.execute(world, this);
+		}
+	}
 
-	public void changed(Command cmd) {
+	public void changed(I_Command cmd) {
 		System.out.println("Client.changed()");
 		System.out.println(title + " - Etape 2: ");
 		try {

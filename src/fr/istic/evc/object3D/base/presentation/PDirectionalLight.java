@@ -3,7 +3,7 @@ package fr.istic.evc.object3D.base.presentation;
 import javax.media.j3d.DirectionalLight;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
-import javax.vecmath.Quat4d;
+import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
 
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
@@ -27,7 +27,7 @@ public class PDirectionalLight extends TransformGroup implements IPDirectionalLi
 	}
 
 	@Override
-	public void setOrientation(Quat4d orientation) {
+	public void setOrientation(Quat4f orientation) {
 		// TODO Auto-generated method stub
 		
 	}

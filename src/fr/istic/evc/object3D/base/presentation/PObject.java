@@ -16,7 +16,7 @@ import javax.media.j3d.Material;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
-import javax.vecmath.Quat4d;
+import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
 
 import com.sun.j3d.utils.geometry.Box;
@@ -124,9 +124,7 @@ public class PObject extends TransformGroup implements IPObject{
 	}
 
 	@Override
-	public void setOrientation(Quat4d orientation) {
-		// TODO Auto-generated method stub
-		
+	public void setOrientation(Quat4f orientation) {
 	}
 
 	@Override
