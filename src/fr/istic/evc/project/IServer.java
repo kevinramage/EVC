@@ -6,6 +6,7 @@ import java.util.List;
 
 import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
+import fr.istic.evc.object3D.base.abstraction.I_AObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 
 public interface IServer extends Remote{
@@ -18,5 +19,6 @@ public interface IServer extends Remote{
 	List<I_CreateCommand> getListObjs() throws RemoteException;
 	void update(I_Command cmd) throws RemoteException;
 	int obtainID() throws RemoteException;
+	void addObject(I_AObject abstraction);
 
 }

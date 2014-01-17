@@ -13,6 +13,8 @@ import fr.istic.evc.device.Mouse;
 import fr.istic.evc.graphic2D.Camera;
 import fr.istic.evc.graphic2D.IHM;
 import fr.istic.evc.network.MulticastReceiverUpdate;
+import fr.istic.evc.object3D.base.abstraction.I_AObject;
+import fr.istic.evc.object3D.base.controller.CObject;
 import fr.istic.evc.object3D.base.controller.CWorld;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
@@ -32,6 +34,8 @@ public class Client implements IEntity{
 	private Camera systemCamera;
     private IServer is ;
     private MulticastReceiverUpdate multUpdate;
+    
+    private int compteur;
 	
 
 	
@@ -47,6 +51,7 @@ public class Client implements IEntity{
             id = is.obtainID();
         	multUpdate = new MulticastReceiverUpdate(this, is.getDiffusionGroupName(), is.getUpdatePort());
         	multUpdate.start();
+        	compteur = 0;
         	
         } catch (Exception e) {
             e.printStackTrace () ;
@@ -64,7 +69,7 @@ public class Client implements IEntity{
 		transform3D.setTranslation(new Vector3d(0, 0, 30));
 		systemCamera.setTransform3D(transform3D);
 		
-		IHM ihm = new IHM(world, systemCamera);
+		IHM ihm = new IHM(world, systemCamera, this);
 		ihm.setTitle(title);
 		
 		this.recuperateObjects();
@@ -111,6 +116,15 @@ public class Client implements IEntity{
 	@Override
 	public boolean isServer() {
 		return false;
+	}
+
+	public void createObject(I_AObject abstraction) {
+		compteur++;
+		System.out.println("Client.createObject()");
+		System.out.println("Compteur : "+compteur);
+		abstraction.setId(""+compteur+"-"+id);
+		is.addObject(abstraction);
+		
 	}
 	
 

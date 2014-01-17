@@ -1,14 +1,25 @@
 package fr.istic.evc.graphic2D;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.vecmath.Color3f;
+
+import fr.istic.evc.object3D.base.abstraction.AObject;
+import fr.istic.evc.object3D.base.abstraction.I_AObject;
+import fr.istic.evc.project.Client;
 
 public class CommandPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-
-	public CommandPanel() {
+	private Client client;
+	
+	public CommandPanel(Client client) {
+		
+		this.client = client;
 		
 		// Configuration
 		setSize(1024-250-200, 200);
@@ -90,7 +101,17 @@ public class CommandPanel extends JPanel{
 		btnCube.setLocation(60, 60);
 		btnCube.setIcon(new ImageIcon("resources/image/cube.png"));
 		btnCube.setToolTipText("Cube");
-		add(btnCube);	
+		add(btnCube);
+		
+		btnCube.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				I_AObject obj = new AObject();
+				obj.setGeometry("cube");
+				obj.setAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
+				client.createObject(obj);
+			}
+		});
 	}
 	private void addSphereBtn() {
 		JButton btnSphere = new JButton();

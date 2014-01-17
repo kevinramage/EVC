@@ -17,6 +17,7 @@ import fr.istic.evc.device.Mouse;
 import fr.istic.evc.graphic2D.Camera;
 import fr.istic.evc.graphic2D.IHM;
 import fr.istic.evc.network.MulticastSender;
+import fr.istic.evc.object3D.base.abstraction.I_AObject;
 import fr.istic.evc.object3D.base.controller.CAmbientLight;
 import fr.istic.evc.object3D.base.controller.CDirectionalLight;
 import fr.istic.evc.object3D.base.controller.CObject;
@@ -166,6 +167,13 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	/* -------- Methodes Diffusion -------- */ 
 	
 	@Override
+	public void addObject(I_AObject abstraction) {
+		ICObject controller = new CObject(abstraction);
+		world.add(controller);
+		sender.createObject(abstraction);
+	}
+	
+	@Override
 	public synchronized int obtainID() {
 		compteur++;
 		return compteur;
@@ -192,8 +200,6 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	public void update(I_Command cmd) {
 		sender.updateObject(cmd);
 	}
-
-
 	
 	@Override
 	public boolean isServer() {
