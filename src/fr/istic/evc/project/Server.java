@@ -19,7 +19,9 @@ import fr.istic.evc.graphic2D.IHM;
 import fr.istic.evc.network.MulticastSender;
 import fr.istic.evc.object3D.base.controller.CAmbientLight;
 import fr.istic.evc.object3D.base.controller.CDirectionalLight;
+import fr.istic.evc.object3D.base.controller.CElasticObject;
 import fr.istic.evc.object3D.base.controller.CObject;
+import fr.istic.evc.object3D.base.controller.CSubject;
 import fr.istic.evc.object3D.base.controller.CWorld;
 import fr.istic.evc.object3D.base.controller.interfaces.ICAmbientLight;
 import fr.istic.evc.object3D.base.controller.interfaces.ICDirectionalLight;
@@ -75,26 +77,26 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		*/
 		
 		// Box1
-		ICObject box1 = new CObject();
-		box1.setEntity(this);
-		box1.setId("box1");
-		box1.setGeometry("cube");
-		box1.updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
-		box1.setDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
-		box1.setPosition(new Vector3d(-10, 0, -5));
-		box1.IsPickable(true);
-		world.add(box1);
-		
-		// Box2
-		ICObject box2 = new CObject();
-		box2.setEntity(this);
-		box2.setId("box2");
-		box2.setGeometry("cube");
-		box2.updateAmbientColor(new Color3f(0.5f, 0.5f, 0.5f));
-		box2.setDiffuseColor(new Color3f(0.5f, 0.5f, 0.5f));
-		box2.setPosition(new Vector3d(10, 0, 5));
-		box2.IsPickable(true);
-		world.add(box2);
+//		ICObject box1 = new CObject();
+//		box1.setEntity(this);
+//		box1.setId("box1");
+//		box1.setGeometry("cube");
+//		box1.updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
+//		box1.setDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
+//		box1.setPosition(new Vector3d(-10, 0, -5));
+//		box1.IsPickable(true);
+//		world.add(box1);
+//		
+//		// Box2
+//		ICObject box2 = new CObject();
+//		box2.setEntity(this);
+//		box2.setId("box2");
+//		box2.setGeometry("cube");
+//		box2.updateAmbientColor(new Color3f(0.5f, 0.5f, 0.5f));
+//		box2.setDiffuseColor(new Color3f(0.5f, 0.5f, 0.5f));
+//		box2.setPosition(new Vector3d(10, 0, 5));
+//		box2.IsPickable(true);
+//		world.add(box2);
 		
 		/*
 		// Box3
@@ -108,6 +110,36 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		box3.IsPickable(true);
 		world.add(box3);
 		*/
+		CSubject s1 = new CSubject();
+		s1.setEntity(this);
+		s1.setId("S1");
+		s1.setGeometry("sphere");
+		s1.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
+		s1.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
+		s1.setPosition(new Vector3d(-5, 0, -5 ));
+		s1.IsPickable(true);
+		world.add(s1);
+		
+		CSubject s2 = new CSubject();
+		s2.setEntity(this);
+		s2.setId("s2");
+		s2.setGeometry("sphere");
+		s2.updateAmbientColor(new Color3f(0.0f, 1.0f, 0.0f));
+		s2.setDiffuseColor(new Color3f(0.0f, 1.0f, 0.0f));
+		s2.setPosition(new Vector3d(5, 0, -5 ));
+		s2.IsPickable(true);
+		world.add(s2);
+		
+		
+		ICObject elastic = new CElasticObject(s1, s2);
+		elastic.setEntity(this);
+		elastic.setId("elastic1");
+		elastic.IsPickable(false);
+		//elastic.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
+		world.add(elastic);
+		
+		
+		
 		
 		// Ambient light 1
 		ICAmbientLight ambientLight1 = new CAmbientLight();
@@ -138,7 +170,6 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		IHM ihm = new IHM(world, systemCamera);
 		ihm.setTitle(title);
 	}
-	
 
 	@Override
 	public String getDiffusionGroupName() throws RemoteException {
@@ -159,7 +190,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 
 	@Override
 	public void sendCommand(I_Command cmd) {
-		cmd.execute(world.getObjects());
+		cmd.execute(world);
 		sender.updateObject(cmd);
 	}
 	
@@ -199,6 +230,12 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	@Override
 	public boolean isServer() {
 		return true;
+	}
+
+	
+	@Override
+	public ICWorld getWorld() {
+		return this.world;
 	}
 	
 }

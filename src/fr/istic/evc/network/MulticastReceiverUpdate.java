@@ -8,6 +8,7 @@ import java.net.MulticastSocket;
 
 import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.project.Client;
+import fr.istic.evc.project.IEntity;
 
 public class MulticastReceiverUpdate extends Thread implements Runnable {
 	
@@ -16,7 +17,7 @@ public class MulticastReceiverUpdate extends Thread implements Runnable {
 	/* ---------- Attributes ---------- */
 
     private transient MulticastSocket receptionSocket ;
-	private Client client;
+	private IEntity client;
 	
 
 
@@ -50,7 +51,7 @@ public class MulticastReceiverUpdate extends Thread implements Runnable {
            
             // Get object
             I_Command cmd = (I_Command)ois.readObject () ;
-            cmd.execute(client.getObjects());
+            cmd.execute(client.getWorld());
             
             
         } catch (Exception e) {

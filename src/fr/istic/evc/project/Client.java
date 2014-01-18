@@ -144,6 +144,11 @@ public class Client implements IEntity{
 		}
 		
 	}
-	
 
+	@Override
+	public ICWorld getWorld() {
+		return this.world;
+	}
+	
+	
 }

@@ -19,7 +19,7 @@ import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
 import fr.istic.evc.project.IEntity;
 
 
-public interface ICObject {
+public interface ICObject{
 	
 	
 	void select();
@@ -134,6 +134,7 @@ public interface ICObject {
 	
 	
 	Transform3D getTransform();
+	Vector3d getPosition();
 
 
 

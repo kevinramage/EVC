@@ -1,11 +1,9 @@
 package fr.istic.evc.Command;
 
-import java.util.List;
-
 import javax.vecmath.Color3f;
 
-import fr.istic.evc.object3D.base.controller.CObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
+import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
 
 public class CmdUpdateColor implements I_Command {
 	
@@ -31,10 +29,10 @@ public class CmdUpdateColor implements I_Command {
 	/* ---------- Methods ---------- */
 	
 	@Override
-	public void execute(List<ICObject> objs) {
+	public void execute(ICWorld world) {
 		
 		// Get object
-		ICObject obj = CObject.getObjectById(objs, id);
+		ICObject obj = world.getObjectById(id);
 		obj.updateAmbientColor(color);
 	}
 }

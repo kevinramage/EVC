@@ -8,18 +8,16 @@
 
 package fr.istic.evc.object3D.base.controller;
 
-import java.util.List;
-
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
 
+import fr.istic.evc.Command.CmdCreateCObject;
 import fr.istic.evc.Command.CmdUpdateColor;
 import fr.istic.evc.Command.CmdUpdateDiffuse;
 import fr.istic.evc.Command.CmdUpdateOrientation;
 import fr.istic.evc.Command.CmdUpdatePosition;
-import fr.istic.evc.Command.CmdCreateCObject;
 import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.object3D.base.abstraction.AObject;
@@ -31,7 +29,7 @@ import fr.istic.evc.project.Client;
 import fr.istic.evc.project.IEntity;
 
 
-public class CObject implements ICObject{
+public class CObject implements ICObject {
 
 	/* ---------- Attributes ---------- */
 	
@@ -70,15 +68,6 @@ public class CObject implements ICObject{
 		presentation.setDiffuseColor(getDiffuseColor());
 	}
 	
-	public static ICObject getObjectById(List<ICObject> objs, String id) {
-		for ( ICObject obj : objs) {
-			if (obj.getId().equals(id)) {
-				return obj;
-			}
-		}
-		return null;
-	}
-	
 	public void select() {
 		abstraction.setBackupColor(getAmbientColor());
 		this.setAmbientColor(getSelectColor());
@@ -87,6 +76,7 @@ public class CObject implements ICObject{
 	public void unselect() {
 		this.setAmbientColor(getBackupColor());
 	}
+	
 
 
 	/* ---------- Updaters ---------- */
@@ -273,7 +263,6 @@ public class CObject implements ICObject{
 	public Transform3D getTransform() {
 		return presentation.getTransform();
 	}
-
 
 
 }

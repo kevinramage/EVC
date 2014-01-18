@@ -30,6 +30,17 @@ public class CWorld implements ICWorld{
 
 	/* ---------- Methods ---------- */
 	
+	@Override
+	public ICObject getObjectById(String id) {
+		System.out.println(objects.size());
+		for ( ICObject obj : objects) {
+			if (obj.getId().equals(id)) {
+				return obj;
+			}
+		}
+		return null;
+	}
+	
 
 
 	/* ---------- Getters ---------- */

@@ -20,7 +20,7 @@ import com.sun.j3d.utils.picking.PickResult;
 
 import fr.istic.evc.graphic2D.CameraManager;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.presentation.PObject;
+import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
 
 
 /**
@@ -128,8 +128,8 @@ public class Mouse extends Behavior implements IDevice {
 						if (sgPath != null) {
 							try {
 								// Get 3D object
-								Shape3D shape  = (Shape3D)sgPath [1].getNode (PickResult.SHAPE3D) ;
-								PObject pObject = (PObject)shape.getParent().getParent().getParent();
+								Shape3D shape  = (Shape3D)sgPath [0].getNode (PickResult.SHAPE3D) ;
+								IPObject pObject = (IPObject)shape.getParent().getParent().getParent();
 								
 								// Get controller object
 								ICObject cObject = pObject.getController();

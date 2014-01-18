@@ -43,5 +43,7 @@ public interface ICWorld {
 
 	List<ICObject> getObjects();
 
+	ICObject getObjectById(String id);
+
 //	void setServer(Server server);
 }
