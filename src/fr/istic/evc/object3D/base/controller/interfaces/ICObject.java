@@ -135,6 +135,11 @@ public interface ICObject{
 	
 	Transform3D getTransform();
 	Vector3d getPosition();
+	Quat4f getOrientation();
+	Color3f getAmbientColor();
+	Color3f getSelectColor();
+	Color3f getDiffuseColor();
+	Color3f getBackupColor();
 
 
 

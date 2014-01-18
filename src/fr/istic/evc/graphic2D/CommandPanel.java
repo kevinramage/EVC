@@ -10,6 +10,7 @@ import javax.vecmath.Color3f;
 
 import fr.istic.evc.object3D.base.abstraction.AObject;
 import fr.istic.evc.object3D.base.abstraction.I_AObject;
+import fr.istic.evc.object3D.base.controller.CObject;
 import fr.istic.evc.project.Client;
 
 public class CommandPanel extends JPanel{
@@ -109,7 +110,7 @@ public class CommandPanel extends JPanel{
 				I_AObject obj = new AObject();
 				obj.setGeometry("cube");
 				obj.setAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
-				client.createObject(obj);
+				client.createObject(new CObject(obj));
 			}
 		});
 	}
@@ -126,7 +127,7 @@ public class CommandPanel extends JPanel{
 				I_AObject obj = new AObject();
 				obj.setGeometry("sphere");
 				obj.setAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
-				client.createObject(obj);
+				client.createObject(new CObject(obj));
 			}
 		});
 	}

@@ -61,13 +61,16 @@ public class CObject implements ICObject {
 	}
 	
 	@Override
-	public void reload() {		
+	public void reload() {
 		presentation.setGeometry(getGeometry());
+		presentation.setOrientation(getOrientation());
 		presentation.setPosition(getPosition());
 		presentation.setAmbientColor(getAmbientColor());
 		presentation.setDiffuseColor(getDiffuseColor());
 	}
 	
+	
+
 	public void select() {
 		abstraction.setBackupColor(getAmbientColor());
 		this.setAmbientColor(getSelectColor());
@@ -235,22 +238,32 @@ public class CObject implements ICObject {
 		return abstraction;
 	}
 
+	@Override
 	public Vector3d getPosition() {
 		return abstraction.getPosition();
 	}
+	
+	@Override
+	public Quat4f getOrientation() {
+		return abstraction.getOrientation();
+	}
 
+	@Override
 	public Color3f getAmbientColor() {
 		return abstraction.getAmbientColor();
 	}
 
+	@Override
 	public Color3f getDiffuseColor() {
 		return abstraction.getDiffuseColor();
 	}
 	
+	@Override
 	public Color3f getSelectColor() {
 		return abstraction.getSelectColor();
 	}
 	
+	@Override
 	public Color3f getBackupColor() {
 		return abstraction.getBackupColor();
 	}
@@ -258,7 +271,7 @@ public class CObject implements ICObject {
 	public IEntity getEntity() {
 		return entity;
 	}
-
+	
 	@Override
 	public Transform3D getTransform() {
 		return presentation.getTransform();

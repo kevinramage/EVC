@@ -7,7 +7,6 @@ import java.util.List;
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.Command.CmdCreateCObject;
 import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.device.Mouse;
@@ -16,7 +15,7 @@ import fr.istic.evc.graphic2D.CameraManager;
 import fr.istic.evc.graphic2D.IHM;
 import fr.istic.evc.network.MulticastReceiverCreate;
 import fr.istic.evc.network.MulticastReceiverUpdate;
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
+import fr.istic.evc.object3D.base.controller.CCamera;
 import fr.istic.evc.object3D.base.controller.CWorld;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
@@ -34,6 +33,7 @@ public class Client implements IEntity{
 	private int id;
 	private ICWorld world;
 	private Camera systemCamera;
+	
     private IServer is ;
     private MulticastReceiverUpdate multUpdate;
     private MulticastReceiverCreate multCreate;
@@ -70,12 +70,20 @@ public class Client implements IEntity{
 		// System Camera
 		systemCamera = new Camera();
 		Transform3D transform3D = new Transform3D();
-		transform3D.setTranslation(new Vector3d(0, 0, 30));
+		transform3D.setTranslation(new Vector3d(0, 0, 5));
 		systemCamera.setTransform3D(transform3D);
 		
 		// Camera Manager
 		CameraManager cameraManager = new CameraManager(world.getPresentation().getWorldTransform());
 		cameraManager.changeCamera(systemCamera);
+		
+
+		
+		// Presentation Camera
+		ICObject camera = new CCamera(cameraManager);
+		camera.setEntity(this);
+		camera.updatePosition(new Vector3d(0, 0, 5));
+		createObject(camera);
 		
 		// Device
 		Mouse mouse = new Mouse();
@@ -131,19 +139,20 @@ public class Client implements IEntity{
 		return false;
 	}
 
-	public void createObject(I_AObject abstraction) {
+	public void createObject(ICObject controller) {
 		compteur++;
 		System.out.println("Client.createObject()");
 		System.out.println("Compteur : "+compteur);
-		abstraction.setId(""+compteur+"-"+id);
+		controller.setId(""+compteur+"-"+id);
 		try {
-			is.addObject(new CmdCreateCObject(abstraction));
+			is.addObject(controller.getCreateCommand());
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
+	
 
 	@Override
 	public ICWorld getWorld() {

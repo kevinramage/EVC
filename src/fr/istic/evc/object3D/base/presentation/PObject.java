@@ -20,6 +20,7 @@ import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
 
 import com.sun.j3d.utils.geometry.Box;
+import com.sun.j3d.utils.geometry.Cone;
 import com.sun.j3d.utils.geometry.Primitive;
 import com.sun.j3d.utils.geometry.Sphere;
 
@@ -33,7 +34,7 @@ public class PObject extends TransformGroup implements IPObject{
 	//						Attributes
 	// ---------------------------------------------------------
 	
-	protected static String [] geometries = new String [] { "cube", "sphere" };
+	protected static String [] geometries = new String [] { "cube", "sphere", "cone" };
 	protected ICObject controller;
 	protected BranchGroup branchGroup;
 	protected Primitive primitive;
@@ -109,6 +110,8 @@ public class PObject extends TransformGroup implements IPObject{
 				return new Box();
 			case "sphere":
 				return new Sphere();
+			case "cone":
+				return new Cone();
 		}
 		return null;
 	}
@@ -124,6 +127,10 @@ public class PObject extends TransformGroup implements IPObject{
 
 	@Override
 	public void setOrientation(Quat4f orientation) {
+		Transform3D transform3d = new Transform3D();
+		getTransform(transform3d);
+		transform3d.set(orientation);
+		setTransform(transform3d);
 	}
 
 	@Override

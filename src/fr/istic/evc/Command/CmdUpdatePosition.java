@@ -1,10 +1,7 @@
 package fr.istic.evc.Command;
 
-import java.util.List;
-
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.object3D.base.controller.CObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
 

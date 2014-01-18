@@ -101,5 +101,7 @@ public interface I_AObject extends Serializable {
 
 	Color3f getBackupColor();
 
+	Quat4f getOrientation();
+
 
 }

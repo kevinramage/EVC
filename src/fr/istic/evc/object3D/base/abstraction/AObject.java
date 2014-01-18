@@ -43,7 +43,6 @@ public class AObject implements I_AObject{
 	 */
 	public void setId(String id) {
 		this.id = id;
-		position = new Vector3d();
 	}
 	
 	@Override
@@ -136,6 +135,12 @@ public class AObject implements I_AObject{
 	@Override
 	public Color3f getBackupColor() {
 		return backupColor;
+	}
+
+
+	@Override
+	public Quat4f getOrientation() {
+		return orientation;
 	}
 	
 	

@@ -19,9 +19,6 @@ import fr.istic.evc.graphic2D.IHM;
 import fr.istic.evc.network.MulticastSender;
 import fr.istic.evc.object3D.base.controller.CAmbientLight;
 import fr.istic.evc.object3D.base.controller.CDirectionalLight;
-import fr.istic.evc.object3D.base.controller.CElasticObject;
-import fr.istic.evc.object3D.base.controller.CObject;
-import fr.istic.evc.object3D.base.controller.CSubject;
 import fr.istic.evc.object3D.base.controller.CWorld;
 import fr.istic.evc.object3D.base.controller.interfaces.ICAmbientLight;
 import fr.istic.evc.object3D.base.controller.interfaces.ICDirectionalLight;
@@ -110,6 +107,8 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		box3.IsPickable(true);
 		world.add(box3);
 		*/
+		
+		/*
 		CSubject s1 = new CSubject();
 		s1.setEntity(this);
 		s1.setId("S1");
@@ -137,7 +136,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		elastic.IsPickable(false);
 		//elastic.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
 		world.add(elastic);
-		
+		*/
 		
 		
 		

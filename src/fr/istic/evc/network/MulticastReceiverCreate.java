@@ -43,7 +43,7 @@ public class MulticastReceiverCreate extends Thread implements Runnable {
             ObjectInputStream ois = new ObjectInputStream (bais) ;
            
             // Get object
-            I_CreateCommand cmd = (CmdCreateCObject)ois.readObject();
+            I_CreateCommand cmd = (I_CreateCommand)ois.readObject();
             client.addObject(cmd);
             
             

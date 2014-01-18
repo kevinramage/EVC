@@ -32,7 +32,6 @@ public class CWorld implements ICWorld{
 	
 	@Override
 	public ICObject getObjectById(String id) {
-		System.out.println(objects.size());
 		for ( ICObject obj : objects) {
 			if (obj.getId().equals(id)) {
 				return obj;
