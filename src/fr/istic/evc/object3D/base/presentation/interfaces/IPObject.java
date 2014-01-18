@@ -8,6 +8,7 @@
 
 package fr.istic.evc.object3D.base.presentation.interfaces;
 
+import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
@@ -59,5 +60,7 @@ public interface IPObject {
 	void setDiffuseColor(Color3f diffuseColor);	
 
 	ICObject getController();
+
+	Transform3D getTransform();
 	
 }

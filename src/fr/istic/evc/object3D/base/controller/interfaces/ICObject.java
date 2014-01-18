@@ -8,6 +8,7 @@
 
 package fr.istic.evc.object3D.base.controller.interfaces;
 
+import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
@@ -19,6 +20,10 @@ import fr.istic.evc.project.IEntity;
 
 
 public interface ICObject {
+	
+	
+	void select();
+	void unselect();
 	
 	/**
 	 * Set the 3D position of the object
@@ -126,6 +131,9 @@ public interface ICObject {
 	
 
 	I_CreateCommand getCreateCommand();
+	
+	
+	Transform3D getTransform();
 
 
 

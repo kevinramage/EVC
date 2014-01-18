@@ -2,6 +2,7 @@ package fr.istic.evc.object3D.base.presentation;
 
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.BoundingSphere;
+import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
@@ -69,5 +70,12 @@ public class PAmbientLight extends TransformGroup implements IPAmbientLight{
 	@Override
 	public ICObject getController() {
 		return this.controller;
+	}
+	
+	@Override
+	public Transform3D getTransform() {
+		Transform3D t = new Transform3D();
+		super.getTransform(t);
+		return t;
 	}
 }

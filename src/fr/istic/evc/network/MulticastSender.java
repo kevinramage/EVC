@@ -10,7 +10,7 @@ import java.net.MulticastSocket;
 import java.rmi.RemoteException;
 
 import fr.istic.evc.Command.I_Command;
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
+import fr.istic.evc.Command.I_CreateCommand;
 
 public class MulticastSender implements Serializable {
 	
@@ -69,12 +69,12 @@ public class MulticastSender implements Serializable {
             e.printStackTrace () ;
         }
     }
-    public void createObject (I_AObject o) {
+    public void createObject (I_CreateCommand cmd) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream () ;
         ObjectOutputStream oos ;
        try {
             oos = new ObjectOutputStream (baos) ;
-            oos.writeObject (o) ;
+            oos.writeObject (cmd) ;
             oos.flush () ;
        } catch (IOException e) {
            e.printStackTrace();

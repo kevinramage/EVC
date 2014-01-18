@@ -120,6 +120,15 @@ public class CommandPanel extends JPanel{
 		btnSphere.setIcon(new ImageIcon("resources/image/sphere.png"));
 		btnSphere.setToolTipText("Sphere");
 		add(btnSphere);
+		btnSphere.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				I_AObject obj = new AObject();
+				obj.setGeometry("sphere");
+				obj.setAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
+				client.createObject(obj);
+			}
+		});
 	}
 	private void addTriangleBtn() {
 		JButton btnTriangle = new JButton();

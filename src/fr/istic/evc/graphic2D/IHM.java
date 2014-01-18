@@ -15,7 +15,7 @@ public class IHM extends JFrame{
 
 	
 	
-public IHM(ICWorld world, Camera systemCamera, Client client) {
+public IHM(CameraManager cameraManager, ICWorld world, Camera systemCamera, Client client) {
 		
 		// Frame
 		setTitle("EVC");
@@ -23,10 +23,6 @@ public IHM(ICWorld world, Camera systemCamera, Client client) {
 		setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		
-		// Camera Manager
-		CameraManager cameraManager = new CameraManager(world.getPresentation().getWorldTransform());
-		cameraManager.changeCamera(systemCamera);
 		
 		// Top panel
 		JPanel topPanel = new JPanel();

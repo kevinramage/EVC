@@ -142,4 +142,11 @@ public class PObject extends TransformGroup implements IPObject{
 	public ICObject getController() {
 		return this.controller;
 	}
+
+	@Override
+	public Transform3D getTransform() {
+		Transform3D t = new Transform3D();
+		super.getTransform(t);
+		return t;
+	}
 }

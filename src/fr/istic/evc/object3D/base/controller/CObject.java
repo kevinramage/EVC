@@ -10,6 +10,7 @@ package fr.istic.evc.object3D.base.controller;
 
 import java.util.List;
 
+import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
@@ -138,7 +139,8 @@ public class CObject implements ICObject{
 	}
 	
 	/**
-	 * Set the orientation of the object
+	 * Set the orientation of th
+	 * e object
 	 * @param orientation a quaternion which define the orientation of the object
 	 */
 	public void setOrientation(Quat4f orientation) {
@@ -265,6 +267,11 @@ public class CObject implements ICObject{
 
 	public IEntity getEntity() {
 		return entity;
+	}
+
+	@Override
+	public Transform3D getTransform() {
+		return presentation.getTransform();
 	}
 
 

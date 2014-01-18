@@ -7,14 +7,16 @@ import java.util.List;
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Vector3d;
 
+import fr.istic.evc.Command.CmdCreateCObject;
 import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.device.Mouse;
 import fr.istic.evc.graphic2D.Camera;
+import fr.istic.evc.graphic2D.CameraManager;
 import fr.istic.evc.graphic2D.IHM;
+import fr.istic.evc.network.MulticastReceiverCreate;
 import fr.istic.evc.network.MulticastReceiverUpdate;
 import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.controller.CObject;
 import fr.istic.evc.object3D.base.controller.CWorld;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
@@ -34,6 +36,7 @@ public class Client implements IEntity{
 	private Camera systemCamera;
     private IServer is ;
     private MulticastReceiverUpdate multUpdate;
+    private MulticastReceiverCreate multCreate;
     
     private int compteur;
 	
@@ -51,6 +54,8 @@ public class Client implements IEntity{
             id = is.obtainID();
         	multUpdate = new MulticastReceiverUpdate(this, is.getDiffusionGroupName(), is.getUpdatePort());
         	multUpdate.start();
+        	multCreate = new MulticastReceiverCreate(this, is.getDiffusionGroupName(), is.getCreatePort());
+        	multCreate.start();
         	compteur = 0;
         	
         } catch (Exception e) {
@@ -60,7 +65,6 @@ public class Client implements IEntity{
 		
 		// World
 		world = new CWorld();
-		world.addDevice(new Mouse());
 		world.show();
 
 		// System Camera
@@ -69,7 +73,17 @@ public class Client implements IEntity{
 		transform3D.setTranslation(new Vector3d(0, 0, 30));
 		systemCamera.setTransform3D(transform3D);
 		
-		IHM ihm = new IHM(world, systemCamera, this);
+		// Camera Manager
+		CameraManager cameraManager = new CameraManager(world.getPresentation().getWorldTransform());
+		cameraManager.changeCamera(systemCamera);
+		
+		// Device
+		Mouse mouse = new Mouse();
+		mouse.setCameraManager(cameraManager);
+		world.addDevice(mouse);
+		
+		// IHM
+		IHM ihm = new IHM(cameraManager, world, systemCamera, this);
 		ihm.setTitle(title);
 		
 		this.recuperateObjects();
@@ -103,9 +117,8 @@ public class Client implements IEntity{
 		}
 	}
 
-	public void addObject(ICObject controller) {
-		world.add(controller);
-		controller.setEntity(this);
+	public void addObject(I_CreateCommand cmd) {
+		cmd.execute(world, this);
 	}
 	
 	public List<ICObject> getObjects() {
@@ -123,7 +136,12 @@ public class Client implements IEntity{
 		System.out.println("Client.createObject()");
 		System.out.println("Compteur : "+compteur);
 		abstraction.setId(""+compteur+"-"+id);
-		is.addObject(abstraction);
+		try {
+			is.addObject(new CmdCreateCObject(abstraction));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

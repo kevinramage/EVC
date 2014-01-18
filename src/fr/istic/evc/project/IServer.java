@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import fr.istic.evc.Command.CmdCreateCObject;
 import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.object3D.base.abstraction.I_AObject;
@@ -15,10 +16,9 @@ public interface IServer extends Remote{
 	Integer getCreatePort () throws RemoteException ;
 	Integer getUpdatePort() throws RemoteException;
 	void sendCommand(I_Command cmd) throws RemoteException;
-	void reSend(ICObject o) throws RemoteException;
 	List<I_CreateCommand> getListObjs() throws RemoteException;
 	void update(I_Command cmd) throws RemoteException;
 	int obtainID() throws RemoteException;
-	void addObject(I_AObject abstraction);
+	void addObject(I_CreateCommand cmd) throws RemoteException;
 
 }

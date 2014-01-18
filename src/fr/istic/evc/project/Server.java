@@ -17,7 +17,6 @@ import fr.istic.evc.device.Mouse;
 import fr.istic.evc.graphic2D.Camera;
 import fr.istic.evc.graphic2D.IHM;
 import fr.istic.evc.network.MulticastSender;
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
 import fr.istic.evc.object3D.base.controller.CAmbientLight;
 import fr.istic.evc.object3D.base.controller.CDirectionalLight;
 import fr.istic.evc.object3D.base.controller.CObject;
@@ -97,6 +96,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		box2.IsPickable(true);
 		world.add(box2);
 		
+		/*
 		// Box3
 		ICObject box3 = new CObject();
 		box3.setEntity(this);
@@ -107,6 +107,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		box3.setPosition(new Vector3d(0, 0, -5 ));
 		box3.IsPickable(true);
 		world.add(box3);
+		*/
 		
 		// Ambient light 1
 		ICAmbientLight ambientLight1 = new CAmbientLight();
@@ -167,10 +168,9 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	/* -------- Methodes Diffusion -------- */ 
 	
 	@Override
-	public void addObject(I_AObject abstraction) {
-		ICObject controller = new CObject(abstraction);
-		world.add(controller);
-		sender.createObject(abstraction);
+	public void addObject(I_CreateCommand cmd) throws RemoteException{
+		cmd.execute(world, this);
+		sender.createObject(cmd);
 	}
 	
 	@Override
@@ -180,11 +180,6 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		
 	}
 	
-	@Override
-	public void reSend(ICObject o) {
-		o.setEntity(this);
-		sender.createObject(o.getAbstraction());
-	}
 	
 	@Override
 	public List<I_CreateCommand> getListObjs() {

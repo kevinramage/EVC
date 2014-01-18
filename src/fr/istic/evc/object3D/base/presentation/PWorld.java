@@ -29,6 +29,7 @@ public class PWorld implements IPWorld{
 		simpleUnivers = new SimpleUniverse(canvas3D);
 		simpleUnivers.getViewingPlatform().setNominalViewingTransform();
 		scene = new BranchGroup();
+		scene.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
 		transformRoot = new TransformGroup();
 		transformRoot.setCapability(TransformGroup.ALLOW_CHILDREN_EXTEND);
 	}
@@ -66,7 +67,9 @@ public class PWorld implements IPWorld{
 		// Add to scene
 		BoundingSphere bounds = new BoundingSphere (new Point3d (0.0, 0.0, 0.0), 1.0) ;
 		((Behavior)device).setSchedulingBounds (bounds) ;
-		scene.addChild((Behavior)device);
+		BranchGroup b = new BranchGroup();
+		b.addChild((Behavior)device);
+		scene.addChild(b);
 	}
 	
 }
