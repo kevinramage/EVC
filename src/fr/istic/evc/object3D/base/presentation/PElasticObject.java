@@ -128,8 +128,7 @@ public class PElasticObject extends TransformGroup implements IPObject {
 
 	@Override
 	public ICObject getController() {
-		// TODO Auto-generated method stub
-		return null;
+		return controller;
 	}
 
 	@Override

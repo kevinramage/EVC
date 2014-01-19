@@ -10,6 +10,7 @@ import java.util.List;
 import javax.media.j3d.Behavior;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
+import javax.media.j3d.Node;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.WakeupCriterion;
 import javax.media.j3d.WakeupOnAWTEvent;
@@ -128,8 +129,7 @@ public class Mouse extends Behavior implements IDevice {
 						if (sgPath != null) {
 							try {
 								// Get 3D object
-								Shape3D shape  = (Shape3D)sgPath [0].getNode (PickResult.SHAPE3D) ;
-								IPObject pObject = (IPObject)shape.getParent().getParent().getParent();
+								IPObject pObject = pickObject(sgPath[0]);
 								
 								// Get controller object
 								ICObject cObject = pObject.getController();
@@ -236,5 +236,13 @@ public class Mouse extends Behavior implements IDevice {
 	@Override
 	public void setCameraManager(CameraManager cameraManager) {
 		this.cameraManager = cameraManager;
+	}
+	
+	protected IPObject pickObject(PickResult pickResult) {
+		Node node = pickResult.getNode(PickResult.SHAPE3D);
+		while ( !(node instanceof IPObject)) {
+			node = node.getParent();
+		}
+		return (IPObject)node;
 	}
 }

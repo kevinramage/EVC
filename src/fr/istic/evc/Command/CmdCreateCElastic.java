@@ -12,10 +12,11 @@ public class CmdCreateCElastic implements I_CreateCommand {
 	/* ---------- Attributes ---------- */
 	
 	private static final long serialVersionUID = 1L;
+	protected I_AObject abstraction;
+	protected I_AObject sphere1, sphere2;
 	
-	I_AObject sphere1, sphere2;
-	
-	public CmdCreateCElastic(I_AObject abs1, I_AObject abs2) {
+	public CmdCreateCElastic(I_AObject abstraction, I_AObject abs1, I_AObject abs2) {
+		this.abstraction = abstraction;
 		sphere1 = abs1;
 		sphere2 = abs2;
 	}
@@ -25,7 +26,7 @@ public class CmdCreateCElastic implements I_CreateCommand {
 		CSubject s1 = (CSubject) world.getObjectById(sphere1.getId());
 		CSubject s2 = (CSubject) world.getObjectById(sphere2.getId());
 		
-		ICObject elastic = new CElasticObject(s1, s2);
+		ICObject elastic = new CElasticObject(abstraction, s1, s2);
 		elastic.setEntity(entity);
 		world.add(elastic);
 	}
