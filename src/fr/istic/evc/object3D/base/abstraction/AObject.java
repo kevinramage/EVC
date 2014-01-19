@@ -30,9 +30,14 @@ public class AObject implements I_AObject{
 	/* ---------- Constructors---------- */
 	
 	public AObject() {
-		
+		id = "";
+		position = new Vector3d();
+		orientation = new Quat4f();
+		geometry = "";
+		scale = new Vector3d();
+		ambientColor = new Color3f();
 		diffuseColor = new Color3f();
-		this.selectColor = new Color3f(1.0f, 1.0f, 0.0f);
+		selectColor = new Color3f(1.0f, 1.0f, 0.0f);
 	}
 
 
