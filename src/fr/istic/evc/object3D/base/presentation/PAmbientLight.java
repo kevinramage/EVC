@@ -50,7 +50,7 @@ public class PAmbientLight extends TransformGroup implements IPAmbientLight{
 	}
 
 	@Override
-	public void IsPickable(boolean b) {
+	public void setPickable(boolean b) {
 		// TODO Auto-generated method stub
 		
 	}

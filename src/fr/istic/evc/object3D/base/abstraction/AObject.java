@@ -71,7 +71,7 @@ public class AObject implements I_AObject{
 	}
 
 	@Override
-	public void IsPickable(boolean b) {
+	public void setPickable(boolean b) {
 		isPickable = b;
 	}
 
@@ -146,6 +146,12 @@ public class AObject implements I_AObject{
 	@Override
 	public Quat4f getOrientation() {
 		return orientation;
+	}
+
+
+	@Override
+	public boolean isPickable() {
+		return isPickable;
 	}
 	
 	

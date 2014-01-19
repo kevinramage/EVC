@@ -11,7 +11,6 @@ import javax.media.j3d.Behavior;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.Node;
-import javax.media.j3d.Shape3D;
 import javax.media.j3d.WakeupCriterion;
 import javax.media.j3d.WakeupOnAWTEvent;
 import javax.media.j3d.WakeupOr;
@@ -134,17 +133,21 @@ public class Mouse extends Behavior implements IDevice {
 								// Get controller object
 								ICObject cObject = pObject.getController();
 								
-								// Select
-								if ( button1Pressed) {
-									if (!objectsSelected.contains(cObject)) {
-										objectsSelected.add(cObject);
-										cObject.select();
-									}
-								// Unselect
-								} else if (button3Pressed) {
-									if (objectsSelected.contains(cObject)) {
-										objectsSelected.remove(cObject);
-										cObject.unselect();
+								// Is pickable
+								if (cObject.isPickable()) {
+								
+									// Select
+									if ( button1Pressed) {
+										if (!objectsSelected.contains(cObject)) {
+											objectsSelected.add(cObject);
+											cObject.select();
+										}
+									// Unselect
+									} else if (button3Pressed) {
+										if (objectsSelected.contains(cObject)) {
+											objectsSelected.remove(cObject);
+											cObject.unselect();
+										}
 									}
 								}
 								

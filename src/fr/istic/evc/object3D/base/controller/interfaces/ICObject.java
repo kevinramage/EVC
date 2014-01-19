@@ -60,7 +60,7 @@ public interface ICObject{
 	 * Define if the object if pickable or not
 	 * @param b boolean which determine if object is pickable or not
 	 */
-	void IsPickable(boolean b);
+	void setPickable(boolean b);
 	
 	/**
 	 * Set the ambient color of the object
@@ -140,6 +140,7 @@ public interface ICObject{
 	Color3f getSelectColor();
 	Color3f getDiffuseColor();
 	Color3f getBackupColor();
+	boolean isPickable();
 
 
 

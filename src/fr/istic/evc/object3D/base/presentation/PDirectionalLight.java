@@ -46,7 +46,7 @@ public class PDirectionalLight extends TransformGroup implements IPDirectionalLi
 	}
 
 	@Override
-	public void IsPickable(boolean b) {
+	public void setPickable(boolean b) {
 		// TODO Auto-generated method stub
 		
 	}

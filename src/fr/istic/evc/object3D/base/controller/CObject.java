@@ -167,9 +167,9 @@ public class CObject implements ICObject {
 	 * Define if the object if pickable or not
 	 * @param b boolean which determine if object is pickable or not
 	 */
-	public void IsPickable(boolean b) {
-		abstraction.IsPickable(b);
-		presentation.IsPickable(b);
+	public void setPickable(boolean b) {
+		abstraction.setPickable(b);
+		presentation.setPickable(b);
 	}
 	
 	/**
@@ -275,6 +275,11 @@ public class CObject implements ICObject {
 	@Override
 	public Transform3D getTransform() {
 		return presentation.getTransform();
+	}
+
+	@Override
+	public boolean isPickable() {
+		return abstraction.isPickable();
 	}
 
 

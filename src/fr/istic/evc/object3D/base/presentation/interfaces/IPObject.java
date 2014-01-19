@@ -45,7 +45,7 @@ public interface IPObject {
 	 * Define if the object if pickable or not
 	 * @param b boolean which determine if object is pickable or not
 	 */
-	void IsPickable(boolean b);
+	void setPickable(boolean b);
 	
 	/**
 	 * Set the ambient color of the object

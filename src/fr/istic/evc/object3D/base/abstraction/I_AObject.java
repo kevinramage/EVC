@@ -44,7 +44,7 @@ public interface I_AObject extends Serializable {
 	 * Define if the object if pickable or not
 	 * @param b boolean which determine if object is pickable or not
 	 */
-	void IsPickable(boolean b);
+	void setPickable(boolean b);
 	
 	/**
 	 * Set the ambient color of the object
@@ -102,6 +102,8 @@ public interface I_AObject extends Serializable {
 	Color3f getBackupColor();
 
 	Quat4f getOrientation();
+
+	boolean isPickable();
 
 
 }

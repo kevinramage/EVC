@@ -117,7 +117,7 @@ public class PObject extends TransformGroup implements IPObject{
 	}
 
 	@Override
-	public void IsPickable(boolean b) {
+	public void setPickable(boolean b) {
 		if (b) {
 			setCapability(TransformGroup.ENABLE_PICK_REPORTING);
 		} else {

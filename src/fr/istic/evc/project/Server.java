@@ -19,6 +19,8 @@ import fr.istic.evc.graphic2D.IHM;
 import fr.istic.evc.network.MulticastSender;
 import fr.istic.evc.object3D.base.controller.CAmbientLight;
 import fr.istic.evc.object3D.base.controller.CDirectionalLight;
+import fr.istic.evc.object3D.base.controller.CElasticObject;
+import fr.istic.evc.object3D.base.controller.CSubject;
 import fr.istic.evc.object3D.base.controller.CWorld;
 import fr.istic.evc.object3D.base.controller.interfaces.ICAmbientLight;
 import fr.istic.evc.object3D.base.controller.interfaces.ICDirectionalLight;
@@ -108,7 +110,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		world.add(box3);
 		*/
 		
-		/*
+		
 		CSubject s1 = new CSubject();
 		s1.setEntity(this);
 		s1.setId("S1");
@@ -116,7 +118,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		s1.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
 		s1.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
 		s1.setPosition(new Vector3d(-5, 0, -5 ));
-		s1.IsPickable(true);
+		s1.setPickable(true);
 		world.add(s1);
 		
 		CSubject s2 = new CSubject();
@@ -126,17 +128,17 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		s2.updateAmbientColor(new Color3f(0.0f, 1.0f, 0.0f));
 		s2.setDiffuseColor(new Color3f(0.0f, 1.0f, 0.0f));
 		s2.setPosition(new Vector3d(5, 0, -5 ));
-		s2.IsPickable(true);
+		s2.setPickable(true);
 		world.add(s2);
 		
 		
 		ICObject elastic = new CElasticObject(s1, s2);
 		elastic.setEntity(this);
 		elastic.setId("elastic1");
-		elastic.IsPickable(false);
+		elastic.setPickable(false);
 		//elastic.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
 		world.add(elastic);
-		*/
+		
 		
 		
 		

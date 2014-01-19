@@ -3,7 +3,6 @@ package fr.istic.evc.object3D.base.presentation;
 import java.awt.Color;
 
 import javax.media.j3d.BranchGroup;
-import javax.media.j3d.Group;
 import javax.media.j3d.QuadArray;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
@@ -74,7 +73,6 @@ public class PElasticObject extends TransformGroup implements IPObject {
 
 
 	public void update(Vector3d v1, Vector3d v2) {
-		System.out.println("PElasticObject.update()");
 		Shape3D shape = buildForm(v1, v2);
 		BranchGroup branchGroup = new BranchGroup();
 		branchGroup.addChild(shape);
@@ -109,7 +107,7 @@ public class PElasticObject extends TransformGroup implements IPObject {
 	}
 
 	@Override
-	public void IsPickable(boolean b) {
+	public void setPickable(boolean b) {
 		// TODO Auto-generated method stub
 
 	}
