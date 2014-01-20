@@ -28,6 +28,7 @@ public class PWorld implements IPWorld{
 		canvas3D = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
 		simpleUnivers = new SimpleUniverse(canvas3D);
 		simpleUnivers.getViewingPlatform().setNominalViewingTransform();
+		simpleUnivers.getViewer().getView().setFieldOfView(1.5);
 		scene = new BranchGroup();
 		scene.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
 		transformRoot = new TransformGroup();

@@ -1,10 +1,13 @@
 package fr.istic.evc.project;
 
+import java.awt.Color;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Random;
 
 import javax.media.j3d.Transform3D;
+import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 
 import fr.istic.evc.Command.I_Command;
@@ -70,22 +73,12 @@ public class Client implements IEntity{
 		// System Camera
 		systemCamera = new Camera();
 		Transform3D transform3D = new Transform3D();
-		transform3D.setTranslation(new Vector3d(0, 0, 30));
+		transform3D.setTranslation(new Vector3d(0, 0, 10));
 		systemCamera.setTransform3D(transform3D);
 		
 		// Camera Manager
 		CameraManager cameraManager = new CameraManager(world.getPresentation().getWorldTransform());
 		cameraManager.changeCamera(systemCamera);
-		
-
-		
-		// Presentation Camera
-		/*
-		ICObject camera = new CCamera(cameraManager);
-		camera.setEntity(this);
-		camera.updatePosition(new Vector3d(0, 0, 5));
-		createObject(camera);
-		*/
 		
 		// Device
 		Mouse mouse = new Mouse();
@@ -96,17 +89,27 @@ public class Client implements IEntity{
 		IHM ihm = new IHM(cameraManager, world, systemCamera, this);
 		ihm.setTitle(title);
 		
-		this.recuperateObjects();
+		// Get server object
+		recuperateObjects();
+		
+		// Presentation Camera
+//		ICObject camera = new CCamera(cameraManager);
+//		camera.setEntity(this);
+//		camera.updatePosition(new Vector3d(0, 0, 5));
+//		camera.setPickable(true);
+//		camera.updateAmbientColor(getCameraColor());
+//		createObject(camera);
+		
+	}
+
+	private Color3f getCameraColor() {
+		Color3f [] colors = new Color3f [] { new Color3f(Color.gray), new Color3f(Color.green), new Color3f(Color.yellow) }; 
+		return colors[id % colors.length];
 	}
 
 	// ---------------------------------------------------------
 	// 						Methods
 	// ---------------------------------------------------------
-//	private List<ICObject> getObjects() {
-//		//IServer o = new Server();
-//		//return o.getObjects();
-//		return new ArrayList<ICObject>();
-//	}
 	
 	/**
 	 * Build world from server's objects

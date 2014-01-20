@@ -136,7 +136,6 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		elastic.setEntity(this);
 		elastic.setId("elastic1");
 		elastic.setPickable(false);
-		//elastic.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
 		world.add(elastic);
 		
 		
@@ -207,9 +206,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	
 	@Override
 	public synchronized int obtainID() {
-		compteur++;
-		return compteur;
-		
+		return compteur++;
 	}
 	
 	

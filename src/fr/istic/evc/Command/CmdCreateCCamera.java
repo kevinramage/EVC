@@ -9,8 +9,9 @@ import fr.istic.evc.project.IEntity;
 public class CmdCreateCCamera implements I_CreateCommand {
 	
 	private static final long serialVersionUID = 1L;
+	protected I_AObject abstraction;
 	
-	I_AObject abstraction;
+	
 	
 	/* ---------- Constructors ---------- */
 	
@@ -29,5 +30,7 @@ public class CmdCreateCCamera implements I_CreateCommand {
 		controller.setEntity(entity);
 		world.add(controller);
 	}
+	
+	
 
 }

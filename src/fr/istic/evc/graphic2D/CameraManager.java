@@ -1,25 +1,34 @@
 package fr.istic.evc.graphic2D;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
+import fr.istic.evc.pattern.Observer;
+import fr.istic.evc.pattern.Subject;
 
-public class CameraManager {
+public class CameraManager implements Subject, Observer {
 	private Camera camera;
 	private NavigationMode navigationMode;
 	private TransformGroup transformGroup;
 	
+	private List<Observer> lo;
+	
 	public CameraManager(TransformGroup transformGroup) {
 		this.transformGroup = transformGroup;
 		this.navigationMode = new ExamineMode();
+		this.lo = new ArrayList<>();
 	}
 	
 	public void changeCamera(Camera camera) {
 		this.camera = camera;
 		transformGroup.setTransform(camera.getTransform3D());
+		myNotify();
 	}
 	public void changeNavigationMode(NavigationMode navigationMode) {
 		this.navigationMode = navigationMode;
@@ -59,6 +68,7 @@ public class CameraManager {
 		
 		// Set world rotation
 		transformGroup.setTransform(result);
+		myNotify();
 	}
 
 
@@ -116,5 +126,32 @@ public class CameraManager {
 //		result.get(position);
 //		object.setPosition(position);
 		
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attach(Observer o) {
+		lo.add(o);
+	}
+
+	@Override
+	public void detach(Observer o) {
+		lo.remove(o);
+	}
+
+	@Override
+	public void myNotify() {
+		for (Observer o:lo)
+			o.update();
+		
+	}
+
+	public TransformGroup getTransform() {
+		return transformGroup;
 	}
 }
