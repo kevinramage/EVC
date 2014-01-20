@@ -10,6 +10,7 @@ package fr.istic.evc.object3D.base.controller.interfaces;
 
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
+import javax.vecmath.Quat4d;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
 
@@ -36,13 +37,13 @@ public interface ICObject{
 	 * Set the orientation of the object
 	 * @param orientation a quaternion which define the orientation of the object
 	 */
-	void setOrientation(Quat4f orientation);
+	void setOrientation(Quat4d orientation);
 
 	/**
 	 * Update the orientation of the object
 	 * @param orientation a quaternion which define the orientation of the object
 	 */
-	void updateOrientation(Quat4f orientation);
+	void updateOrientation(Quat4d orientation);
 	
 	/**
 	 * Set the geometry of the object
@@ -135,7 +136,7 @@ public interface ICObject{
 	
 	Transform3D getTransform();
 	Vector3d getPosition();
-	Quat4f getOrientation();
+	Quat4d getOrientation();
 	Color3f getAmbientColor();
 	Color3f getSelectColor();
 	Color3f getDiffuseColor();

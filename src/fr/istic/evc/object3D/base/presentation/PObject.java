@@ -16,7 +16,7 @@ import javax.media.j3d.Material;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
-import javax.vecmath.Quat4f;
+import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
 import com.sun.j3d.utils.geometry.Box;
@@ -27,45 +27,43 @@ import com.sun.j3d.utils.geometry.Sphere;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
 
+public class PObject extends TransformGroup implements IPObject {
 
-public class PObject extends TransformGroup implements IPObject{
-	
 	// ---------------------------------------------------------
-	//						Attributes
+	// Attributes
 	// ---------------------------------------------------------
-	
-	protected static String [] geometries = new String [] { "cube", "sphere", "cone" };
+
+	protected static String[] geometries = new String[] { "cube", "sphere",
+			"cone" };
 	protected ICObject controller;
 	protected BranchGroup branchGroup;
 	protected Primitive primitive;
-	
 
 	// ---------------------------------------------------------
-	//						Methods
+	// Methods
 	// ---------------------------------------------------------
-	
+
 	public PObject(ICObject controller) {
 		this.controller = controller;
 		this.branchGroup = new BranchGroup();
-		
+
 		setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 		setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
 	}
-	
+
 	@Override
 	public String toString() {
 		return controller.getId();
 	}
-	
-	
+
 	// ---------------------------------------------------------
-	//						Setters
+	// Setters
 	// ---------------------------------------------------------
 	@Override
 	public void setGeometry(String geometry) {
 		if (geometry.endsWith(".wrl")) {
-			
-		} else if ( Arrays.asList(geometries).contains(geometry)) {
+
+		} else if (Arrays.asList(geometries).contains(geometry)) {
 			primitive = getPrimitive(geometry);
 			primitive.setCapability(javax.media.j3d.Geometry.ALLOW_INTERSECT);
 			Appearance appearance = primitive.getAppearance();
@@ -103,15 +101,15 @@ public class PObject extends TransformGroup implements IPObject{
 		transform3d.setTranslation(position);
 		setTransform(transform3d);
 	}
-	
+
 	private static Primitive getPrimitive(String geometry) {
-		switch(geometry) {
-			case "cube":
-				return new Box();
-			case "sphere":
-				return new Sphere();
-			case "cone":
-				return new Cone();
+		switch (geometry) {
+		case "cube":
+			return new Box();
+		case "sphere":
+			return new Sphere();
+		case "cone":
+			return new Cone();
 		}
 		return null;
 	}
@@ -126,7 +124,7 @@ public class PObject extends TransformGroup implements IPObject{
 	}
 
 	@Override
-	public void setOrientation(Quat4f orientation) {
+	public void setOrientation(Quat4d orientation) {
 		Transform3D transform3d = new Transform3D();
 		getTransform(transform3d);
 		transform3d.set(orientation);
@@ -136,9 +134,8 @@ public class PObject extends TransformGroup implements IPObject{
 	@Override
 	public void setScale(Vector3d scale) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	public void setShininess(float shininess) {
 		Material material = primitive.getAppearance().getMaterial();

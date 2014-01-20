@@ -10,7 +10,7 @@ package fr.istic.evc.object3D.base.controller;
 
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
-import javax.vecmath.Quat4f;
+import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
 import fr.istic.evc.Command.CmdCreateCObject;
@@ -90,9 +90,10 @@ public class CObject implements ICObject {
 		presentation.setPosition(position);		
 	}
 	
-	public void updateOrientation(Quat4f orientation) {
+	public void updateOrientation(Quat4d orientation) {
 		abstraction.setOrientation(orientation);
 		presentation.setOrientation(orientation);
+		presentation.setPosition(getPosition());
 	}
 	
 	/**
@@ -136,7 +137,7 @@ public class CObject implements ICObject {
 	 * e object
 	 * @param orientation a quaternion which define the orientation of the object
 	 */
-	public void setOrientation(Quat4f orientation) {
+	public void setOrientation(Quat4d orientation) {
 		if(!entity.isServer()) {
 			I_Command cmd = new CmdUpdateOrientation(this.getId(), orientation);
 			((Client)entity).changed(cmd);
@@ -244,7 +245,7 @@ public class CObject implements ICObject {
 	}
 	
 	@Override
-	public Quat4f getOrientation() {
+	public Quat4d getOrientation() {
 		return abstraction.getOrientation();
 	}
 

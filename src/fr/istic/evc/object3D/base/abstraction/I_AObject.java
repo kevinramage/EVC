@@ -11,7 +11,7 @@ package fr.istic.evc.object3D.base.abstraction;
 import java.io.Serializable;
 
 import javax.vecmath.Color3f;
-import javax.vecmath.Quat4f;
+import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
 public interface I_AObject extends Serializable {
@@ -26,7 +26,7 @@ public interface I_AObject extends Serializable {
 	 * Set the orientation of the object
 	 * @param orientation a quaternion which define the orientation of the object
 	 */
-	void setOrientation(Quat4f orientation);
+	void setOrientation(Quat4d orientation);
 	
 	/**
 	 * Set the geometry of the object
@@ -101,7 +101,7 @@ public interface I_AObject extends Serializable {
 
 	Color3f getBackupColor();
 
-	Quat4f getOrientation();
+	Quat4d getOrientation();
 
 	boolean isPickable();
 

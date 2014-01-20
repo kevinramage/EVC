@@ -2,7 +2,7 @@ package fr.istic.evc.object3D.base.controller;
 
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
-import javax.vecmath.Quat4f;
+import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
 import fr.istic.evc.Command.CmdCreateCCamera;
@@ -36,7 +36,7 @@ public class CCamera extends CObject {
 		// Calculate orientation
 		Transform3D t = new Transform3D();
 		t.setEuler(new Vector3d(Math.PI / 2, 0, 0));
-		Quat4f orientation = new Quat4f();
+		Quat4d orientation = new Quat4d();
 		t.get(orientation);
 		
 		// Init param

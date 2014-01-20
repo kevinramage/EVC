@@ -1,10 +1,8 @@
 package fr.istic.evc.object3D.base.controller;
 
 import fr.istic.evc.Command.CmdCreateCElastic;
-import fr.istic.evc.Command.CmdCreateCObject;
 import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.presentation.PElasticObject;
 import fr.istic.evc.pattern.Observer;
 

@@ -9,7 +9,7 @@
 package fr.istic.evc.object3D.base.abstraction;
 
 import javax.vecmath.Color3f;
-import javax.vecmath.Quat4f;
+import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
 public class AObject implements I_AObject{
@@ -19,7 +19,7 @@ public class AObject implements I_AObject{
 	private static final long serialVersionUID = 1L;
 	protected String id;
 	protected Vector3d position;
-	protected Quat4f orientation;
+	protected Quat4d orientation;
 	protected String geometry;
 	protected Vector3d scale;
 	protected boolean isPickable;
@@ -32,7 +32,7 @@ public class AObject implements I_AObject{
 	public AObject() {
 		id = "";
 		position = new Vector3d();
-		orientation = new Quat4f();
+		orientation = new Quat4d();
 		geometry = "";
 		scale = new Vector3d();
 		ambientColor = new Color3f();
@@ -56,7 +56,7 @@ public class AObject implements I_AObject{
 	}
 
 	@Override
-	public void setOrientation(Quat4f orientation) {
+	public void setOrientation(Quat4d orientation) {
 		this.orientation = orientation;
 	}
 
@@ -144,7 +144,7 @@ public class AObject implements I_AObject{
 
 
 	@Override
-	public Quat4f getOrientation() {
+	public Quat4d getOrientation() {
 		return orientation;
 	}
 

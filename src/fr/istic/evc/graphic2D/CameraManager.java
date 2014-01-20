@@ -2,6 +2,7 @@ package fr.istic.evc.graphic2D;
 
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
@@ -64,7 +65,7 @@ public class CameraManager {
 
 	public void translateObject(ICObject object, double dx, double dy, double dz) {
 
-		/*
+		
 		// Object transform
 		Transform3D transformObject = object.getTransform();
 		
@@ -78,7 +79,7 @@ public class CameraManager {
 
 		// World orientation inverse
 		Transform3D transformWorldOrientationInv = new Transform3D();
-		transformWorldOrientation.invert(transformWorldOrientationInv);
+		transformWorldOrientationInv.invert(transformWorldOrientation);
 		
 		// Result
 		Transform3D result = new Transform3D();
@@ -88,30 +89,32 @@ public class CameraManager {
 
 		// Set transform
 		Vector3d position = new Vector3d();
-		Quat4f orientation = new Quat4f();
-		result.get(position);
+		Quat4d orientation = new Quat4d();
 		result.get(orientation);
-		object.setPosition(position);
-		object.setOrientation(orientation);
-		*/
-		
-		Transform3D transformView = new Transform3D();
-		transformGroup.getTransform(transformView);
-		transformView.invert();
-		
-		Transform3D transformObj = object.getTransform();
-		
-		Transform3D transformDelta = new Transform3D();
-		transformDelta.setTranslation(new Vector3d(dx, dy, dz));
-		
-		
-		Transform3D result = new Transform3D();
-		result.mul(transformDelta, transformObj);
-		//result.mul();
-		
-		
-		Vector3d position = new Vector3d();
 		result.get(position);
+		object.setOrientation(orientation);
 		object.setPosition(position);
+		
+		
+	
+//		Transform3D transformView = new Transform3D();
+//		transformGroup.getTransform(transformView);
+//		transformView.invert();
+//		
+//		Transform3D transformObj = object.getTransform();
+//		
+//		Transform3D transformDelta = new Transform3D();
+//		transformDelta.setTranslation(new Vector3d(dx, dy, dz));
+//		
+//		
+//		Transform3D result = new Transform3D();
+//		result.mul(transformDelta, transformObj);
+//		//result.mul();
+//		
+//		
+//		Vector3d position = new Vector3d();
+//		result.get(position);
+//		object.setPosition(position);
+		
 	}
 }

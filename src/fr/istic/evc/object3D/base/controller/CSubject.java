@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.vecmath.Color3f;
-import javax.vecmath.Quat4f;
+import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
 import fr.istic.evc.Command.CmdCreateCSubject;
@@ -58,7 +58,7 @@ public class CSubject extends CObject implements Subject {
 	}
 
 	@Override
-	public void updateOrientation(Quat4f orientation) {
+	public void updateOrientation(Quat4d orientation) {
 		super.updateOrientation(orientation);
 		myNotify();
 	}

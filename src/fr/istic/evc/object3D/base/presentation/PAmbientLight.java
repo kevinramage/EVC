@@ -6,7 +6,7 @@ import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
-import javax.vecmath.Quat4f;
+import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
@@ -32,7 +32,7 @@ public class PAmbientLight extends TransformGroup implements IPAmbientLight{
 	}
 
 	@Override
-	public void setOrientation(Quat4f orientation) {
+	public void setOrientation(Quat4d orientation) {
 		// TODO Auto-generated method stub
 		
 	}

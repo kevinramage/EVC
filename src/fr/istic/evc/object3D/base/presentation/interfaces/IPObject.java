@@ -10,6 +10,7 @@ package fr.istic.evc.object3D.base.presentation.interfaces;
 
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
+import javax.vecmath.Quat4d;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
 
@@ -25,9 +26,9 @@ public interface IPObject {
 	
 	/**
 	 * Set the orientation of the object
-	 * @param orientation a quaternion which define the orientation of the object
+	 * @param quat4f a quaternion which define the orientation of the object
 	 */
-	void setOrientation(Quat4f orientation);
+	void setOrientation(Quat4d quat4f);
 	
 	/**
 	 * Set the geometry of the object

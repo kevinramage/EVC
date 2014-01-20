@@ -2,6 +2,7 @@ package fr.istic.evc.Command;
 
 import java.util.List;
 
+import javax.vecmath.Quat4d;
 import javax.vecmath.Quat4f;
 
 import fr.istic.evc.object3D.base.controller.CObject;
@@ -16,15 +17,15 @@ public class CmdUpdateOrientation implements I_Command {
 	
 	private static final long serialVersionUID = 1L;
 	protected String id;
-	protected Quat4f orientation;
+	protected Quat4d orientation;
 	
 
 
 	/* ---------- Constructors ---------- */
 	
-	public CmdUpdateOrientation(String id, Quat4f orientation) {
+	public CmdUpdateOrientation(String id, Quat4d orientation2) {
 		this.id = id;
-		this.orientation = orientation;
+		this.orientation = orientation2;
 	}
 	
 
