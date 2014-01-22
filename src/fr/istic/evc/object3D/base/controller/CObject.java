@@ -155,6 +155,11 @@ public class CObject implements ICObject {
 		abstraction.setGeometry(geometry);
 		presentation.setGeometry(geometry);
 	}
+	@Override
+	public void updateGeometry(String geometry) {
+		abstraction.setGeometry(geometry);
+		presentation.setGeometry(geometry);
+	}
 
 	/**
 	 * Set the scale of the object
@@ -163,12 +168,19 @@ public class CObject implements ICObject {
 	public void setScale(Vector3d scale) {
 
 	}
+	public void updateScale(Vector3d scale) {
+		
+	}
 	
 	/**
 	 * Define if the object if pickable or not
 	 * @param b boolean which determine if object is pickable or not
 	 */
 	public void setPickable(boolean b) {
+		abstraction.setPickable(b);
+		presentation.setPickable(b);
+	}
+	public void updatePickable(boolean b) {
 		abstraction.setPickable(b);
 		presentation.setPickable(b);
 	}
@@ -282,6 +294,8 @@ public class CObject implements ICObject {
 	public boolean isPickable() {
 		return abstraction.isPickable();
 	}
+
+
 
 
 }

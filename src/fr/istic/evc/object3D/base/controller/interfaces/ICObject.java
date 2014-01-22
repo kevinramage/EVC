@@ -38,11 +38,6 @@ public interface ICObject{
 	 * @param orientation a quaternion which define the orientation of the object
 	 */
 	void setOrientation(Quat4d orientation);
-
-	/**
-	 * Update the orientation of the object
-	 * @param orientation a quaternion which define the orientation of the object
-	 */
 	void updateOrientation(Quat4d orientation);
 	
 	/**
@@ -50,29 +45,27 @@ public interface ICObject{
 	 * @param geometry the geometry primitive name or the geometry url of the object
 	 */
 	void setGeometry(String geometry);
+	void updateGeometry(String geometry);
 
 	/**
 	 * Set the scale of the object
 	 * @param scale a vector3 which contains the scale x, y, z of the object
 	 */
 	void setScale(Vector3d scale);
+	void updateScale(Vector3d scale);
 	
 	/**
 	 * Define if the object if pickable or not
 	 * @param b boolean which determine if object is pickable or not
 	 */
 	void setPickable(boolean b);
+	void updatePickable(boolean b);
 	
 	/**
 	 * Set the ambient color of the object
 	 * @param ambientColor a float vector3 which contains the ambient color r, g, b of the object
 	 */
 	void setAmbientColor(Color3f ambientColor);
-	
-	/**
-	 * Update the ambient color of the object
-	 * @param ambientColor a float vector3 which contains the ambient color r, g, b of the object
-	 */
 	void updateAmbientColor(Color3f ambientColor);	
 
 	/**
@@ -80,11 +73,6 @@ public interface ICObject{
 	 * @param diffuseColor a float vector3 which contains the diffuse color r, g, b of the object
 	 */
 	void setDiffuseColor(Color3f diffuseColor);
-	
-	/**
-	 * Update the diffuse color of the object
-	 * @param diffuseColor a float vector3 which contains the ambient color r, g, b of the object
-	 */
 	void updateDiffuseColor(Color3f diffuseColor);	
 	
 	

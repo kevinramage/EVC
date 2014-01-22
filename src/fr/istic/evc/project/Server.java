@@ -13,14 +13,13 @@ import javax.vecmath.Vector3d;
 
 import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
+import fr.istic.evc.Factory.WorldBuiler;
 import fr.istic.evc.device.Mouse;
 import fr.istic.evc.graphic2D.Camera;
 import fr.istic.evc.graphic2D.IHM;
 import fr.istic.evc.network.MulticastSender;
 import fr.istic.evc.object3D.base.controller.CAmbientLight;
 import fr.istic.evc.object3D.base.controller.CDirectionalLight;
-import fr.istic.evc.object3D.base.controller.CElasticObject;
-import fr.istic.evc.object3D.base.controller.CSubject;
 import fr.istic.evc.object3D.base.controller.CWorld;
 import fr.istic.evc.object3D.base.controller.interfaces.ICAmbientLight;
 import fr.istic.evc.object3D.base.controller.interfaces.ICDirectionalLight;
@@ -59,21 +58,8 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
         }
 		
 		// World
-		world = new CWorld();
+		//world = new CWorld();
 		//world.setServer(this);
-		
-		/*
-		// Ambient light 1
-		ambientLight1 = new CAmbientLight();
-		ambientLight1.setId("ambientLight1");
-		ambientLight1.setAmbientColor(new Color3f(0.2f, 0.2f, 0.2f));
-		world.add(ambientLight1);
-
-		// Directional light 1
-		ICDirectionalLight directionalLight1 = new CDirectionalLight();
-		directionalLight1.setId("directionalLight1");
-		world.add(directionalLight1);
-		*/
 		
 		// Box1
 //		ICObject box1 = new CObject();
@@ -96,63 +82,66 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 //		box2.setPosition(new Vector3d(10, 0, 5));
 //		box2.IsPickable(true);
 //		world.add(box2);
-		
-		/*
-		// Box3
-		ICObject box3 = new CObject();
-		box3.setEntity(this);
-		box3.setId("box3");
-		box3.setGeometry("cube");
-		box3.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
-		box3.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
-		box3.setPosition(new Vector3d(0, 0, -5 ));
-		box3.IsPickable(true);
-		world.add(box3);
-		*/
+//		
+//		// Box3
+//		ICObject box3 = new CObject();
+//		box3.setEntity(this);
+//		box3.setId("box3");
+//		box3.setGeometry("cube");
+//		box3.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
+//		box3.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
+//		box3.setPosition(new Vector3d(0, 0, -5 ));
+//		box3.IsPickable(true);
+//		world.add(box3);
 		
 		
-		CSubject s1 = new CSubject();
-		s1.setEntity(this);
-		s1.setId("S1");
-		s1.setGeometry("sphere");
-		s1.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
-		s1.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
-		s1.setPosition(new Vector3d(-5, 0, -5 ));
-		s1.setPickable(true);
-		world.add(s1);
-		
-		CSubject s2 = new CSubject();
-		s2.setEntity(this);
-		s2.setId("s2");
-		s2.setGeometry("sphere");
-		s2.updateAmbientColor(new Color3f(0.0f, 1.0f, 0.0f));
-		s2.setDiffuseColor(new Color3f(0.0f, 1.0f, 0.0f));
-		s2.setPosition(new Vector3d(5, 0, -5 ));
-		s2.setPickable(true);
-		world.add(s2);
-		
-		
-		ICObject elastic = new CElasticObject(s1, s2);
-		elastic.setEntity(this);
-		elastic.setId("elastic1");
-		elastic.setPickable(false);
-		world.add(elastic);
+//		CSubject s1 = new CSubject();
+//		s1.setEntity(this);
+//		s1.setId("S1");
+//		s1.setGeometry("sphere");
+//		s1.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
+//		s1.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
+//		s1.setPosition(new Vector3d(-5, 0, -5 ));
+//		s1.setPickable(true);
+//		world.add(s1);
+//		
+//		CSubject s2 = new CSubject();
+//		s2.setEntity(this);
+//		s2.setId("s2");
+//		s2.setGeometry("sphere");
+//		s2.updateAmbientColor(new Color3f(0.0f, 1.0f, 0.0f));
+//		s2.setDiffuseColor(new Color3f(0.0f, 1.0f, 0.0f));
+//		s2.setPosition(new Vector3d(5, 0, -5 ));
+//		s2.setPickable(true);
+//		world.add(s2);
+//		
+//		
+//		ICObject elastic = new CElasticObject(s1, s2);
+//		elastic.setEntity(this);
+//		elastic.setId("elastic1");
+//		elastic.setPickable(false);
+//		world.add(elastic);
 		
 		
 		
 		
-		// Ambient light 1
-		ICAmbientLight ambientLight1 = new CAmbientLight();
-		ambientLight1.setEntity(this);
-		ambientLight1.setId("ambientLight1");
-		ambientLight1.updateAmbientColor(new Color3f(0.2f, 0.2f, 0.2f));
-		world.add(ambientLight1);
-
-		// Directional light 1
-		ICDirectionalLight directionalLight1 = new CDirectionalLight();
-		directionalLight1.setEntity(this);
-		directionalLight1.setId("directionalLight1");
-		world.add(directionalLight1);
+//		// Ambient light 1
+//		ICAmbientLight ambientLight1 = new CAmbientLight();
+//		ambientLight1.setEntity(this);
+//		ambientLight1.setId("ambientLight1");
+//		ambientLight1.updateAmbientColor(new Color3f(0.2f, 0.2f, 0.2f));
+//		world.add(ambientLight1);
+//
+//		// Directional light 1
+//		ICDirectionalLight directionalLight1 = new CDirectionalLight();
+//		directionalLight1.setEntity(this);
+//		directionalLight1.setId("directionalLight1");
+//		world.add(directionalLight1);
+		
+		
+		// World
+		world = WorldBuiler.getInstance().load("01.xml");
+		
 		
 		// System camera
 		Camera systemCamera = new Camera();
