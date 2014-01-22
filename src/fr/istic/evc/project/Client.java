@@ -72,7 +72,7 @@ public class Client implements IEntity{
 		// System Camera
 		systemCamera = new Camera();
 		Transform3D transform3D = new Transform3D();
-		transform3D.setTranslation(new Vector3d(0, 0, 10));
+		transform3D.setTranslation(new Vector3d(0, 0, 0));
 		systemCamera.setTransform3D(transform3D);
 		
 		// Camera Manager
@@ -96,7 +96,8 @@ public class Client implements IEntity{
 		camera.setEntity(this);
 		camera.updatePosition(new Vector3d(0, 0, 5));
 		camera.setPickable(true);
-		camera.updateAmbientColor(getCameraColor());
+//		camera.updateAmbientColor(getCameraColor());
+		camera.updateAmbientColor(new Color3f(Color.orange));
 		createObject(camera);
 		
 	}

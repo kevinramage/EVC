@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
+import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
 import fr.istic.evc.Command.I_Command;
@@ -122,7 +123,53 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 //		elastic.setPickable(false);
 //		world.add(elastic);
 		
+		// Box du monde
+//		ICObject boxWorld = new CObject();
+//		boxWorld.setEntity(this);
+//		boxWorld.setId("box1");
+//		boxWorld.updateGeometry("cube");
+//		boxWorld.updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
+//		boxWorld.updateDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
+//		boxWorld.updatePosition(new Vector3d(-10, 0, 0));
+//		boxWorld.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
+//		boxWorld.updatePickable(true);
+//		world.add(boxWorld);
+//		
+//
+//		ICObject box2 = new CObject();
+//		box2.setEntity(this);
+//		box2.setId("box2");
+//		box2.updateGeometry("cube");
+//		box2.updateAmbientColor(new Color3f(0.0f, 1.0f, 0.0f));
+//		box2.updateDiffuseColor(new Color3f(0.0f, 1.0f, 0.0f));
+//		box2.updatePosition(new Vector3d(10, 0, 0));
+//		box2.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
+//		box2.updatePickable(true);
+//		world.add(box2);
 		
+
+		ICObject box3 = new CObject();
+		box3.setEntity(this);
+		box3.setId("box3");
+		box3.updateGeometry("cube");
+		box3.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
+		box3.updateDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
+		box3.updatePosition(new Vector3d(0, 0, 10));
+		box3.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
+		box3.updatePickable(true);
+		world.add(box3);
+		
+
+		ICObject box4 = new CObject();
+		box4.setEntity(this);
+		box4.setId("box4");
+		box4.updateGeometry("cube");
+		box4.updateAmbientColor(new Color3f(0.8f, 0.8f, 0.8f));
+		box4.updateDiffuseColor(new Color3f(0.8f, 0.8f, 0.8f));
+		box4.updatePosition(new Vector3d(0, 0, -10));
+		box4.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
+		box4.updatePickable(true);
+		world.add(box4);
 		
 		
 		// Ambient light 1
@@ -146,7 +193,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		// System camera
 		Camera systemCamera = new Camera();
 		Transform3D transform3D = new Transform3D();
-		transform3D.setTranslation(new Vector3d(0, 0, 10));
+		transform3D.setTranslation(new Vector3d(0, 0, 0));
 		systemCamera.setTransform3D(transform3D);
 		
 		// Devices
