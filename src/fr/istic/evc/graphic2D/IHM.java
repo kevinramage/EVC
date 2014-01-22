@@ -28,7 +28,7 @@ public IHM(CameraManager cameraManager, ICWorld world, Camera systemCamera, Clie
 		JPanel topPanel = new JPanel();
 		topPanel.setSize(new Dimension(1024, 40));
 		topPanel.setLayout(null);
-		topPanel.add(new ViewPanel(world));
+		topPanel.add(new ViewPanel(world, cameraManager));
 		topPanel.add(new NavigationModePanel(cameraManager));
 		topPanel.add(new CameraPanel(cameraManager, systemCamera));
 		add(topPanel);
@@ -70,7 +70,7 @@ public IHM(CameraManager cameraManager, ICWorld world, Camera systemCamera, Clie
 		JPanel topPanel = new JPanel();
 		topPanel.setSize(new Dimension(1024, 40));
 		topPanel.setLayout(null);
-		topPanel.add(new ViewPanel(world));
+		topPanel.add(new ViewPanel(world, cameraManager));
 		topPanel.add(new NavigationModePanel(cameraManager));
 		topPanel.add(new CameraPanel(cameraManager, systemCamera));
 		add(topPanel);

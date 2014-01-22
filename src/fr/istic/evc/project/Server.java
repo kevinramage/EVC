@@ -13,13 +13,13 @@ import javax.vecmath.Vector3d;
 
 import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
-import fr.istic.evc.Factory.WorldBuiler;
 import fr.istic.evc.device.Mouse;
 import fr.istic.evc.graphic2D.Camera;
 import fr.istic.evc.graphic2D.IHM;
 import fr.istic.evc.network.MulticastSender;
 import fr.istic.evc.object3D.base.controller.CAmbientLight;
 import fr.istic.evc.object3D.base.controller.CDirectionalLight;
+import fr.istic.evc.object3D.base.controller.CObject;
 import fr.istic.evc.object3D.base.controller.CWorld;
 import fr.istic.evc.object3D.base.controller.interfaces.ICAmbientLight;
 import fr.istic.evc.object3D.base.controller.interfaces.ICDirectionalLight;
@@ -58,18 +58,18 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
         }
 		
 		// World
-		//world = new CWorld();
-		//world.setServer(this);
+		world = new CWorld();
+//		world.setServer(this);
 		
 		// Box1
 //		ICObject box1 = new CObject();
 //		box1.setEntity(this);
 //		box1.setId("box1");
-//		box1.setGeometry("cube");
+//		box1.updateGeometry("cube");
 //		box1.updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
-//		box1.setDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
-//		box1.setPosition(new Vector3d(-10, 0, -5));
-//		box1.IsPickable(true);
+//		box1.updateDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
+//		box1.updatePosition(new Vector3d(-10, 0, -5));
+//		box1.updatePickable(true);
 //		world.add(box1);
 //		
 //		// Box2
@@ -80,7 +80,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 //		box2.updateAmbientColor(new Color3f(0.5f, 0.5f, 0.5f));
 //		box2.setDiffuseColor(new Color3f(0.5f, 0.5f, 0.5f));
 //		box2.setPosition(new Vector3d(10, 0, 5));
-//		box2.IsPickable(true);
+//		box2.setPickable(true);
 //		world.add(box2);
 //		
 //		// Box3
@@ -91,7 +91,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 //		box3.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
 //		box3.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
 //		box3.setPosition(new Vector3d(0, 0, -5 ));
-//		box3.IsPickable(true);
+//		box3.setPickable(true);
 //		world.add(box3);
 		
 		
@@ -125,28 +125,28 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		
 		
 		
-//		// Ambient light 1
-//		ICAmbientLight ambientLight1 = new CAmbientLight();
-//		ambientLight1.setEntity(this);
-//		ambientLight1.setId("ambientLight1");
-//		ambientLight1.updateAmbientColor(new Color3f(0.2f, 0.2f, 0.2f));
-//		world.add(ambientLight1);
-//
-//		// Directional light 1
-//		ICDirectionalLight directionalLight1 = new CDirectionalLight();
-//		directionalLight1.setEntity(this);
-//		directionalLight1.setId("directionalLight1");
-//		world.add(directionalLight1);
+		// Ambient light 1
+		ICAmbientLight ambientLight1 = new CAmbientLight();
+		ambientLight1.setEntity(this);
+		ambientLight1.setId("ambientLight1");
+		ambientLight1.updateAmbientColor(new Color3f(0.2f, 0.2f, 0.2f));
+		world.add(ambientLight1);
+
+		// Directional light 1
+		ICDirectionalLight directionalLight1 = new CDirectionalLight();
+		directionalLight1.setEntity(this);
+		directionalLight1.setId("directionalLight1");
+		world.add(directionalLight1);
 		
 		
 		// World
-		world = WorldBuiler.getInstance().load("01.xml");
+//		world = WorldBuiler.getInstance().load("01.xml");
 		
 		
 		// System camera
 		Camera systemCamera = new Camera();
 		Transform3D transform3D = new Transform3D();
-		transform3D.setTranslation(new Vector3d(0, 0, 30));
+		transform3D.setTranslation(new Vector3d(0, 0, 10));
 		systemCamera.setTransform3D(transform3D);
 		
 		// Devices

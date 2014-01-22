@@ -154,4 +154,10 @@ public class CameraManager implements Subject, Observer {
 	public TransformGroup getTransform() {
 		return transformGroup;
 	}
+
+	public void changeView(Transform3D transform3d) {
+		transformGroup.setTransform(transform3d);
+		System.out.println("CameraManager.changeView()");
+		myNotify();
+	}
 }

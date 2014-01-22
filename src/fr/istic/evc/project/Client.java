@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.List;
-import java.util.Random;
 
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
@@ -93,12 +92,12 @@ public class Client implements IEntity{
 		recuperateObjects();
 		
 		// Presentation Camera
-//		ICObject camera = new CCamera(cameraManager);
-//		camera.setEntity(this);
-//		camera.updatePosition(new Vector3d(0, 0, 5));
-//		camera.setPickable(true);
-//		camera.updateAmbientColor(getCameraColor());
-//		createObject(camera);
+		ICObject camera = new CCamera(cameraManager);
+		camera.setEntity(this);
+		camera.updatePosition(new Vector3d(0, 0, 5));
+		camera.setPickable(true);
+		camera.updateAmbientColor(getCameraColor());
+		createObject(camera);
 		
 	}
 
@@ -132,6 +131,7 @@ public class Client implements IEntity{
 
 	public void addObject(I_CreateCommand cmd) {
 		cmd.execute(world, this);
+		System.out.println("Client.addObject()");
 	}
 	
 	public List<ICObject> getObjects() {
@@ -146,7 +146,7 @@ public class Client implements IEntity{
 
 	public void createObject(ICObject controller) {
 		compteur++;
-		System.out.println("Client.createObject()");
+		System.out.println("Client.createObject(): " + controller);
 		System.out.println("Compteur : "+compteur);
 		controller.setId(""+compteur+"-"+id);
 		try {

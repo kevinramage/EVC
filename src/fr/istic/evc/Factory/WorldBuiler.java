@@ -149,7 +149,7 @@ public class WorldBuiler {
 		} else if ( type.equals(boolean.class)) {
 			return Boolean.parseBoolean(input);
 		}
-		System.out.println("BAD: " + type);
+		System.err.println("BAD: " + type);
 		return null;
 	}	
 	

@@ -2,6 +2,7 @@ package fr.istic.evc.object3D.base.controller;
 
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.vecmath.Color3f;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
@@ -76,21 +77,19 @@ public class CCamera extends CObject implements Observer{
 		
 		// Transform based
 		Transform3D tOld = getBasedOrientation();
+		tOld.setTranslation(new Vector3d(0,0,5));
 		//tOld.invert();
 		
 		// Mul
 		t3D.mul(tOld);
 		
-		
+		// Get result
 		Vector3d position = new Vector3d();
 		Quat4d orientation = new Quat4d();
-		
-		
 		t3D.get(position);
 		t3D.get(orientation);
-		position.z += 2;
 		
-		
+		// Set the result
 		setPosition(position);
 		setOrientation(orientation);
 	}

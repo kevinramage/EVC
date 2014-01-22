@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.media.j3d.Transform3D;
-import javax.media.j3d.TransformGroup;
 import javax.vecmath.Vector3d;
 
 public class ViewListener implements ActionListener {
@@ -14,17 +13,17 @@ public class ViewListener implements ActionListener {
 	public enum VIEW_TYPE { FRONT, BACK, TOP, BOTTOM, LEFT, RIGHT };
 	private VIEW_TYPE type;
 	private static Map<VIEW_TYPE, Transform3D> transforms;
-	private TransformGroup transformGroup;
+	private CameraManager cameraManager;
 	
-	public ViewListener (TransformGroup transformGroup, VIEW_TYPE type){
-		this.transformGroup = transformGroup;
+	public ViewListener (CameraManager cameraManager, VIEW_TYPE type){
 		this.type = type;
+		this.cameraManager = cameraManager;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Transform3D transform3D = transforms.get(type);
-		transformGroup.setTransform(transform3D);
+		cameraManager.changeView(transform3D);
 	}
 
 	static {
