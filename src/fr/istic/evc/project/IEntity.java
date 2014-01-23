@@ -6,4 +6,6 @@ public interface IEntity {
 	boolean isServer();
 	
 	ICWorld getWorld();
+
+	int getId();
 }

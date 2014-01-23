@@ -7,11 +7,15 @@ import javax.vecmath.Color3f;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
+import fr.istic.evc.Command.CmdCreateCObject;
 import fr.istic.evc.Command.CmdCreateCSubject;
+import fr.istic.evc.Command.CmdUpdatePosition;
+import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.object3D.base.abstraction.I_AObject;
 import fr.istic.evc.pattern.Observer;
 import fr.istic.evc.pattern.Subject;
+import fr.istic.evc.project.Client;
 
 public class CSubject extends CObject implements Subject {
 	protected List<Observer> lo;
@@ -30,7 +34,7 @@ public class CSubject extends CObject implements Subject {
 	@Override
 	public I_CreateCommand getCreateCommand() {
 		// TODO Auto-generated method stub
-		return new CmdCreateCSubject(abstraction);
+		return new CmdCreateCSubject(getAbstraction());
 	}
 	
 	
@@ -46,16 +50,23 @@ public class CSubject extends CObject implements Subject {
 
 	@Override
 	public void myNotify() {
-		for (Observer o:lo)
+		for (Observer o:lo) {
+			System.out.println("CSubject.myNotify()");
 			o.update();
-		
+		}
 	}
-
+	
 	@Override
-	public void updatePosition(Vector3d position) {
-		super.updatePosition(position);
-		myNotify();
+	public void setPosition(Vector3d position) {
+		if ( !entity.isServer() ) {
+			I_Command cmd = new CmdUpdatePosition(this.getId(), position, Integer.parseInt(this.getId().split("-")[0]) != entity.getId());
+			((Client)entity).changed(cmd);
+		} else {
+			updatePosition(position);
+		}
 	}
+	
+	
 
 	@Override
 	public void updateOrientation(Quat4d orientation) {

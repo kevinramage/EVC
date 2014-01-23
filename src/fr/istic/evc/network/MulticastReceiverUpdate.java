@@ -51,7 +51,7 @@ public class MulticastReceiverUpdate extends Thread implements Runnable {
            
             // Get object
             I_Command cmd = (I_Command)ois.readObject () ;
-            cmd.execute(client.getWorld());
+            cmd.execute(client);
             
             
         } catch (Exception e) {

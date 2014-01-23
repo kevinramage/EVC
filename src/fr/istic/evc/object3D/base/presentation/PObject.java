@@ -125,9 +125,16 @@ public class PObject extends TransformGroup implements IPObject {
 
 	@Override
 	public void setOrientation(Quat4d orientation) {
+		
 		Transform3D transform3d = new Transform3D();
 		getTransform(transform3d);
+		
+		// Get translation
+		Vector3d translation = new Vector3d();
+		transform3d.get(translation);
+		
 		transform3d.set(orientation);
+		transform3d.setTranslation(translation);
 		setTransform(transform3d);
 	}
 

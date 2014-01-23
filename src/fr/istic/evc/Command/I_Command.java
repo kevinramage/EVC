@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
+import fr.istic.evc.project.IEntity;
 
 /**
  * Command for the update of an ICObject (client side)
@@ -17,5 +18,5 @@ public interface I_Command extends Serializable {
 	 * @param the world
 	 */
 
-	void execute(ICWorld world);
+	void execute(IEntity client);
 }

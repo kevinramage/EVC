@@ -2,7 +2,6 @@ package fr.istic.evc.object3D.base.controller;
 
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
-import javax.vecmath.Color3f;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
@@ -14,7 +13,7 @@ import fr.istic.evc.object3D.base.abstraction.I_AObject;
 import fr.istic.evc.object3D.base.presentation.PObject;
 import fr.istic.evc.pattern.Observer;
 
-public class CCamera extends CObject implements Observer{
+public class CCamera extends CSubject implements Observer{
 	
 	protected CameraManager manager;
 	
@@ -25,6 +24,7 @@ public class CCamera extends CObject implements Observer{
 		presentation = new PObject(this);
 		this.manager = manager;
 		manager.attach(this);
+		this.attach(manager);
 		init();
 	}
 
@@ -92,6 +92,13 @@ public class CCamera extends CObject implements Observer{
 		// Set the result
 		setPosition(position);
 		setOrientation(orientation);
+	}
+	
+	@Override
+	public void setPosition(Vector3d position) {
+		super.setPosition(position);
+		myNotify();
+		System.out.println("CCamera.setPosition()");
 	}
 	
 }

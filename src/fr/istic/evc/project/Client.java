@@ -24,8 +24,9 @@ import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
 
 
 public class Client implements IEntity{
-	
+
 	private static final String hostName = "127.0.0.1";
+//	private static final String hostName = "148.60.5.129";
 	private static final int port = 1234;
 	private static final String serverName = "williamServer";
 	// ---------------------------------------------------------
@@ -78,6 +79,9 @@ public class Client implements IEntity{
 		// Camera Manager
 		CameraManager cameraManager = new CameraManager(world.getPresentation().getWorldTransform());
 		cameraManager.changeCamera(systemCamera);
+		
+		// Ajout du Camera Manager dans le cworld
+		world.setCameraManager(cameraManager);
 		
 		// Device
 		Mouse mouse = new Mouse();
@@ -149,7 +153,7 @@ public class Client implements IEntity{
 		compteur++;
 		System.out.println("Client.createObject(): " + controller);
 		System.out.println("Compteur : "+compteur);
-		controller.setId(""+compteur+"-"+id);
+		controller.setId(id+"-"+compteur);
 		try {
 			is.addObject(controller.getCreateCommand());
 		} catch (RemoteException e) {
@@ -162,6 +166,11 @@ public class Client implements IEntity{
 	@Override
 	public ICWorld getWorld() {
 		return this.world;
+	}
+	
+	@Override
+	public int getId() {
+		return this.id;
 	}
 	
 	

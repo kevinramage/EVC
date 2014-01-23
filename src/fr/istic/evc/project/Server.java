@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.media.j3d.Transform3D;
+import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
@@ -16,6 +17,7 @@ import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.device.Mouse;
 import fr.istic.evc.graphic2D.Camera;
+import fr.istic.evc.graphic2D.CameraManager;
 import fr.istic.evc.graphic2D.IHM;
 import fr.istic.evc.network.MulticastSender;
 import fr.istic.evc.object3D.base.controller.CAmbientLight;
@@ -199,6 +201,8 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		// Devices
 		world.addDevice(new Mouse());
 		
+		world.setCameraManager(new CameraManager(new TransformGroup()));
+		
 		// Show world
 		world.show();
 		
@@ -226,7 +230,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 
 	@Override
 	public void sendCommand(I_Command cmd) {
-		cmd.execute(world);
+		cmd.execute(this);
 		sender.updateObject(cmd);
 	}
 	
@@ -271,5 +275,10 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	public ICWorld getWorld() {
 		return this.world;
 	}
+
 	
+	@Override
+	public int getId() {
+		return -1;
+	}
 }

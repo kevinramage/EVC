@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.istic.evc.device.IDevice;
+import fr.istic.evc.graphic2D.CameraManager;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
 import fr.istic.evc.object3D.base.presentation.PWorld;
@@ -16,6 +17,7 @@ public class CWorld implements ICWorld{
 	protected IPWorld presentation;
 	protected List<ICObject> objects;
 	protected List<IDevice> device;
+	protected CameraManager cameraManager;
 	
 
 
@@ -48,6 +50,11 @@ public class CWorld implements ICWorld{
 	public IPWorld getPresentation() {
 		return presentation;
 	}
+	
+	@Override
+	public CameraManager getCameraManager() {
+		return cameraManager;
+	}
 
 	@Override
 	public void add(ICObject object) {
@@ -68,5 +75,10 @@ public class CWorld implements ICWorld{
 	@Override
 	public List<ICObject> getObjects() {
 		return objects;
+	}
+
+	@Override
+	public void setCameraManager(CameraManager cameraManager) {
+		this.cameraManager = cameraManager;
 	}
 }

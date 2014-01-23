@@ -93,7 +93,6 @@ public class CObject implements ICObject {
 	public void updateOrientation(Quat4d orientation) {
 		abstraction.setOrientation(orientation);
 		presentation.setOrientation(orientation);
-		presentation.setPosition(getPosition());
 	}
 	
 	/**
@@ -125,7 +124,7 @@ public class CObject implements ICObject {
 	 */
 	public void setPosition(Vector3d position) {
 		if ( !entity.isServer() ) {
-			I_Command cmd = new CmdUpdatePosition(this.getId(), position);
+			I_Command cmd = new CmdUpdatePosition(this.getId(), position, false);
 			((Client)entity).changed(cmd);
 		} else {
 			updatePosition(position);
@@ -155,6 +154,7 @@ public class CObject implements ICObject {
 		abstraction.setGeometry(geometry);
 		presentation.setGeometry(geometry);
 	}
+	
 	@Override
 	public void updateGeometry(String geometry) {
 		abstraction.setGeometry(geometry);

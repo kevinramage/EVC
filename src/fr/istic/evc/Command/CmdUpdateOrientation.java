@@ -8,6 +8,7 @@ import javax.vecmath.Quat4f;
 import fr.istic.evc.object3D.base.controller.CObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
+import fr.istic.evc.project.IEntity;
 
 public class CmdUpdateOrientation implements I_Command {
 	
@@ -31,12 +32,12 @@ public class CmdUpdateOrientation implements I_Command {
 
 
 	/* ---------- Methods ---------- */
-	
+
 	@Override
-	public void execute(ICWorld world) {
+	public void execute(IEntity entity) {
 		
 		// Get object
-		ICObject obj = world.getObjectById(id);
+		ICObject obj = entity.getWorld().getObjectById(id);
 		obj.updateOrientation(orientation);
 	}
 }

@@ -8,6 +8,7 @@ import javax.media.j3d.TransformGroup;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
+import fr.istic.evc.object3D.base.controller.CSubject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.pattern.Observer;
 import fr.istic.evc.pattern.Subject;
@@ -130,8 +131,7 @@ public class CameraManager implements Subject, Observer {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("CameraManager.update()");
 	}
 
 	@Override
@@ -159,5 +159,33 @@ public class CameraManager implements Subject, Observer {
 		transformGroup.setTransform(transform3d);
 		System.out.println("CameraManager.changeView()");
 		myNotify();
+	}
+
+	public void refresh(CSubject subject) {
+		System.out.println("CameraManager.refresh()");
+		
+		//  Transform subject
+		Transform3D tSubject = new Transform3D();
+		Quat4d orientation = subject.getOrientation();
+		Vector3d position = subject.getPosition();
+		tSubject.set(orientation);
+		tSubject.setTranslation(position);
+		
+		// Transform based
+		Transform3D t = new Transform3D();
+		t.setEuler(new Vector3d(-Math.PI / 2, 0, 0));
+		orientation = new Quat4d();
+		t.get(orientation);
+		t.setTranslation(new Vector3d(0,0,-5));
+		
+		
+		//tOld.invert();
+		
+		// Mul
+		tSubject.mul(t);
+		
+		// Get result
+		transformGroup.setTransform(tSubject);	
+		
 	}
 }
