@@ -176,16 +176,29 @@ public class CameraManager implements Subject, Observer {
 		t.setEuler(new Vector3d(-Math.PI / 2, 0, 0));
 		orientation = new Quat4d();
 		t.get(orientation);
-		t.setTranslation(new Vector3d(0,0,-5));
+		t.setTranslation(new Vector3d(5,0,0));
 		
+		// Orientation
+		Transform3D o = new Transform3D();
+		transformGroup.getTransform(o);
+		o.setTranslation(new Vector3d());
 		
-		//tOld.invert();
+		// Orientation Inv
+		Transform3D oInv = new Transform3D();
+		oInv.invert(o);
+		
+		// Result
+		Transform3D result = new Transform3D();
 		
 		// Mul
+		result.mul(o, t);
+		result.mul(oInv);
+		result.mul(tSubject);
+		
 		tSubject.mul(t);
 		
 		// Get result
-		transformGroup.setTransform(tSubject);	
+		transformGroup.setTransform(result);	
 		
 	}
 }
