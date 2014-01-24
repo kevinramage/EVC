@@ -114,8 +114,8 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		s2.setEntity(this);
 		s2.setId("0-22");
 		s2.setGeometry("sphere");
-		s2.updateAmbientColor(new Color3f(0.0f, 1.0f, 0.0f));
-		s2.setDiffuseColor(new Color3f(0.0f, 1.0f, 0.0f));
+		s2.updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
+		s2.setDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
 		s2.setPosition(new Vector3d(5, 0, -5 ));
 		s2.setPickable(true);
 		world.add(s2);
@@ -152,28 +152,28 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 //		world.add(box2);
 		
 
-//		ICObject box3 = new CObject();
-//		box3.setEntity(this);
-//		box3.setId("box3");
-//		box3.updateGeometry("cube");
-//		box3.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
-//		box3.updateDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
-//		box3.updatePosition(new Vector3d(0, 0, 10));
-//		box3.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
-//		box3.updatePickable(true);
-//		world.add(box3);
-//		
-//
-//		ICObject box4 = new CObject();
-//		box4.setEntity(this);
-//		box4.setId("box4");
-//		box4.updateGeometry("cube");
-//		box4.updateAmbientColor(new Color3f(0.8f, 0.8f, 0.8f));
-//		box4.updateDiffuseColor(new Color3f(0.8f, 0.8f, 0.8f));
-//		box4.updatePosition(new Vector3d(0, 0, -10));
-//		box4.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
-//		box4.updatePickable(true);
-//		world.add(box4);
+		ICObject box3 = new CObject();
+		box3.setEntity(this);
+		box3.setId("box3");
+		box3.updateGeometry("cube");
+		box3.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
+		box3.updateDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
+		box3.updatePosition(new Vector3d(0, 0, 10));
+		box3.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
+		box3.updatePickable(true);
+		world.add(box3);
+		
+
+		ICObject box4 = new CObject();
+		box4.setEntity(this);
+		box4.setId("box4");
+		box4.updateGeometry("cube");
+		box4.updateAmbientColor(new Color3f(0.8f, 0.8f, 0.8f));
+		box4.updateDiffuseColor(new Color3f(0.8f, 0.8f, 0.8f));
+		box4.updatePosition(new Vector3d(0, 0, -10));
+		box4.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
+		box4.updatePickable(true);
+		world.add(box4);
 		
 		
 		// Ambient light 1

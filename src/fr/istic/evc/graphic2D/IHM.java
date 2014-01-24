@@ -22,6 +22,7 @@ public IHM(ICWorld world, Camera systemCamera, Client client) {
 		setSize(1024, 768);
 		setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setResizable(false);
 		
 		// Top panel
@@ -60,6 +61,7 @@ public IHM(ICWorld world, Camera systemCamera, Client client) {
 		setSize(1024, 768);
 		setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setResizable(false);
 		
 		// Camera Manager

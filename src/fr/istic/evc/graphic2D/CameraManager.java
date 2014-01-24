@@ -53,6 +53,25 @@ public class CameraManager implements Subject, Observer {
 		camera.setTransform3D(transform3D);
 	}
 	
+	public void translateWorld(double x, double y, double z) {
+		
+		// World transform
+		Transform3D transformWorld = new Transform3D(); 
+		transformGroup.getTransform(transformWorld);
+		
+		// Translation
+		Transform3D transformRotation = new Transform3D();
+		transformRotation.setTranslation(new Vector3d(x, y, z));
+		
+		// Result
+		Transform3D result = new Transform3D();
+		result.mul(transformWorld, transformRotation);
+		
+		// Set world translation
+		transformGroup.setTransform(result);
+		myNotify();
+	}
+	
 	public void rotateWorld(double dh, double dp, double dr) {
 		
 		// World transform
@@ -198,7 +217,7 @@ public class CameraManager implements Subject, Observer {
 		tSubject.mul(t);
 		
 		// Get result
-//		transformGroup.setTransform(result);	
+		transformGroup.setTransform(tSubject);	
 		
 	}
 }

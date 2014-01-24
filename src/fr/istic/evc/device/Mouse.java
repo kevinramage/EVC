@@ -229,7 +229,8 @@ public class Mouse extends Behavior implements IDevice {
 					// None object selected
 					} else {
 						
-						
+						// Translate world
+						cameraManager.translateWorld(0, 0, event.getWheelRotation());
 					}
 				}
 			}
