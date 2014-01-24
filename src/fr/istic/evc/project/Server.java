@@ -102,7 +102,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		
 		CSubject s1 = new CSubject();
 		s1.setEntity(this);
-		s1.setId("0-1");
+		s1.setId("0-21");
 		s1.setGeometry("sphere");
 		s1.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
 		s1.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
@@ -112,7 +112,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		
 		CSubject s2 = new CSubject();
 		s2.setEntity(this);
-		s2.setId("0-2");
+		s2.setId("0-22");
 		s2.setGeometry("sphere");
 		s2.updateAmbientColor(new Color3f(0.0f, 1.0f, 0.0f));
 		s2.setDiffuseColor(new Color3f(0.0f, 1.0f, 0.0f));
@@ -123,7 +123,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		
 		ICObject elastic = new CElasticObject(s1, s2);
 		elastic.setEntity(this);
-		elastic.setId("0-3");
+		elastic.setId("0-23");
 		elastic.setPickable(false);
 		world.add(elastic);
 		

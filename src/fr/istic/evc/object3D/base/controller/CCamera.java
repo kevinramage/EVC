@@ -6,12 +6,15 @@ import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
 import fr.istic.evc.Command.CmdCreateCCamera;
+import fr.istic.evc.Command.CmdUpdatePosition;
+import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.graphic2D.CameraManager;
 import fr.istic.evc.object3D.base.abstraction.AObject;
 import fr.istic.evc.object3D.base.abstraction.I_AObject;
 import fr.istic.evc.object3D.base.presentation.PObject;
 import fr.istic.evc.pattern.Observer;
+import fr.istic.evc.project.Client;
 
 public class CCamera extends CSubject implements Observer{
 	
@@ -96,9 +99,19 @@ public class CCamera extends CSubject implements Observer{
 	
 	@Override
 	public void setPosition(Vector3d position) {
-		super.setPosition(position);
-		myNotify();
-		System.out.println("CCamera.setPosition()");
+		if ( !entity.isServer() ) {
+			I_Command cmd = new CmdUpdatePosition(this.getId(), position, Integer.parseInt(this.getId().split("-")[0].trim()) != entity.getId());
+			((Client)entity).changed(cmd);
+		} else {
+			updatePosition(position);
+			myNotify();
+		}
 	}
+	
+//	@Override
+//	public void setPosition(Vector3d position) {
+//		super.setPosition(position);
+//		System.out.println("CCamera.setPosition()");
+//	}
 	
 }

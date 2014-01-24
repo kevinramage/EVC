@@ -96,13 +96,13 @@ public class Client implements IEntity{
 		recuperateObjects();
 		
 		// Presentation Camera
-		ICObject camera = new CCamera(cameraManager);
-		camera.setEntity(this);
-		camera.updatePosition(new Vector3d(0, 0, 25));
-		camera.setPickable(true);
-//		camera.updateAmbientColor(getCameraColor());
-		camera.updateAmbientColor(new Color3f(Color.orange));
-		createObject(camera);
+//		ICObject camera = new CCamera(cameraManager);
+//		camera.setEntity(this);
+//		camera.updatePosition(new Vector3d(0, 0, 25));
+//		camera.setPickable(true);
+////		camera.updateAmbientColor(getCameraColor());
+//		camera.updateAmbientColor(new Color3f(Color.orange));
+//		createObject(camera);
 		
 	}
 

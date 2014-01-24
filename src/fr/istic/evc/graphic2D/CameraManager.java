@@ -198,7 +198,7 @@ public class CameraManager implements Subject, Observer {
 		tSubject.mul(t);
 		
 		// Get result
-		transformGroup.setTransform(result);	
+//		transformGroup.setTransform(result);	
 		
 	}
 }

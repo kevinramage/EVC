@@ -56,15 +56,15 @@ public class CSubject extends CObject implements Subject {
 		}
 	}
 	
-	@Override
-	public void setPosition(Vector3d position) {
-		if ( !entity.isServer() ) {
-			I_Command cmd = new CmdUpdatePosition(this.getId(), position, Integer.parseInt(this.getId().split("-")[0].trim()) != entity.getId());
-			((Client)entity).changed(cmd);
-		} else {
-			updatePosition(position);
-		}
-	}
+//	@Override
+//	public void setPosition(Vector3d position) {
+//		if ( !entity.isServer() ) {
+//			I_Command cmd = new CmdUpdatePosition(this.getId(), position, Integer.parseInt(this.getId().split("-")[0].trim()) != entity.getId());
+//			((Client)entity).changed(cmd);
+//		} else {
+//			updatePosition(position);
+//		}
+//	}
 	
 	
 
