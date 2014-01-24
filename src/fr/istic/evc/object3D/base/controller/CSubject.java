@@ -5,17 +5,12 @@ import java.util.List;
 
 import javax.vecmath.Color3f;
 import javax.vecmath.Quat4d;
-import javax.vecmath.Vector3d;
 
-import fr.istic.evc.Command.CmdCreateCObject;
 import fr.istic.evc.Command.CmdCreateCSubject;
-import fr.istic.evc.Command.CmdUpdatePosition;
-import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.object3D.base.abstraction.I_AObject;
 import fr.istic.evc.pattern.Observer;
 import fr.istic.evc.pattern.Subject;
-import fr.istic.evc.project.Client;
 
 public class CSubject extends CObject implements Subject {
 	protected List<Observer> lo;
@@ -37,6 +32,12 @@ public class CSubject extends CObject implements Subject {
 		return new CmdCreateCSubject(getAbstraction());
 	}
 	
+	@Override
+	public void select() {
+		super.select();
+		selected = false;
+	}
+	
 	
 	@Override
 	public void attach(Observer o) {
@@ -51,7 +52,6 @@ public class CSubject extends CObject implements Subject {
 	@Override
 	public void myNotify() {
 		for (Observer o:lo) {
-			System.out.println("CSubject.myNotify()");
 			o.update();
 		}
 	}

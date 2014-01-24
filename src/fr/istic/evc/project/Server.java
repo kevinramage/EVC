@@ -37,6 +37,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	private static final int rmiPort = 1234;
 	private static final int createDiffusionPort = 4321;
 	private static final int updateDiffusionPort = 4322;
+	private static final int deleteDiffusionPort = 4323;
 	private static final String hostName = "127.0.0.1";
 	private static final String serverName = "williamServer";
 	private static final String groupName = "239.19.10.10";
@@ -56,7 +57,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
             //Object serverRMIPort;
             LocateRegistry.createRegistry (rmiPort) ;
             Naming.rebind ("//" + hostName + ":" + rmiPort + "/" + serverName, this) ;
-            sender = new MulticastSender (groupName, createDiffusionPort, updateDiffusionPort) ;
+            sender = new MulticastSender (groupName, createDiffusionPort, updateDiffusionPort, deleteDiffusionPort) ;
             compteur = 0;
         } catch (Exception e) {
             e.printStackTrace() ;
@@ -228,6 +229,11 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		return new Integer(updateDiffusionPort);
 	}
 
+	@Override
+	public int getDeletePort() {
+		return new Integer(deleteDiffusionPort);
+	}
+
 
 
 	@Override
@@ -244,6 +250,13 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	public void addObject(I_CreateCommand cmd) throws RemoteException{
 		cmd.execute(world, this);
 		sender.createObject(cmd);
+	}
+
+
+	@Override
+	public void removeObjects(I_Command cmdDelete) throws RemoteException {
+		cmdDelete.execute(this);
+		sender.deleteObjects(cmdDelete);
 	}
 	
 	@Override

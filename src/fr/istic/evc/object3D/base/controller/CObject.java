@@ -36,6 +36,7 @@ public class CObject implements ICObject {
 	protected I_AObject abstraction;
 	protected IPObject presentation;
 	protected IEntity entity;
+	protected boolean selected;
 	
 
 
@@ -44,11 +45,13 @@ public class CObject implements ICObject {
 	public CObject() {
 		abstraction = new AObject();
 		presentation = new PObject(this);
+		selected = false;
 	}
 	
 	public CObject(I_AObject abstraction) {
 		this.abstraction = abstraction;
 		presentation = new PObject(this);
+		selected = false;
 	}
 	
 
@@ -74,10 +77,12 @@ public class CObject implements ICObject {
 	public void select() {
 		abstraction.setBackupColor(getAmbientColor());
 		this.setAmbientColor(getSelectColor());
+		selected = true;
 	}
 	
 	public void unselect() {
 		this.setAmbientColor(getBackupColor());
+		selected = true;
 	}
 	
 
@@ -293,6 +298,11 @@ public class CObject implements ICObject {
 	@Override
 	public boolean isPickable() {
 		return abstraction.isPickable();
+	}
+	
+	@Override
+	public boolean isSelected() {
+		return selected;
 	}
 
 

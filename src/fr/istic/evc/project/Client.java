@@ -9,6 +9,7 @@ import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 
+import fr.istic.evc.Command.CmdDeleteCObject;
 import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.device.Mouse;
@@ -16,6 +17,7 @@ import fr.istic.evc.graphic2D.Camera;
 import fr.istic.evc.graphic2D.CameraManager;
 import fr.istic.evc.graphic2D.IHM;
 import fr.istic.evc.network.MulticastReceiverCreate;
+import fr.istic.evc.network.MulticastReceiverDelete;
 import fr.istic.evc.network.MulticastReceiverUpdate;
 import fr.istic.evc.object3D.base.controller.CCamera;
 import fr.istic.evc.object3D.base.controller.CWorld;
@@ -40,6 +42,7 @@ public class Client implements IEntity{
     private IServer is ;
     private MulticastReceiverUpdate multUpdate;
     private MulticastReceiverCreate multCreate;
+    private MulticastReceiverDelete multDelete;
     
     private int compteur;
 	
@@ -59,6 +62,8 @@ public class Client implements IEntity{
         	multUpdate.start();
         	multCreate = new MulticastReceiverCreate(this, is.getDiffusionGroupName(), is.getCreatePort());
         	multCreate.start();
+        	multDelete = new MulticastReceiverDelete(this, is.getDiffusionGroupName(), is.getDeletePort());
+        	multDelete.start();
         	compteur = 0;
         	
         } catch (Exception e) {
@@ -136,7 +141,6 @@ public class Client implements IEntity{
 
 	public void addObject(I_CreateCommand cmd) {
 		cmd.execute(world, this);
-		System.out.println("Client.addObject()");
 	}
 	
 	public List<ICObject> getObjects() {
@@ -151,8 +155,6 @@ public class Client implements IEntity{
 
 	public void createObject(ICObject controller) {
 		compteur++;
-		System.out.println("Client.createObject(): " + controller);
-		System.out.println("Compteur : "+compteur);
 		controller.setId(id+"-"+compteur);
 		try {
 			is.addObject(controller.getCreateCommand());
@@ -171,6 +173,24 @@ public class Client implements IEntity{
 	@Override
 	public int getId() {
 		return this.id;
+	}
+
+	public void removeObjects() {
+		I_Command cmdDelete = new CmdDeleteCObject();
+		for (ICObject obj : world.getObjects()) {
+			if (obj.isSelected())
+				((CmdDeleteCObject)cmdDelete).addObjectToRemove(obj);
+		}
+		try {
+			is.removeObjects(cmdDelete);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void removeObjects(I_Command cmdDelete) {
+		cmdDelete.execute(this);
 	}
 	
 	

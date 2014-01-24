@@ -27,7 +27,6 @@ public class CCamera extends CSubject implements Observer{
 		presentation = new PObject(this);
 		this.manager = manager;
 		manager.attach(this);
-		this.attach(manager);
 		init();
 	}
 

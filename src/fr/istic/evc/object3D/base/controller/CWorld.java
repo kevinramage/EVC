@@ -16,7 +16,7 @@ public class CWorld implements ICWorld{
 
 	protected IPWorld presentation;
 	protected List<ICObject> objects;
-	protected List<IDevice> device;
+	protected List<IDevice> devices;
 	protected CameraManager cameraManager;
 	
 
@@ -26,6 +26,7 @@ public class CWorld implements ICWorld{
 	public CWorld() {
 		presentation = new PWorld(this);
 		objects = new ArrayList<ICObject>();
+		devices = new ArrayList<>();
 	}
 	
 
@@ -69,6 +70,7 @@ public class CWorld implements ICWorld{
 
 	@Override
 	public void addDevice(IDevice device) {
+		devices.add(device);
 		presentation.addDevice(device);
 	}
 
@@ -76,9 +78,23 @@ public class CWorld implements ICWorld{
 	public List<ICObject> getObjects() {
 		return objects;
 	}
+	
+	@Override
+	public List<IDevice> getDevices() {
+		return devices;
+	}
 
 	@Override
 	public void setCameraManager(CameraManager cameraManager) {
 		this.cameraManager = cameraManager;
+	}
+
+
+
+	@Override
+	public void removeObject(CObject controller) {
+		objects.remove(controller);
+		presentation.remove(controller.getPresentation());
+		
 	}
 }

@@ -19,7 +19,7 @@ public class MulticastSender implements Serializable {
 	/* ---------- Attributes ---------- */
 
     private static final long serialVersionUID = 1L;
-    private int createDiffusionPort, updateDiffusionPort ;
+    private int createDiffusionPort, updateDiffusionPort , deleteDiffusionPort;
     private String groupName ;
 
     private InetAddress diffusionAddress ;
@@ -29,9 +29,10 @@ public class MulticastSender implements Serializable {
 
 	/* ---------- Constructors ---------- */
 
-    public MulticastSender (final String ng, final int createDiffusionPort, final int updateDiffusionPort) throws RemoteException {
+    public MulticastSender (final String ng, final int createDiffusionPort, final int updateDiffusionPort, final int deleteDiffusionPort) throws RemoteException {
         this.createDiffusionPort = createDiffusionPort;
         this.updateDiffusionPort = updateDiffusionPort;
+        this.deleteDiffusionPort = deleteDiffusionPort;
         
         groupName = ng ;
         diffusionAddress = null ;
@@ -105,4 +106,25 @@ public class MulticastSender implements Serializable {
              e.printStackTrace () ;
          }
     }
+
+	public void deleteObjects(I_Command cmdDelete) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream () ;
+        ObjectOutputStream oos ;
+       try {
+            oos = new ObjectOutputStream (baos) ;
+            oos.writeObject (cmdDelete) ;
+            oos.flush () ;
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+         DatagramPacket paquet = new DatagramPacket (baos.toByteArray (), baos.toByteArray ().length,
+                 diffusionAddress,
+                 deleteDiffusionPort) ;
+         try {
+             diffusionSocket.send (paquet);
+         } catch (IOException e) {
+             e.printStackTrace () ;
+         }
+		
+	}
 }

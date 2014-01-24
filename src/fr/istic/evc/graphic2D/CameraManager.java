@@ -13,7 +13,7 @@ import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.pattern.Observer;
 import fr.istic.evc.pattern.Subject;
 
-public class CameraManager implements Subject, Observer {
+public class CameraManager implements Subject{
 	private Camera camera;
 	private NavigationMode navigationMode;
 	private TransformGroup transformGroup;
@@ -148,10 +148,6 @@ public class CameraManager implements Subject, Observer {
 		
 	}
 
-	@Override
-	public void update() {
-		System.out.println("CameraManager.update()");
-	}
 
 	@Override
 	public void attach(Observer o) {

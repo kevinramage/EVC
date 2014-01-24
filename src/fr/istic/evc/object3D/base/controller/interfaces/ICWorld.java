@@ -13,6 +13,7 @@ import java.util.List;
 
 import fr.istic.evc.device.IDevice;
 import fr.istic.evc.graphic2D.CameraManager;
+import fr.istic.evc.object3D.base.controller.CObject;
 import fr.istic.evc.object3D.base.presentation.interfaces.IPWorld;
 
 
@@ -49,6 +50,10 @@ public interface ICWorld {
 	void setCameraManager(CameraManager cameraManager);
 
 	CameraManager getCameraManager();
+
+	void removeObject(CObject controller);
+
+	List<IDevice> getDevices();
 
 //	void setServer(Server server);
 }

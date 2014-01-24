@@ -249,4 +249,9 @@ public class Mouse extends Behavior implements IDevice {
 		}
 		return (IPObject)node;
 	}
+	@Override
+	
+	public void unselectedAll() {
+		objectsSelected.clear();
+	}
 }

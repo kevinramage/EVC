@@ -7,4 +7,5 @@ import fr.istic.evc.graphic2D.CameraManager;
 public interface IDevice {
 	void setBranchGroup(BranchGroup branchGroup);
 	void setCameraManager(CameraManager cameraManager);
+	void unselectedAll();
 }
