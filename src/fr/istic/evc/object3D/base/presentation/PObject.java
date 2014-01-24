@@ -75,6 +75,7 @@ public class PObject extends TransformGroup implements IPObject {
 			branchGroup.addChild(primitive);
 			removeAllChildren();
 			addChild(branchGroup);
+			setCapability(TransformGroup.ENABLE_PICK_REPORTING);
 		} else {
 			System.err.println("PObject - Impossible to load geometry");
 		}
@@ -116,11 +117,11 @@ public class PObject extends TransformGroup implements IPObject {
 
 	@Override
 	public void setPickable(boolean b) {
-		if (b) {
-			setCapability(TransformGroup.ENABLE_PICK_REPORTING);
-		} else {
-			clearCapability(TransformGroup.ENABLE_PICK_REPORTING);
-		}
+//		if (b) {
+//			setCapability(TransformGroup.ENABLE_PICK_REPORTING);
+//		} else {
+//			clearCapability(TransformGroup.ENABLE_PICK_REPORTING);
+//		}
 	}
 
 	@Override

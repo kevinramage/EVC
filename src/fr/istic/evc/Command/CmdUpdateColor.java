@@ -31,7 +31,7 @@ public class CmdUpdateColor implements I_Command {
 	
 	@Override
 	public void execute(IEntity entity) {
-		
+		System.out.println("CmdUpdateColor.execute()");
 		// Get object
 		ICObject obj = entity.getWorld().getObjectById(id);
 		obj.updateAmbientColor(color);

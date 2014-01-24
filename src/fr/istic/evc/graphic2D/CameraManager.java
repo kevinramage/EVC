@@ -172,7 +172,6 @@ public class CameraManager implements Subject{
 
 	public void changeView(Transform3D transform3d) {
 		transformGroup.setTransform(transform3d);
-		System.out.println("CameraManager.changeView()");
 		myNotify();
 	}
 

@@ -23,6 +23,7 @@ public class AObject implements I_AObject{
 	protected String geometry;
 	protected Vector3d scale;
 	protected boolean isPickable;
+	protected boolean selected;
 	protected Color3f ambientColor, diffuseColor, selectColor, backupColor;
 	
 	
@@ -33,11 +34,12 @@ public class AObject implements I_AObject{
 		id = "";
 		position = new Vector3d();
 		orientation = new Quat4d();
-		geometry = "";
+		geometry = "cube";
 		scale = new Vector3d();
-		ambientColor = new Color3f();
-		diffuseColor = new Color3f();
+		ambientColor = new Color3f(0.5f, 0.5f, 0.5f);
+		diffuseColor = new Color3f(0.5f, 0.5f, 0.5f);
 		selectColor = new Color3f(1.0f, 1.0f, 0.0f);
+		selected = false;
 	}
 
 
@@ -93,6 +95,12 @@ public class AObject implements I_AObject{
 	@Override
 	public void setBackupColor(Color3f backupColor) {
 		this.backupColor = backupColor;
+	}
+
+	@Override
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+		
 	}
 	
 
@@ -152,6 +160,11 @@ public class AObject implements I_AObject{
 	@Override
 	public boolean isPickable() {
 		return isPickable;
+	}
+
+	@Override
+	public boolean isSelected() {
+		return selected;
 	}
 	
 	

@@ -32,12 +32,6 @@ public class CSubject extends CObject implements Subject {
 		return new CmdCreateCSubject(getAbstraction());
 	}
 	
-	@Override
-	public void select() {
-		super.select();
-		selected = false;
-	}
-	
 	
 	@Override
 	public void attach(Observer o) {

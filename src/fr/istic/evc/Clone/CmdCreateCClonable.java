@@ -1,12 +1,12 @@
-package fr.istic.evc.Command;
+package fr.istic.evc.Clone;
 
+import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.controller.CSubject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
 import fr.istic.evc.project.IEntity;
 
-public class CmdCreateCSubject implements I_CreateCommand {
-
+public class CmdCreateCClonable implements I_CreateCommand {
+	
 	/* ---------- Attributes ---------- */
 	
 	private static final long serialVersionUID = 1L;
@@ -17,20 +17,18 @@ public class CmdCreateCSubject implements I_CreateCommand {
 
 	/* ---------- Constructors ---------- */
 	
-	public CmdCreateCSubject(I_AObject abstraction) {
+	public CmdCreateCClonable(I_AObject abstraction) {
 		this.abstraction = abstraction;
 	}
-	
-
-
-	/* ---------- Methods ---------- */
 
 	@Override
 	public void execute(IEntity entity) {
 		ICObject controller;
-		controller = new CSubject(abstraction);
+		controller = new CClonable(abstraction);
 		controller.reload();
 		controller.setEntity(entity);
 		entity.getWorld().add(controller);
+
 	}
+
 }

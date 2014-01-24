@@ -15,5 +15,5 @@ public interface I_CreateCommand extends Serializable{
 	 * Execute the operation
 	 * @param objs List of ICObject contained in the world
 	 */
-	void execute(ICWorld world, IEntity entity);
+	void execute(IEntity entity);
 }

@@ -34,7 +34,7 @@ public class Client implements IEntity{
 	// ---------------------------------------------------------
 	// 						Attributes
 	// ---------------------------------------------------------
-	public String title;
+	private String title;
 	private int id;
 	private ICWorld world;
 	private Camera systemCamera;
@@ -45,6 +45,9 @@ public class Client implements IEntity{
     private MulticastReceiverDelete multDelete;
     
     private int compteur;
+    
+    //TODO a supprimer
+    public IHM ihm;
 	
 
 	
@@ -94,7 +97,8 @@ public class Client implements IEntity{
 		world.addDevice(mouse);
 		
 		// IHM
-		IHM ihm = new IHM(world, systemCamera, this);
+//		IHM ihm = new IHM(world, systemCamera, this);
+		ihm = new IHM(world, systemCamera, this);
 		ihm.setTitle(title);
 		
 		// Get server object
@@ -111,10 +115,10 @@ public class Client implements IEntity{
 		
 	}
 
-	private Color3f getCameraColor() {
-		Color3f [] colors = new Color3f [] { new Color3f(Color.gray), new Color3f(Color.green), new Color3f(Color.yellow) }; 
-		return colors[id % colors.length];
-	}
+//	private Color3f getCameraColor() {
+//		Color3f [] colors = new Color3f [] { new Color3f(Color.gray), new Color3f(Color.green), new Color3f(Color.yellow) }; 
+//		return colors[id % colors.length];
+//	}
 
 	// ---------------------------------------------------------
 	// 						Methods
@@ -127,7 +131,7 @@ public class Client implements IEntity{
 	private void recuperateObjects() throws RemoteException {
 		List<I_CreateCommand> lc = is.getListObjs();
 		for (I_CreateCommand cmd: lc) {
-			cmd.execute(world, this);
+			cmd.execute(this);
 		}
 	}
 
@@ -140,7 +144,7 @@ public class Client implements IEntity{
 	}
 
 	public void addObject(I_CreateCommand cmd) {
-		cmd.execute(world, this);
+		cmd.execute(this);
 	}
 	
 	public List<ICObject> getObjects() {
@@ -193,5 +197,23 @@ public class Client implements IEntity{
 		cmdDelete.execute(this);
 	}
 	
+	public void removeClone(I_Command cmdDelete) {
+		try {
+			is.removeObjects(cmdDelete);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	
+	@Override
+	public boolean havePick(ICObject obj) {
+		return world.getDevices().contains(obj);
+	}
+
+	@Override
+	public String getTitle() {
+		return title;
+	}
 }

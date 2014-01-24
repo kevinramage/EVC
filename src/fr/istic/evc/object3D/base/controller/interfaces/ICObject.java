@@ -21,10 +21,6 @@ import fr.istic.evc.project.IEntity;
 
 public interface ICObject{
 	
-	
-	void select();
-	void unselect();
-	
 	/**
 	 * Set the 3D position of the object
 	 * @param position a vector3 which contains the position x, y, z of the object
@@ -75,7 +71,8 @@ public interface ICObject{
 	void updateDiffuseColor(Color3f diffuseColor);	
 	
 	
-	
+	void setSelected(boolean selected);
+	void updateSelected(boolean selected);
 	
 
 	/**

@@ -18,6 +18,7 @@ import fr.istic.evc.Command.CmdUpdateColor;
 import fr.istic.evc.Command.CmdUpdateDiffuse;
 import fr.istic.evc.Command.CmdUpdateOrientation;
 import fr.istic.evc.Command.CmdUpdatePosition;
+import fr.istic.evc.Command.CmdUpdateSelected;
 import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.object3D.base.abstraction.AObject;
@@ -36,7 +37,6 @@ public class CObject implements ICObject {
 	protected I_AObject abstraction;
 	protected IPObject presentation;
 	protected IEntity entity;
-	protected boolean selected;
 	
 
 
@@ -45,13 +45,11 @@ public class CObject implements ICObject {
 	public CObject() {
 		abstraction = new AObject();
 		presentation = new PObject(this);
-		selected = false;
 	}
 	
 	public CObject(I_AObject abstraction) {
 		this.abstraction = abstraction;
 		presentation = new PObject(this);
-		selected = false;
 	}
 	
 
@@ -74,16 +72,13 @@ public class CObject implements ICObject {
 	
 	
 
-	public void select() {
-		abstraction.setBackupColor(getAmbientColor());
-		this.setAmbientColor(getSelectColor());
-		selected = true;
-	}
-	
-	public void unselect() {
-		this.setAmbientColor(getBackupColor());
-		selected = true;
-	}
+//	public void select() {
+//		abstraction.setBackupColor(getAmbientColor());
+//		this.setAmbientColor(getSelectColor());
+//	}
+//	
+//	public void unselect() {
+//	}
 	
 
 
@@ -118,11 +113,44 @@ public class CObject implements ICObject {
 		abstraction.setDiffuseColor(diffuseColor);
 		presentation.setDiffuseColor(diffuseColor);
 	}
+	
+	@Override
+	public void updateGeometry(String geometry) {
+		abstraction.setGeometry(geometry);
+		presentation.setGeometry(geometry);
+	}
+	
+	@Override
+	public void updateSelected(boolean selected) {
+		abstraction.setSelected(selected);
+		if (selected) {
+			abstraction.setBackupColor(abstraction.getAmbientColor());
+			updateAmbientColor(abstraction.getSelectColor());
+		}
+		else {
+			updateAmbientColor(getBackupColor());
+		}
+			
+	}
 
 	
 
 	/* ---------- Setters ---------- */
 
+	/**
+	 * Set the boolean selected
+	 */
+	@Override
+	public void setSelected(boolean selected) {
+		if (!entity.isServer()) {
+			I_Command cmd = new CmdUpdateSelected(this.getId(), selected);
+			((Client)entity).changed(cmd);
+		}
+		else {
+			updateSelected(selected);
+		}
+	}
+	
 	/**
 	 * Set the 3D position of the object
 	 * @param position a vector3 which contains the position x, y, z of the object
@@ -156,12 +184,6 @@ public class CObject implements ICObject {
 	 * @param geometry the geometry primitive name or the geometry url of the object
 	 */
 	public void setGeometry(String geometry) {
-		abstraction.setGeometry(geometry);
-		presentation.setGeometry(geometry);
-	}
-	
-	@Override
-	public void updateGeometry(String geometry) {
 		abstraction.setGeometry(geometry);
 		presentation.setGeometry(geometry);
 	}
@@ -302,7 +324,7 @@ public class CObject implements ICObject {
 	
 	@Override
 	public boolean isSelected() {
-		return selected;
+		return abstraction.isSelected();
 	}
 
 

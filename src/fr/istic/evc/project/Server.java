@@ -9,10 +9,12 @@ import java.util.List;
 
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.swing.JFrame;
 import javax.vecmath.Color3f;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
+import fr.istic.evc.Clone.CClonable;
 import fr.istic.evc.Command.I_Command;
 import fr.istic.evc.Command.I_CreateCommand;
 import fr.istic.evc.device.Mouse;
@@ -22,9 +24,7 @@ import fr.istic.evc.graphic2D.IHM;
 import fr.istic.evc.network.MulticastSender;
 import fr.istic.evc.object3D.base.controller.CAmbientLight;
 import fr.istic.evc.object3D.base.controller.CDirectionalLight;
-import fr.istic.evc.object3D.base.controller.CElasticObject;
 import fr.istic.evc.object3D.base.controller.CObject;
-import fr.istic.evc.object3D.base.controller.CSubject;
 import fr.istic.evc.object3D.base.controller.CWorld;
 import fr.istic.evc.object3D.base.controller.interfaces.ICAmbientLight;
 import fr.istic.evc.object3D.base.controller.interfaces.ICDirectionalLight;
@@ -47,11 +47,13 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	transient MulticastSender sender ;
 	ICWorld world;
 	ICAmbientLight ambientLight1;
+	//TODO a supprimer
+	String title;
 	
 	
 	
 	public Server(String title) throws RemoteException {
-		
+		this.title = title;
 		// Configuration
 		try {
             //Object serverRMIPort;
@@ -101,32 +103,32 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 //		world.add(box3);
 		
 		
-		CSubject s1 = new CSubject();
-		s1.setEntity(this);
-		s1.setId("0-21");
-		s1.setGeometry("sphere");
-		s1.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
-		s1.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
-		s1.setPosition(new Vector3d(-5, 0, -5 ));
-		s1.setPickable(true);
-		world.add(s1);
-		
-		CSubject s2 = new CSubject();
-		s2.setEntity(this);
-		s2.setId("0-22");
-		s2.setGeometry("sphere");
-		s2.updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
-		s2.setDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
-		s2.setPosition(new Vector3d(5, 0, -5 ));
-		s2.setPickable(true);
-		world.add(s2);
-		
-		
-		ICObject elastic = new CElasticObject(s1, s2);
-		elastic.setEntity(this);
-		elastic.setId("0-23");
-		elastic.setPickable(false);
-		world.add(elastic);
+//		CSubject s1 = new CSubject();
+//		s1.setEntity(this);
+//		s1.setId("0-21");
+//		s1.setGeometry("sphere");
+//		s1.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
+//		s1.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
+//		s1.setPosition(new Vector3d(-5, 0, -5 ));
+//		s1.setPickable(true);
+//		world.add(s1);
+//		
+//		CSubject s2 = new CSubject();
+//		s2.setEntity(this);
+//		s2.setId("0-22");
+//		s2.setGeometry("sphere");
+//		s2.updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
+//		s2.setDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
+//		s2.setPosition(new Vector3d(5, 0, -5 ));
+//		s2.setPickable(true);
+//		world.add(s2);
+//		
+//		
+//		ICObject elastic = new CElasticObject(s1, s2);
+//		elastic.setEntity(this);
+//		elastic.setId("0-23");
+//		elastic.setPickable(false);
+//		world.add(elastic);
 		
 		// Box du monde
 //		ICObject boxWorld = new CObject();
@@ -159,22 +161,34 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		box3.updateGeometry("cube");
 		box3.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
 		box3.updateDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
-		box3.updatePosition(new Vector3d(0, 0, 10));
+		box3.updatePosition(new Vector3d(0, 0, -10));
 		box3.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
 		box3.updatePickable(true);
 		world.add(box3);
 		
 
-		ICObject box4 = new CObject();
-		box4.setEntity(this);
-		box4.setId("box4");
-		box4.updateGeometry("cube");
-		box4.updateAmbientColor(new Color3f(0.8f, 0.8f, 0.8f));
-		box4.updateDiffuseColor(new Color3f(0.8f, 0.8f, 0.8f));
-		box4.updatePosition(new Vector3d(0, 0, -10));
-		box4.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
-		box4.updatePickable(true);
-		world.add(box4);
+//		ICObject box4 = new CObject();
+//		box4.setEntity(this);
+//		box4.setId("box4");
+//		box4.updateGeometry("cube");
+//		box4.updateAmbientColor(new Color3f(0.8f, 0.8f, 0.8f));
+//		box4.updateDiffuseColor(new Color3f(0.8f, 0.8f, 0.8f));
+//		box4.updatePosition(new Vector3d(0, 0, -10));
+//		box4.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
+//		box4.updatePickable(true);
+//		world.add(box4);
+		
+		ICObject clonable = new CClonable();
+		clonable.setEntity(this);
+		clonable.setId("0-100");
+		clonable.updateGeometry("cube");
+		clonable.updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
+		clonable.updateDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
+		clonable.updatePosition(new Vector3d(0, 0, 0));
+		clonable.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
+		clonable.updatePickable(true);
+		world.add(clonable);
+		
 		
 		
 		// Ambient light 1
@@ -211,6 +225,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		
 		// IHM
 		IHM ihm = new IHM(world, systemCamera);
+		ihm.setState(JFrame.ICONIFIED);
 		ihm.setTitle(title);
 	}
 
@@ -248,7 +263,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	
 	@Override
 	public void addObject(I_CreateCommand cmd) throws RemoteException{
-		cmd.execute(world, this);
+		cmd.execute(this);
 		sender.createObject(cmd);
 	}
 
@@ -296,4 +311,14 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	public int getId() {
 		return -1;
 	}
+
+	@Override
+	public boolean havePick(ICObject obj) {
+		return false;
+	}
+
+	@Override
+	public String getTitle() {
+		return title;
+	}	
 }
