@@ -73,7 +73,7 @@ public class Client implements IEntity{
 		// System Camera
 		systemCamera = new Camera();
 		Transform3D transform3D = new Transform3D();
-		transform3D.setTranslation(new Vector3d(0, 0, 0));
+		transform3D.setTranslation(new Vector3d(0, 0, 20));
 		systemCamera.setTransform3D(transform3D);
 		
 		// Camera Manager
@@ -89,7 +89,7 @@ public class Client implements IEntity{
 		world.addDevice(mouse);
 		
 		// IHM
-		IHM ihm = new IHM(cameraManager, world, systemCamera, this);
+		IHM ihm = new IHM(world, systemCamera, this);
 		ihm.setTitle(title);
 		
 		// Get server object
@@ -98,7 +98,7 @@ public class Client implements IEntity{
 		// Presentation Camera
 		ICObject camera = new CCamera(cameraManager);
 		camera.setEntity(this);
-		camera.updatePosition(new Vector3d(0, 0, 5));
+		camera.updatePosition(new Vector3d(0, 0, 25));
 		camera.setPickable(true);
 //		camera.updateAmbientColor(getCameraColor());
 		camera.updateAmbientColor(new Color3f(Color.orange));
