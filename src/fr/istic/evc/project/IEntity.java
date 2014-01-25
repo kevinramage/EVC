@@ -11,8 +11,11 @@ public interface IEntity {
 	int getId();
 
 	boolean havePick(ICObject obj);
+	
+	void showAllObjects();
 
 	//TODO a supprimer
 	String getTitle();
+
 
 }

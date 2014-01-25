@@ -1,13 +1,8 @@
 package fr.istic.evc.Command;
 
-import java.util.List;
-
 import javax.vecmath.Quat4d;
-import javax.vecmath.Quat4f;
 
-import fr.istic.evc.object3D.base.controller.CObject;
 import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
 import fr.istic.evc.project.IEntity;
 
 public class CmdUpdateOrientation implements I_Command {
@@ -35,9 +30,14 @@ public class CmdUpdateOrientation implements I_Command {
 
 	@Override
 	public void execute(IEntity entity) {
-		
 		// Get object
 		ICObject obj = entity.getWorld().getObjectById(id);
-		obj.updateOrientation(orientation);
+		try {
+			obj.updateOrientation(orientation);
+		}
+		catch(Exception e) {
+			System.err.println("Object recherché "+id+" not found");
+			//entity.showAllObjects();
+		}
 	}
 }

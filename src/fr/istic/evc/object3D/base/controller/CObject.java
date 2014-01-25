@@ -87,7 +87,7 @@ public class CObject implements ICObject {
 
 	public void updatePosition(Vector3d position) {
 		abstraction.setPosition(position);
-		presentation.setPosition(position);		
+		presentation.setPosition(position);
 	}
 	
 	public void updateOrientation(Quat4d orientation) {
@@ -130,7 +130,6 @@ public class CObject implements ICObject {
 		else {
 			updateAmbientColor(getBackupColor());
 		}
-			
 	}
 
 	
@@ -157,6 +156,12 @@ public class CObject implements ICObject {
 	 */
 	public void setPosition(Vector3d position) {
 		if ( !entity.isServer() ) {
+//			
+//			System.out.println("CObject.setPosition()");
+//			System.out.println("CmdUpdateOrientation.execute()");
+//			System.out.println("Id de l'objet recherché : "+this.getId());
+//			entity.showAllObjects();
+			
 			I_Command cmd = new CmdUpdatePosition(this.getId(), position, false);
 			((Client)entity).changed(cmd);
 		} else {

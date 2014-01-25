@@ -174,7 +174,7 @@ public class Client implements IEntity{
 		return this.world;
 	}
 	
-	@Override
+	
 	public int getId() {
 		return this.id;
 	}
@@ -216,4 +216,15 @@ public class Client implements IEntity{
 	public String getTitle() {
 		return title;
 	}
+	
+	@Override
+	public void showAllObjects() {
+		String str = "\n"+this.getTitle()+"\n";
+		str += "Liste des Objets : \n";
+		for (ICObject o:this.getWorld().getObjects()) {
+			str += "\t - "+o.getId()+" de type : "+o.getClass()+"\n";
+		}
+		
+		System.err.println(str);
+	}	
 }

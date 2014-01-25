@@ -8,6 +8,6 @@ public class Launcher {
 		new Server("William");
 		new Client("Domestique 1").ihm.setLocation(0, 0);
 		new Client("Domestique 2").ihm.setLocation(800, 0);
-		new Client("Domestique 3").ihm.setLocation(400, 400);
+//		new Client("Domestique 3").ihm.setLocation(400, 400);
 	}
 }

@@ -36,30 +36,40 @@ public class CClonable extends CObject implements Observer {
 	
 	@Override
 	public void setSelected(boolean selected) {
-		System.out.println("CClonable.setSelected()");
-		System.out.println(clones.size());
-			if (!entity.isServer()) {
-				I_Command cmd = null;
-				if (!isSelected()) {
-					System.out.println("CAS 1");
-					cmd = new CmdUpdateSelected(this.getId(), selected);
-				}
-				else if (isSelected() && clones.isEmpty()){
-					System.out.println("CAS 2");
-					cmd = new CmdChangeToClones(this.getId());
-				}
-				else if (isSelected() && !alreadyPick()) {
-					System.out.println("CAS 3");
-					System.out.println(this.clones.size());
-					cmd = new CmdAddClone(this.getId());
-				}
-				if (cmd != null)
+			// On déselectionne le clonable (=> il n'y a pas de clones)
+			if (!selected) {
+				// Si c'est un client
+				if (!entity.isServer()) {
+					I_Command cmd = new CmdUpdateSelected(this.getId(), selected);
 					((Client)entity).changed(cmd);
+				}
 				else
-					System.out.println("Aucune commande à lancer");
+					updateSelected(selected);
 			}
+			
+			// On selectionne le clonable, plusieurs cas de figure
 			else {
-				updateSelected(selected);
+				if (!entity.isServer()) {
+					System.out.println("Selection d'un clonable : ");
+					I_Command cmd = null;
+					if (!isSelected()) {
+						System.out.println("Cas 1 - Juste lui");
+						cmd = new CmdUpdateSelected(this.getId(), selected);
+					}
+					else if (isSelected() && clones.isEmpty()){
+						System.out.println("Cas 2 - Creation des clones");
+						cmd = new CmdChangeToClones(this.getId());
+					}
+					else if (isSelected() && !alreadyPick()) {
+						System.out.println("Cas 3 - Ajout de clone");
+						cmd = new CmdAddClone(this.getId());
+					}
+					if (cmd != null)
+						((Client)entity).changed(cmd);
+				}
+				else {
+					updateSelected(selected);
+				}
 			}
 	}
 	
@@ -68,10 +78,7 @@ public class CClonable extends CObject implements Observer {
 	}
 	
 	public void removeClone(CClone clone) {
-		System.out.println("CClonable.removeClone()");
-		System.out.println("Av - "+clones.size());
 		clones.remove(clone);
-		System.out.println("Ap - "+clones.size());
 	}
 	
 	private boolean alreadyPick() {
@@ -97,5 +104,14 @@ public class CClonable extends CObject implements Observer {
 	public CClone getLast() {
 		return this.clones.get(this.clones.size()-1);
 	}
+
+//	public void ckeck() {
+//		System.out.println("CClonable.ckeck()");
+//		System.out.println("Information sur le clonable :");
+//		System.out.println("Id : "+this.getId());
+//		System.out.println("Nb de clones : "+this.clones.size());
+//		System.out.println("Pickable : "+this.isPickable());
+//		System.out.println("Selectionné : "+this.isSelected());
+//	}
 
 }

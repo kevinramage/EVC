@@ -141,9 +141,12 @@ public class Mouse extends Behavior implements IDevice {
 									// Select
 									if ( button1Pressed) {
 										if (!objectsSelected.contains(cObject) && !blackList.contains(cObject)) {
+
 											objectsSelected.add(cObject);
 											cObject.setSelected(true);
 										}
+//										else if (blackList.contains(cObject))
+//											System.out.println("L'objet : "+cObject.getId()+" est blacklisté");
 									// Unselect
 									} else if (button3Pressed) {
 										if (objectsSelected.contains(cObject)) {
@@ -272,12 +275,10 @@ public class Mouse extends Behavior implements IDevice {
 	}
 	@Override
 	public void addToBlackList(ICObject obj) {
-		System.out.println("L'élement "+obj.getId()+" est blacklisté");
 		blackList.add(obj);
 	}
 	@Override
 	public void removeFromBlackList(ICObject obj) {
-		System.out.println("L'élement "+obj.getId()+" n'est plus blacklisté");
 		blackList.remove(obj);
 	}
 	
