@@ -1,40 +1,57 @@
 package command.clone;
 
-import object3D.controller.CClone;
+import object3D.abstraction.I_AObject;
+import object3D.controller.CClonable;
 import object3D.controller.interfaces.ICObject;
-import project.Client;
+import object3D.controller.interfaces.ICWorld;
 import project.IEntity;
-
 import command.I_Command;
-
-import device.Mouse;
+import device.IDevice;
 
 
 public class CmdChangeToClones implements I_Command {
 	
 	private static final long serialVersionUID = 1L;
-	private String id;
+	private String idCloneable;
+	private int idClient;
 	
-	public CmdChangeToClones(String id) {
-		this.id = id;
+	public CmdChangeToClones(String idCloneable, int idClient) {
+		this.idCloneable = idCloneable;
+		this.idClient = idClient;
 	}
 
 	@Override
 	public void execute(IEntity entity) {
 
-		ICObject obj = entity.getWorld().getObjectById(id);
+		// Get cloneable object
+		ICObject obj = entity.getWorld().getObjectById(idCloneable);
 		
+		// Remove the selected color
 		obj.updateAmbientColor(obj.getAbstraction().getBackupColor());
-//		obj.setPickable(false);
-		if (!entity.isServer()) {
-			boolean picked = ((Mouse)entity.getWorld().getDevices().get(0)).picked(obj);
-			if (picked) {
-				entity.getWorld().getDevices().get(0).forceUnpick(obj);
-				entity.getWorld().getDevices().get(0).addToBlackList(obj);
-				CClone clone = new CClone(entity.getId(), obj.getId(), obj.getDiffuseColor(), obj.getOrientation(), obj.getPosition());
-				((Client)entity).createObject(clone);
+
+		// Give special information to devices
+		for ( IDevice device : entity.getWorld().getDevices()) {
+			
+			// Indicate to device to unpick the clonable object without change the object select state (avoid translate of the original object)
+			device.forceUnpick(obj);
+			
+			// Indicate to device to ignore the selection of the object
+			if ( entity.getId() == idClient) {
+				device.addToBlackList(obj);
 			}
 		}
+		
+		
+		// Create a clone
+		I_AObject abstraction = obj.getAbstraction().clone();
+		abstraction.setId(CClonable.findName(entity.getWorld(), idClient + obj.getId(), 1));
+		abstraction.setTransparency(0.8f);
+		CmdCreateClone cmd = new CmdCreateClone(abstraction);
+		cmd.setIdClient(idClient);
+		cmd.setIdClonable(idCloneable);
+		cmd.execute(entity);
 	}
+	
+
 
 }

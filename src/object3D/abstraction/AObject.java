@@ -178,7 +178,24 @@ public class AObject implements I_AObject{
 		return transparency;
 	}
 
-
+	@Override
+	public I_AObject clone() {
+		I_AObject clone = new AObject();
+		clone.setId(id);
+		clone.setAmbientColor(ambientColor);
+		clone.setBackupColor(backupColor);
+		clone.setDiffuseColor(diffuseColor);
+		clone.setGeometry(geometry);
+		clone.setOrientation(orientation);
+		clone.setPickable(isPickable);
+		clone.setPosition(position);
+		clone.setScale(scale);
+		clone.setSelectColor(selectColor);
+		clone.setSelected(selected);
+		clone.setTransparency(transparency);
+		
+		return clone;
+	}
 
 
 	

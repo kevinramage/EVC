@@ -7,7 +7,6 @@ import javax.vecmath.Vector3d;
 import object3D.abstraction.I_AObject;
 import pattern.Observer;
 import pattern.Subject;
-import project.Client;
 
 import command.I_Command;
 import command.clone.CmdCreateClone;
@@ -43,10 +42,10 @@ public class CClone extends CObject implements Subject {
 	
 	@Override
 	public void setSelected(boolean selected) {
-		if (!selected && !entity.isServer()) {
+		if (!selected) {
 			CmdDeleteClone cmd = new CmdDeleteClone();
 			cmd.setId(this.getId());
-			((Client)entity).removeClone(cmd);
+			entity.broadCastDeleteCommand(cmd);
 		}
 	}
 

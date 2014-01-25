@@ -114,5 +114,5 @@ public interface I_AObject extends Serializable {
 	
 	boolean isSelected();
 
-
+	I_AObject clone();
 }

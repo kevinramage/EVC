@@ -136,18 +136,18 @@ public class Mouse extends Behavior implements IDevice {
 								// Get controller object
 								ICObject cObject = pObject.getController();
 								
+								
 								// Is pickable
 								if (cObject.isPickable()) {
-								
+					
 									// Select
 									if ( button1Pressed) {
 										if (!objectsSelected.contains(cObject) && !blackList.contains(cObject)) {
-
+											
 											objectsSelected.add(cObject);
 											cObject.setSelected(true);
 										}
-//										else if (blackList.contains(cObject))
-//											System.out.println("L'objet : "+cObject.getId()+" est blacklisté");
+										
 									// Unselect
 									} else if (button3Pressed) {
 										if (objectsSelected.contains(cObject)) {
@@ -276,7 +276,8 @@ public class Mouse extends Behavior implements IDevice {
 	}
 	@Override
 	public void addToBlackList(ICObject obj) {
-		blackList.add(obj);
+		if ( !blackList.contains(obj))
+			blackList.add(obj);
 	}
 	@Override
 	public void removeFromBlackList(ICObject obj) {

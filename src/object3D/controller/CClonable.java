@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import object3D.abstraction.I_AObject;
+import object3D.controller.interfaces.ICWorld;
 import pattern.Observer;
-import project.Client;
 
 import command.CmdReferent;
 import command.I_Command;
-import command.clone.CmdAddClone;
 import command.clone.CmdChangeToClones;
 import command.clone.CmdCreateCClonable;
 import command.update.CmdUpdateSelected;
@@ -48,28 +47,17 @@ public class CClonable extends CObject implements Observer {
 		}
 		
 		// Select clonable
-		if ( selected ) {
+		else if ( selected ) {
 			
-			// 2 users on the same object => conflict
-			if (isSelected() && clones.isEmpty()) {
-				
-				// Propagate the transformation of the object
-				propagateChangeToClones();
-			}
-			
-			// Other user pick the object => conflict
-			else if (isSelected() && !alreadyPick()) {
-				
-				// Propagate the add of a clone
-				propagateAddClone();
-			}
+			// Propagate the transformation of the object
+			propagateChangeToClones();
 		}
 	}
 	
 	private void propagateUpdateSelected(boolean selected) {
 		
 		// Create update command
-		I_Command cmdUpdate = new CmdUpdateSelected(this.getId(), selected);
+		I_Command cmdUpdate = new CmdUpdateSelected(getId(), selected);
 		
 		// Propagate command
 		if (referent) {
@@ -82,20 +70,7 @@ public class CClonable extends CObject implements Observer {
 	private void propagateChangeToClones() {
 		
 		// Create update command
-		I_Command cmdUpdate = new CmdChangeToClones(this.getId());
-		
-		// Propagate command
-		if (referent) {
-			entity.broadCastUpdateCommand(cmdUpdate);
-		} else {
-			entity.broadCastUpdateCommand(new CmdReferent(getId(), entity.getId(), cmdUpdate));
-		}		
-	}
-	
-	private void propagateAddClone() {
-		
-		// Create update command
-		I_Command cmdUpdate = new CmdAddClone(this.getId());
+		I_Command cmdUpdate = new CmdChangeToClones(getId(), entity.getId());
 		
 		// Propagate command
 		if (referent) {
@@ -114,16 +89,6 @@ public class CClonable extends CObject implements Observer {
 		clones.remove(clone);
 	}
 	
-	private boolean alreadyPick() {
-		boolean b = false;
-		for (CClone c:clones) {
-			if (!b && c.getIdClient() == ((Client)entity).getId()) {
-				b = true;
-			}
-		}
-		return b;
-	}
-	
 	
 	@Override
 	public void update() {
@@ -138,13 +103,13 @@ public class CClonable extends CObject implements Observer {
 		return this.clones.get(this.clones.size()-1);
 	}
 
-//	public void ckeck() {
-//		System.out.println("CClonable.ckeck()");
-//		System.out.println("Information sur le clonable :");
-//		System.out.println("Id : "+this.getId());
-//		System.out.println("Nb de clones : "+this.clones.size());
-//		System.out.println("Pickable : "+this.isPickable());
-//		System.out.println("Selectionné : "+this.isSelected());
-//	}
 
+	
+	public static String findName(ICWorld world, String id, int count) {
+		if ( world.getObjectById(id + "-clone" + count) == null) {
+			return id + "-clone" + count;
+		} else {
+			return findName(world, id, count + 1);
+		}
+	}
 }

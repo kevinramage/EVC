@@ -1,17 +1,15 @@
 package command.clone;
 
-import java.rmi.RemoteException;
-
 import object3D.controller.CClonable;
 import object3D.controller.CClone;
 import project.IEntity;
-import project.Server;
 
 import command.I_Command;
+import command.delete.CmdDeleteCObject;
 import command.update.CmdUpdateOrientation;
 import command.update.CmdUpdatePosition;
 
-import device.Mouse;
+import device.IDevice;
 
 
 public class CmdDeleteClone implements I_Command {
@@ -24,46 +22,52 @@ public class CmdDeleteClone implements I_Command {
 	
 	@Override
 	public void execute(IEntity entity) {
-		// On recupere le clone et le clonable depuis le monde
+		
+		
+		// Get clone and clonable associated
 		CClone clone = (CClone)entity.getWorld().getObjectById(id);
 		CClonable clonable = ((CClonable)entity.getWorld().getObjectById(clone.getIdClonable()));
 		
-		// Si le client est en train de supprimer son propre clone, on
-		// lui réattribue le picking du clonable
+		// If actual user remove it own clone, attribute it the possibility to pick the clonable object
 		if (entity.getId() == clone.getIdClient()) {
-			System.out.println(entity.getTitle()+" "+entity.getId()+" peut repiquer le clonable");
-			entity.getWorld().getDevices().get(0).removeFromBlackList(clonable);
-			((Mouse)entity.getWorld().getDevices().get(0)).clearBlackList();
-		}
-		
-		// On enleve le clone de la liste des clones du clonable
-		clonable.removeClone(clone);
-		
-		// On enleve le clone de l'entité
-		entity.getWorld().removeObject(clone);
-		
-		// Si on est sur le serveur
-		if (entity.isServer()) {
-			
-			// Si le clonable n'a plus qu'un clone -> Le clonable prend la place du dernier clone
-			if (clonable.getNbElm() == 1) {
-				CClone lastClone = clonable.getLast();
-				clonable.updateOrientation(lastClone.getOrientation());
-				clonable.updatePosition(lastClone.getPosition());
-				((Server)entity).update(new CmdUpdateOrientation(clonable.getId(), lastClone.getOrientation()));
-				((Server)entity).update(new CmdUpdatePosition(clonable.getId(), lastClone.getPosition(), false));
-				CmdDeleteClone cmd = new CmdDeleteClone();
-				cmd.setId(clonable.getLast().getId());
-				try {
-					((Server)entity).removeObjects(cmd);
-				} catch (RemoteException e) {}
+			for ( IDevice device : entity.getWorld().getDevices()) {
+				device.removeFromBlackList(clonable);
 			}
 		}
 		
-		// S'il n'y a plus de clone
+		// Remove clone from clonable list and world presentation
+		clonable.removeClone(clone);
+		entity.getWorld().removeObject(clone);
+		
+		// Check if the number of clone is just one
+		if (clonable.getNbElm() == 1) {
+			
+			// Get position and orientation of the last clone
+			CClone lastClone = clonable.getLast();
+			clonable.updateOrientation(lastClone.getOrientation());
+			clonable.updatePosition(lastClone.getPosition());
+			
+			// Update the position of the clonable
+			CmdUpdateOrientation cmdOrientation = new CmdUpdateOrientation(clonable.getId(), lastClone.getOrientation());
+			cmdOrientation.execute(entity);
+			CmdUpdatePosition cmdPosition = new CmdUpdatePosition(clonable.getId(), lastClone.getPosition(), false);
+			cmdPosition.execute(entity);
+			
+			// Destroy the last clone
+			CmdDeleteCObject cmdDestroy = new CmdDeleteCObject(lastClone);
+			cmdDestroy.execute(entity);
+			
+			// Remove the last clone from the clonable list
+			clonable.removeClone(lastClone);
+		}
+		
+		
+		// Remain no clone
 		if (clonable.getNbElm() == 0) {
-			clonable.updatePickable(true);
 			clonable.updateSelected(false);
+			for ( IDevice device : entity.getWorld().getDevices()) {
+				device.removeFromBlackList(clonable);
+			}
 		}
 		
 	}
