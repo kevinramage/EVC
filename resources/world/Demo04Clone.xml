@@ -1,0 +1,23 @@
+<World>
+	<Objects>
+		<CObject id="box1">
+			<Geometry>cube</Geometry>
+			<AmbientColor>0 0 1</AmbientColor>
+			<DiffuseColor>0 0 1</DiffuseColor>
+			<Position>0 0 -10</Position>
+			<Orientation>0 1 0 1.57</Orientation>
+			<Pickable>true</Pickable>
+		</CObject>
+		<CClonable id="cloneable1">
+			<Geometry>cube</Geometry>
+			<AmbientColor>1 0 0</AmbientColor>
+			<DiffuseColor>1 0 0</DiffuseColor>
+			<Orientation>0 1 0 1.57</Orientation>
+			<Pickable>true</Pickable>
+		</CClonable>
+		<CAmbientLight id="ambientLight1">
+			<AmbientColor>0.2 0.2 0.2</AmbientColor>
+		</CAmbientLight>	
+		<CDirectionalLight id="directionalLight1" />			
+	</Objects>
+</World>
