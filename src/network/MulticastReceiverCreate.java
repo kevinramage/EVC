@@ -7,7 +7,8 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 
 import project.Client;
-import command.create.I_CreateCommand;
+
+import command.I_Command;
 
 public class MulticastReceiverCreate extends Thread implements Runnable {
 
@@ -38,7 +39,7 @@ public class MulticastReceiverCreate extends Thread implements Runnable {
             ObjectInputStream ois = new ObjectInputStream (bais) ;
            
             // Get object
-            I_CreateCommand cmd = (I_CreateCommand)ois.readObject();
+            I_Command cmd = (I_Command)ois.readObject();
             client.addObject(cmd);
             
             

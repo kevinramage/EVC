@@ -5,8 +5,9 @@ import object3D.controller.interfaces.ICWorld;
 import object3D.presentation.PElasticObject;
 import pattern.Observer;
 import project.IEntity;
+
+import command.I_Command;
 import command.create.CmdCreateCElastic;
-import command.create.I_CreateCommand;
 
 /**
  * Object manipulated by 2 users
@@ -69,7 +70,7 @@ public class CElasticObject extends CObject implements Observer {
 
 
 	@Override
-	public I_CreateCommand getCreateCommand() {
+	public I_Command getCreateCommand() {
 		return new CmdCreateCElastic(abstraction, s1.getAbstraction(), s2.getAbstraction());
 	}
 	

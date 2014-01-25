@@ -6,6 +6,7 @@ public class LauncherClient1 {
 
 	public static void main(String[] args) throws RemoteException {
 		
+		//String worldName = "Demo01.xml";
 		//String worldName = "Demo03Camera.xml";
 		String worldName = "Demo04Clone.xml";
 		

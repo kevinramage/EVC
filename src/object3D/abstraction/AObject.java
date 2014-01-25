@@ -25,6 +25,8 @@ public class AObject implements I_AObject{
 	protected boolean isPickable;
 	protected boolean selected;
 	protected Color3f ambientColor, diffuseColor, selectColor, backupColor;
+	private float transparency;
+	
 	
 	
 	
@@ -100,7 +102,11 @@ public class AObject implements I_AObject{
 	@Override
 	public void setSelected(boolean selected) {
 		this.selected = selected;
-		
+	}
+	
+	@Override
+	public void setTransparency(float transparency) {
+		this.transparency = transparency;
 	}
 	
 
@@ -166,6 +172,15 @@ public class AObject implements I_AObject{
 	public boolean isSelected() {
 		return selected;
 	}
+
+	@Override
+	public float getTransparency() {
+		return transparency;
+	}
+
+
+
+
 	
 	
 	

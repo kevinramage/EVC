@@ -6,10 +6,10 @@ import object3D.controller.CClone;
 import object3D.controller.interfaces.ICObject;
 import project.IEntity;
 
-import command.create.I_CreateCommand;
+import command.I_Command;
 
 
-public class CmdCreateClone implements I_CreateCommand {
+public class CmdCreateClone implements I_Command {
 	
 	/* ---------- Attributes ---------- */
 	

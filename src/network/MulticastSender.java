@@ -8,8 +8,8 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.rmi.RemoteException;
+
 import command.I_Command;
-import command.create.I_CreateCommand;
 
 public class MulticastSender implements Serializable {
 	
@@ -69,7 +69,7 @@ public class MulticastSender implements Serializable {
             e.printStackTrace () ;
         }
     }
-    public void createObject (I_CreateCommand cmd) {
+    public void createObject (I_Command cmd) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream () ;
         ObjectOutputStream oos ;
        try {

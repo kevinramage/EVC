@@ -12,15 +12,16 @@ import java.util.List;
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Vector3d;
 
-import object3D.controller.CWorld;
-import object3D.controller.interfaces.ICObject;
-import object3D.controller.interfaces.ICWorld;
 import network.ICallback;
 import network.MulticastSender;
 import network.WorldListener;
 import network.WorldSender;
+import object3D.controller.CWorld;
+import object3D.controller.interfaces.ICObject;
+import object3D.controller.interfaces.ICWorld;
+
 import command.I_Command;
-import command.create.I_CreateCommand;
+
 import device.Mouse;
 import factory.WorldBuilder;
 import graphic2D.Camera;
@@ -128,19 +129,15 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		sender.updateObject(cmd);
 	}
 	
-	
-	
+	@Override
+	public void addObject(I_Command cmd) throws RemoteException {
+		broadCastAddCommand(cmd);
+	}
 	
 	
 	
 	/* -------- Methodes Diffusion -------- */ 
-	
-	@Override
-	public void addObject(I_CreateCommand cmd) throws RemoteException{
-		cmd.execute(this);
-		sender.createObject(cmd);
-	}
-	
+		
 	@Override
 	public synchronized int obtainID() {
 		return compteur++;
@@ -148,9 +145,9 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	
 	
 	@Override
-	public List<I_CreateCommand> getListObjs() {
+	public List<I_Command> getListObjs() {
 		List<ICObject> lo = world.getObjects();
-		List<I_CreateCommand> lc = new ArrayList<>();
+		List<I_Command> lc = new ArrayList<>();
 		for (ICObject o:lo) {
 			lc.add(o.getCreateCommand());
 		}
@@ -185,9 +182,21 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	}
 
 	@Override
+	public void broadCastAddCommand(I_Command cmd) {
+		cmd.execute(this);
+		sender.createObject(cmd);
+	}
+	
+	@Override
 	public void broadCastUpdateCommand(I_Command cmd) {
 		cmd.execute(this);
 		sender.updateObject(cmd);
+	}
+	
+	@Override
+	public void broadCastDeleteCommand(I_Command cmd) {
+		cmd.execute(this);
+		sender.deleteObjects(cmd);
 	}
 
 	@Override
@@ -221,4 +230,18 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		
 		System.err.println(str);
 	}
+
+
+
+	@Override
+	public void removeSeletedObjects() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+
 }

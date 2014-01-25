@@ -5,9 +5,9 @@ import object3D.controller.CClonable;
 import object3D.controller.interfaces.ICObject;
 import project.IEntity;
 
-import command.create.I_CreateCommand;
+import command.I_Command;
 
-public class CmdCreateCClonable implements I_CreateCommand {
+public class CmdCreateCClonable implements I_Command {
 	
 	/* ---------- Attributes ---------- */
 	

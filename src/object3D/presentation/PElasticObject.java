@@ -136,4 +136,10 @@ public class PElasticObject extends TransformGroup implements IPObject {
 		return null;
 	}
 
+	@Override
+	public void setTransparency(float transparency) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

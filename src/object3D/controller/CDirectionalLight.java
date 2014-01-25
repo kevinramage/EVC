@@ -4,8 +4,9 @@ import object3D.abstraction.AObject;
 import object3D.abstraction.I_AObject;
 import object3D.controller.interfaces.ICDirectionalLight;
 import object3D.presentation.PDirectionalLight;
+
+import command.I_Command;
 import command.create.CmdCreateDirectional;
-import command.create.I_CreateCommand;
 
 public class CDirectionalLight extends CObject implements ICDirectionalLight {
 	
@@ -26,7 +27,7 @@ public class CDirectionalLight extends CObject implements ICDirectionalLight {
 	/* ---------- Methods ---------- */
 	
 	@Override
-	public I_CreateCommand getCreateCommand() {
+	public I_Command getCreateCommand() {
 		return new CmdCreateDirectional(this.getAbstraction());
 	}
 	

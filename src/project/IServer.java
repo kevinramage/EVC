@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import command.I_Command;
-import command.create.I_CreateCommand;
 
 public interface IServer extends Remote{
 
@@ -13,10 +12,10 @@ public interface IServer extends Remote{
 	Integer getCreatePort () throws RemoteException ;
 	Integer getUpdatePort() throws RemoteException;
 	void sendCommand(I_Command cmd) throws RemoteException;
-	List<I_CreateCommand> getListObjs() throws RemoteException;
+	List<I_Command> getListObjs() throws RemoteException;
 	void update(I_Command cmd) throws RemoteException;
 	int obtainID() throws RemoteException;
-	void addObject(I_CreateCommand cmd) throws RemoteException;
+	void addObject(I_Command cmd) throws RemoteException;
 	void removeObjects(I_Command cmdDelete) throws RemoteException;
 	int getDeletePort() throws RemoteException;
 

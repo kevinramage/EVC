@@ -64,6 +64,8 @@ public interface I_AObject extends Serializable {
 	 */
 	void setSelectColor(Color3f selectColor);
 	
+	void setTransparency(float transparency);
+	
 	/**
 	 * Set the backup color of the object
 	 * @param backupColor a float vector3 which contains the diffuse color r, g, b of the object
@@ -105,6 +107,8 @@ public interface I_AObject extends Serializable {
 	Color3f getBackupColor();
 
 	Quat4d getOrientation();
+	
+	float getTransparency();
 
 	boolean isPickable();
 	

@@ -1,12 +1,14 @@
 package command.create;
 
+import command.I_Command;
+
 import object3D.abstraction.I_AObject;
 import object3D.controller.CAmbientLight;
 import object3D.controller.interfaces.ICObject;
 import project.IEntity;
 
 
-public class CmdCreateAmbient implements I_CreateCommand {
+public class CmdCreateAmbient implements I_Command {
 
 	/* ---------- Attributes ---------- */
 

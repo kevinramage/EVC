@@ -10,8 +10,8 @@ import object3D.abstraction.I_AObject;
 import pattern.Observer;
 import pattern.Subject;
 
+import command.I_Command;
 import command.create.CmdCreateCSubject;
-import command.create.I_CreateCommand;
 
 
 
@@ -39,7 +39,7 @@ public class CSubject extends CObject implements Subject {
 	
 	/* ---------- Methods ---------- */
 	@Override
-	public I_CreateCommand getCreateCommand() {
+	public I_Command getCreateCommand() {
 		return new CmdCreateCSubject(getAbstraction());
 	}
 	

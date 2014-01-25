@@ -5,7 +5,9 @@ import object3D.controller.CDirectionalLight;
 import object3D.controller.interfaces.ICObject;
 import project.IEntity;
 
-public class CmdCreateDirectional implements I_CreateCommand {
+import command.I_Command;
+
+public class CmdCreateDirectional implements I_Command {
 	
 
 

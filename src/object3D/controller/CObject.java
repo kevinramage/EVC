@@ -24,7 +24,6 @@ import project.IEntity;
 import command.CmdReferent;
 import command.I_Command;
 import command.create.CmdCreateCObject;
-import command.create.I_CreateCommand;
 import command.update.CmdUpdateColor;
 import command.update.CmdUpdateDiffuse;
 import command.update.CmdUpdateOrientation;
@@ -68,7 +67,7 @@ public class CObject implements ICObject {
 	/* ---------- Methods ---------- */
 	
 	@Override
-	public I_CreateCommand getCreateCommand() {
+	public I_Command getCreateCommand() {
 		return new CmdCreateCObject(this.getAbstraction());
 	}
 	
@@ -79,6 +78,7 @@ public class CObject implements ICObject {
 		presentation.setPosition(getPosition());
 		presentation.setAmbientColor(getAmbientColor());
 		presentation.setDiffuseColor(getDiffuseColor());
+		presentation.setTransparency(getTransparency());
 	}
 	
 	public void select() {
@@ -108,36 +108,36 @@ public class CObject implements ICObject {
 
 	public void updatePosition(Vector3d position) {
 		abstraction.setPosition(position);
-		presentation.setPosition(position);
+		presentation.setPosition(getPosition());
 	}
 	
 	public void updateOrientation(Quat4d orientation) {
 		abstraction.setOrientation(orientation);
-		presentation.setOrientation(orientation);
+		presentation.setOrientation(getOrientation());
 	}
 	
 	public void updateAmbientColor(Color3f ambientColor) {
 		abstraction.setAmbientColor(ambientColor);
-		presentation.setAmbientColor(ambientColor);
+		presentation.setAmbientColor(getAmbientColor());
 	}
 	
 	public void updateDiffuseColor(Color3f diffuseColor) {
 		abstraction.setDiffuseColor(diffuseColor);
-		presentation.setDiffuseColor(diffuseColor);
+		presentation.setDiffuseColor(getDiffuseColor());
 	}
 	
 	@Override
 	public void updateGeometry(String geometry) {
 		abstraction.setGeometry(geometry);
-		presentation.setGeometry(geometry);
+		presentation.setGeometry(getGeometry());
 	}
 	
 	@Override
 	public void updateSelected(boolean selected) {
 		abstraction.setSelected(selected);
 		if (selected) {
-			abstraction.setBackupColor(abstraction.getAmbientColor());
-			updateAmbientColor(abstraction.getSelectColor());
+			abstraction.setBackupColor(getAmbientColor());
+			updateAmbientColor(getSelectColor());
 		}
 		else {
 			updateAmbientColor(getBackupColor());
@@ -151,7 +151,13 @@ public class CObject implements ICObject {
 	
 	public void updatePickable(boolean b) {
 		abstraction.setPickable(b);
-		presentation.setPickable(b);
+		presentation.setPickable(isPickable());
+	}
+	
+	@Override
+	public void updateTransparency(float transparency) {
+		abstraction.setTransparency(transparency);
+		presentation.setTransparency(getTransparency());
 	}
 	
 
@@ -236,6 +242,16 @@ public class CObject implements ICObject {
 		}
 	}
 	
+	@Override
+	public void setTransparency(float transparency) {
+		System.err.println("Unimplemented method");
+	}
+
+
+	
+	
+	
+	
 	public void setId(String id) {
 		abstraction.setId(id);
 	}
@@ -314,6 +330,11 @@ public class CObject implements ICObject {
 	@Override
 	public boolean isSelected() {
 		return abstraction.isSelected();
+	}
+
+	@Override
+	public float getTransparency() {
+		return abstraction.getTransparency();
 	}
 
 

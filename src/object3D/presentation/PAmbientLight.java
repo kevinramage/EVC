@@ -78,4 +78,10 @@ public class PAmbientLight extends TransformGroup implements IPAmbientLight{
 		super.getTransform(t);
 		return t;
 	}
+
+	@Override
+	public void setTransparency(float transparency) {
+		// TODO Auto-generated method stub
+		
+	}
 }

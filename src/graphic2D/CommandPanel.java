@@ -10,17 +10,18 @@ import javax.vecmath.Color3f;
 
 import object3D.abstraction.AObject;
 import object3D.abstraction.I_AObject;
-import object3D.controller.CObject;
-import project.Client;
+import command.create.CmdCreateCObject;
+import project.IEntity;
 
 public class CommandPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private Client client;
+	private IEntity entity;
+	private static int compteur;
 	
-	public CommandPanel(Client client) {
+	public CommandPanel(IEntity entity) {
 		
-		this.client = client;
+		this.entity = entity;
 		
 		// Configuration
 		setSize(1024-250-200, 200);
@@ -98,8 +99,7 @@ public class CommandPanel extends JPanel{
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				client.removeObjects();
-				
+				entity.removeSeletedObjects();
 			}
 		});
 		
@@ -116,10 +116,12 @@ public class CommandPanel extends JPanel{
 		btnCube.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				I_AObject obj = new AObject();
-				obj.setGeometry("cube");
-				obj.setAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
-				client.createObject(new CObject(obj));
+				I_AObject abstraction = new AObject();
+				abstraction.setId("New object " + compteur++);
+				abstraction.setGeometry("cube");
+				abstraction.setDiffuseColor(new Color3f(1f, 0f, 0f));
+				abstraction.setPickable(true);
+				entity.broadCastAddCommand(new CmdCreateCObject(abstraction));
 			}
 		});
 	}
@@ -133,10 +135,12 @@ public class CommandPanel extends JPanel{
 		btnSphere.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				I_AObject obj = new AObject();
-				obj.setGeometry("sphere");
-				obj.setAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
-				client.createObject(new CObject(obj));
+				I_AObject abstraction = new AObject();
+				abstraction.setId("New object " + compteur++);
+				abstraction.setGeometry("sphere");
+				abstraction.setDiffuseColor(new Color3f(1f, 0f, 0f));
+				abstraction.setPickable(true);
+				entity.broadCastAddCommand(new CmdCreateCObject(abstraction));
 			}
 		});
 	}

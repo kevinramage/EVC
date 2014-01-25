@@ -4,8 +4,9 @@ import object3D.abstraction.AObject;
 import object3D.abstraction.I_AObject;
 import object3D.controller.interfaces.ICAmbientLight;
 import object3D.presentation.PAmbientLight;
+
+import command.I_Command;
 import command.create.CmdCreateAmbient;
-import command.create.I_CreateCommand;
 
 public class CAmbientLight extends CObject implements ICAmbientLight {
 	
@@ -26,7 +27,7 @@ public class CAmbientLight extends CObject implements ICAmbientLight {
 	/* ---------- Methods ---------- */
 	
 	@Override
-	public I_CreateCommand getCreateCommand() {
+	public I_Command getCreateCommand() {
 		return new CmdCreateAmbient(this.getAbstraction());
 	}
 	

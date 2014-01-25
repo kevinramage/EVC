@@ -22,6 +22,10 @@ public class CmdDeleteCObject implements I_Command {
 	public CmdDeleteCObject() {
 		listId = new ArrayList<>();
 	}
+	public CmdDeleteCObject(CObject obj) {
+		this();
+		listId.add(obj.getId());
+	}
 	
 	@Override
 	public void execute(IEntity entity) {

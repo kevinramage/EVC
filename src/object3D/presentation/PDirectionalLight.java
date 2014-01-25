@@ -74,4 +74,10 @@ public class PDirectionalLight extends TransformGroup implements IPDirectionalLi
 		super.getTransform(t);
 		return t;
 	}
+
+	@Override
+	public void setTransparency(float transparency) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,5 +1,7 @@
 package command.create;
 
+import command.I_Command;
+
 import object3D.abstraction.I_AObject;
 import object3D.controller.CElasticObject;
 import object3D.controller.CSubject;
@@ -7,7 +9,7 @@ import object3D.controller.interfaces.ICObject;
 import project.IEntity;
 
 
-public class CmdCreateCElastic implements I_CreateCommand {
+public class CmdCreateCElastic implements I_Command {
 
 	/* ---------- Attributes ---------- */
 	

@@ -6,12 +6,12 @@ import java.util.List;
 import object3D.abstraction.I_AObject;
 import pattern.Observer;
 import project.Client;
+
 import command.CmdReferent;
 import command.I_Command;
 import command.clone.CmdAddClone;
 import command.clone.CmdChangeToClones;
 import command.clone.CmdCreateCClonable;
-import command.create.I_CreateCommand;
 import command.update.CmdUpdateSelected;
 
 
@@ -33,36 +33,36 @@ public class CClonable extends CObject implements Observer {
 	/* ---------- Methods ---------- */
 	
 	@Override
-	public I_CreateCommand getCreateCommand() {
+	public I_Command getCreateCommand() {
 		return new CmdCreateCClonable(this.getAbstraction());
 	}
 	
 	@Override
 	public void setSelected(boolean selected) {
-
-		System.out.println("CClonable.setSelected() - ");
 		
 		// No clone => no conflicts
 		if (!isSelected()) {
 			
 			// Propagate the selection of the object
 			propagateUpdateSelected(selected);
-			System.out.println("CClonable.setSelected() - No conflict");
 		}
 		
-		// 2 users on the same object => conflict
-		else if (isSelected() && clones.isEmpty()) {
+		// Select clonable
+		if ( selected ) {
 			
-			// Propagate the transformation of the object
-			propagateChangeToClones();
-			System.out.println("CClonable.setSelected() - One conflict");
-		}
-		
-		// Other user pick the object => conflict
-		else if (isSelected() && !alreadyPick()) {
+			// 2 users on the same object => conflict
+			if (isSelected() && clones.isEmpty()) {
+				
+				// Propagate the transformation of the object
+				propagateChangeToClones();
+			}
 			
-			// Propagate the add of a clone
-			propagateAddClone();
+			// Other user pick the object => conflict
+			else if (isSelected() && !alreadyPick()) {
+				
+				// Propagate the add of a clone
+				propagateAddClone();
+			}
 		}
 	}
 	

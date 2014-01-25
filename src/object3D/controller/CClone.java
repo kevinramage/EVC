@@ -9,9 +9,9 @@ import pattern.Observer;
 import pattern.Subject;
 import project.Client;
 
+import command.I_Command;
 import command.clone.CmdCreateClone;
 import command.clone.CmdDeleteClone;
-import command.create.I_CreateCommand;
 
 
 public class CClone extends CObject implements Subject {
@@ -24,10 +24,12 @@ public class CClone extends CObject implements Subject {
 		super();
 		this.idClient = idClient;
 		this.idClonable = idClonable;
-		abstraction.setAmbientColor(color);
+		abstraction.setAmbientColor(new Color3f(1f, 0f, 0f));
+		abstraction.setDiffuseColor(new Color3f(1f, 0f, 0f));
 		abstraction.setOrientation(orientation);
 		abstraction.setPosition(position);
 		abstraction.setPickable(true);
+		abstraction.setTransparency(0.8f);
 	}
 
 	
@@ -50,7 +52,7 @@ public class CClone extends CObject implements Subject {
 
 
 	@Override
-	public I_CreateCommand getCreateCommand() {
+	public I_Command getCreateCommand() {
 		CmdCreateClone cmd = new CmdCreateClone(getAbstraction());
 		cmd.setIdClient(idClient);
 		cmd.setIdClonable(idClonable);

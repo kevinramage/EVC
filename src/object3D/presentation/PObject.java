@@ -15,6 +15,7 @@ import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Material;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.media.j3d.TransparencyAttributes;
 import javax.vecmath.Color3f;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
@@ -101,6 +102,15 @@ public class PObject extends TransformGroup implements IPObject {
 		getTransform(transform3d);
 		transform3d.setTranslation(position);
 		setTransform(transform3d);
+	}
+	
+	@Override
+	public void setTransparency(float transparency) {
+		TransparencyAttributes ta = new TransparencyAttributes();
+		ta.setTransparencyMode(TransparencyAttributes.BLEND_ONE);
+		System.out.println("Transparency: " + transparency);
+		ta.setTransparency(transparency);
+		primitive.getAppearance().setTransparencyAttributes(ta);
 	}
 
 	private static Primitive getPrimitive(String geometry) {

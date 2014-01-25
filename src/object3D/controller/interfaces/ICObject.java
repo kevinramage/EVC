@@ -16,7 +16,8 @@ import javax.vecmath.Vector3d;
 import object3D.abstraction.I_AObject;
 import object3D.presentation.interfaces.IPObject;
 import project.IEntity;
-import command.create.I_CreateCommand;
+
+import command.I_Command;
 
 
 public interface ICObject{
@@ -74,6 +75,9 @@ public interface ICObject{
 	void setSelected(boolean selected);
 	void updateSelected(boolean selected);
 	
+	void setTransparency(float transparency);
+	void updateTransparency(float transparency);
+	
 
 	/**
 	 * Set the id of the object
@@ -118,7 +122,7 @@ public interface ICObject{
 	void setEntity(IEntity c);
 	
 
-	I_CreateCommand getCreateCommand();
+	I_Command getCreateCommand();
 	
 	
 	Transform3D getTransform();
@@ -128,6 +132,7 @@ public interface ICObject{
 	Color3f getSelectColor();
 	Color3f getDiffuseColor();
 	Color3f getBackupColor();
+	float getTransparency();
 	boolean isPickable();
 	void setReferent(boolean b);
 	boolean isSelected();

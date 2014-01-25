@@ -252,6 +252,7 @@ public class Mouse extends Behavior implements IDevice {
 		while ( !(node instanceof IPObject)) {
 			node = node.getParent();
 		}
+		System.out.println("Pick: " + node);
 		return (IPObject)node;
 	}
 	@Override

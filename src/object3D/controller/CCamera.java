@@ -15,7 +15,6 @@ import pattern.Observer;
 import command.CmdReferent;
 import command.I_Command;
 import command.create.CmdCreateCCamera;
-import command.create.I_CreateCommand;
 import command.update.CmdUpdatePosition;
 
 public class CCamera extends CSubject implements Observer{
@@ -49,7 +48,7 @@ public class CCamera extends CSubject implements Observer{
 	/* ---------- Methods ---------- */
 	
 	@Override
-	public I_CreateCommand getCreateCommand() {
+	public I_Command getCreateCommand() {
 		return new CmdCreateCCamera(this.getAbstraction());
 	}
 

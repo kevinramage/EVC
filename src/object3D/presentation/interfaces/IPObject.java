@@ -61,5 +61,7 @@ public interface IPObject {
 
 	ICObject getController();
 
-	Transform3D getTransform();	
+	Transform3D getTransform();
+
+	void setTransparency(float transparency);
 }

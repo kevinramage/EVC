@@ -24,7 +24,6 @@ import object3D.controller.interfaces.ICObject;
 import object3D.controller.interfaces.ICWorld;
 
 import command.I_Command;
-import command.create.I_CreateCommand;
 import command.delete.CmdDeleteCObject;
 
 import device.Mouse;
@@ -163,8 +162,8 @@ public class Client implements IEntity{
 	 * @throws RemoteException
 	 */
 	private void recuperateObjects() throws RemoteException {
-		List<I_CreateCommand> lc = is.getListObjs();
-		for (I_CreateCommand cmd: lc) {
+		List<I_Command> lc = is.getListObjs();
+		for (I_Command cmd: lc) {
 			cmd.execute(this);
 		}
 	}
@@ -175,10 +174,6 @@ public class Client implements IEntity{
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void addObject(I_CreateCommand cmd) {
-		cmd.execute(this);
 	}
 	
 	public List<ICObject> getObjects() {
@@ -215,7 +210,26 @@ public class Client implements IEntity{
 	}
 
 	@Override
+	public void broadCastAddCommand(I_Command cmd) {
+		try {
+			is.sendCommand(cmd);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Override
 	public void broadCastUpdateCommand(I_Command cmd) {
+		try {
+			is.sendCommand(cmd);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void broadCastDeleteCommand(I_Command cmd) {
 		try {
 			is.sendCommand(cmd);
 		} catch (RemoteException e) {
@@ -268,5 +282,32 @@ public class Client implements IEntity{
 		}
 		
 		System.err.println(str);
-	}	
+	}
+
+
+	@Override
+	public void removeSeletedObjects() {
+		
+		// Prepare command
+		CmdDeleteCObject cmd = new CmdDeleteCObject();
+		List<ICObject> objs = world.getObjects();
+		for ( ICObject obj : objs) {
+			if ( obj.isSelected()) {
+				cmd.addObjectToRemove(obj);
+			}
+		}
+		
+		// Send command
+		try {
+			is.sendCommand(cmd);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void addObject(I_Command cmd) {
+		cmd.execute(this);
+	}
+
+
 }
