@@ -24,12 +24,12 @@ public class CClone extends CObject implements Subject {
 		super();
 		this.idClient = idClient;
 		this.idClonable = idClonable;
-		abstraction.setAmbientColor(new Color3f(1f, 0f, 0f));
-		abstraction.setDiffuseColor(new Color3f(1f, 0f, 0f));
-		abstraction.setOrientation(orientation);
-		abstraction.setPosition(position);
-		abstraction.setPickable(true);
-		abstraction.setTransparency(0.8f);
+		updateAmbientColor(color);
+		updateDiffuseColor(color);
+		updateOrientation(orientation);
+		updatePosition(position);
+		updatePickable(true);
+		updateTransparency(0.8f);
 	}
 
 	

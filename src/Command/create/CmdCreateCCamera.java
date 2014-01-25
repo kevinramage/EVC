@@ -25,7 +25,6 @@ public class CmdCreateCCamera implements I_Command {
 	/* ---------- Methods ---------- */
 	public void execute(IEntity entity) {
 		CCamera controller = new CCamera(abstraction);
-		controller.setManager(entity.getWorld().getCameraManager());
 		controller.reload();
 		controller.setEntity(entity);
 		entity.getWorld().add(controller);

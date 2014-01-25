@@ -125,27 +125,6 @@ public class CameraManager implements Subject{
 		object.setOrientation(orientation);
 		object.setPosition(position);
 		
-		
-	
-//		Transform3D transformView = new Transform3D();
-//		transformGroup.getTransform(transformView);
-//		transformView.invert();
-//		
-//		Transform3D transformObj = object.getTransform();
-//		
-//		Transform3D transformDelta = new Transform3D();
-//		transformDelta.setTranslation(new Vector3d(dx, dy, dz));
-//		
-//		
-//		Transform3D result = new Transform3D();
-//		result.mul(transformDelta, transformObj);
-//		//result.mul();
-//		
-//		
-//		Vector3d position = new Vector3d();
-//		result.get(position);
-//		object.setPosition(position);
-		
 	}
 
 	@Override
@@ -162,7 +141,6 @@ public class CameraManager implements Subject{
 	public void myNotify() {
 		for (Observer o:lo)
 			o.update();
-		
 	}
 
 	public TransformGroup getTransform() {

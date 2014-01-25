@@ -140,7 +140,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		
 	@Override
 	public synchronized int obtainID() {
-		return compteur++;
+		return ++compteur;
 	}
 	
 	

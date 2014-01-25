@@ -101,14 +101,6 @@ public class Client implements IEntity{
 		cameraManager.changeCamera(systemCamera);
 		world.setCameraManager(cameraManager);
 		
-		// Load iivc
-		File file = new File("resources/iivc/" + worldName);
-		if (file.exists()) {
-			WorldBuilder.getInstance().load(world, "resources/iivc/" + worldName, this);
-		}
-		// World
-		world.show();
-		
 		// Device
 		Mouse mouse = new Mouse();
 		mouse.setCameraManager(cameraManager);
@@ -122,8 +114,16 @@ public class Client implements IEntity{
 		// Get server object
 		recuperateObjects();
 		
+		// Load iivc
+		File file = new File("resources/iivc/" + worldName);
+		if (file.exists()) {
+			WorldBuilder.getInstance().load(world, "resources/iivc/" + worldName, this);
+		}
+		// World
+		world.show();
+		
 		// Camera
-		CCamera camera = (CCamera) world.getObjectById(getId() + "-camera");
+		CCamera camera = (CCamera) world.getObjectById(id + "-camera");
 		if ( camera != null) {
 			camera.setAmbientColor(color);
 			camera.setManager(cameraManager);
@@ -148,13 +148,13 @@ public class Client implements IEntity{
 	// ---------------------------------------------------------
 	
 	private static Color3f [] colors = new Color3f[] {
-		new Color3f(Color.red), 
+		new Color3f(Color.orange), 
 		new Color3f(Color.blue),
 		new Color3f(Color.green)
 	};
 	
 	private Color3f getColorsFromId() {
-		return colors[id];
+		return colors[(id-1) % colors.length];
 	}
 
 	/**

@@ -150,6 +150,13 @@ public class CommandPanel extends JPanel{
 		btnTriangle.setLocation(180, 60);
 		btnTriangle.setIcon(new ImageIcon("resources/image/triangle.png"));
 		btnTriangle.setToolTipText("Triangle");
+		btnTriangle.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				entity.showAllObjects();
+			}
+		});
 		add(btnTriangle);
 	}
 }
