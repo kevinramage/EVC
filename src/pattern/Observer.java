@@ -1,4 +1,4 @@
-package fr.istic.evc.pattern;
+package pattern;
 
 public interface Observer {
 

@@ -1,4 +1,4 @@
-package fr.istic.evc.graphic2D;
+package graphic2D;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -6,8 +6,8 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
-import fr.istic.evc.project.Client;
+import object3D.controller.interfaces.ICWorld;
+import project.Client;
 
 public class IHM extends JFrame{
 	

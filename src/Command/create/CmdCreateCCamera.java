@@ -1,10 +1,9 @@
-package fr.istic.evc.Command;
+package command.create;
 
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.controller.CCamera;
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
-import fr.istic.evc.project.IEntity;
+import object3D.abstraction.I_AObject;
+import object3D.controller.CCamera;
+import object3D.controller.interfaces.ICWorld;
+import project.IEntity;
 
 public class CmdCreateCCamera implements I_CreateCommand {
 	
@@ -24,10 +23,10 @@ public class CmdCreateCCamera implements I_CreateCommand {
 	/* ---------- Methods ---------- */
 	@Override
 	public void execute(ICWorld world, IEntity entity) {
-		ICObject controller;
-		controller = new CCamera(abstraction);
-		controller.reload();
+		CCamera controller = new CCamera(abstraction);
 		controller.setEntity(entity);
+		controller.setManager(world.getCameraManager());
+		controller.reload();
 		world.add(controller);
 	}
 	

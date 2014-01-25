@@ -1,11 +1,11 @@
-package fr.istic.evc.object3D.base.controller;
+package object3D.controller;
 
-import fr.istic.evc.Command.CmdCreateDirectional;
-import fr.istic.evc.Command.I_CreateCommand;
-import fr.istic.evc.object3D.base.abstraction.AObject;
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICDirectionalLight;
-import fr.istic.evc.object3D.base.presentation.PDirectionalLight;
+import object3D.abstraction.AObject;
+import object3D.abstraction.I_AObject;
+import object3D.controller.interfaces.ICDirectionalLight;
+import object3D.presentation.PDirectionalLight;
+import command.create.CmdCreateDirectional;
+import command.create.I_CreateCommand;
 
 public class CDirectionalLight extends CObject implements ICDirectionalLight {
 	

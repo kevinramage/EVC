@@ -1,4 +1,4 @@
-package fr.istic.evc.graphic2D;
+package graphic2D;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,10 @@ import javax.media.j3d.TransformGroup;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.object3D.base.controller.CSubject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.pattern.Observer;
-import fr.istic.evc.pattern.Subject;
+import object3D.controller.CSubject;
+import object3D.controller.interfaces.ICObject;
+import pattern.Observer;
+import pattern.Subject;
 
 public class CameraManager implements Subject, Observer {
 	private Camera camera;
@@ -150,7 +150,6 @@ public class CameraManager implements Subject, Observer {
 
 	@Override
 	public void update() {
-		System.out.println("CameraManager.update()");
 	}
 
 	@Override
@@ -176,12 +175,10 @@ public class CameraManager implements Subject, Observer {
 
 	public void changeView(Transform3D transform3d) {
 		transformGroup.setTransform(transform3d);
-		System.out.println("CameraManager.changeView()");
 		myNotify();
 	}
 
 	public void refresh(CSubject subject) {
-		System.out.println("CameraManager.refresh()");
 		
 		//  Transform subject
 		Transform3D tSubject = new Transform3D();

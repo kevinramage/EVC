@@ -1,4 +1,4 @@
-package fr.istic.evc.object3D.base.presentation;
+package object3D.presentation;
 
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.BoundingSphere;
@@ -9,8 +9,8 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.presentation.interfaces.IPAmbientLight;
+import object3D.controller.interfaces.ICObject;
+import object3D.presentation.interfaces.IPAmbientLight;
 
 public class PAmbientLight extends TransformGroup implements IPAmbientLight{
 

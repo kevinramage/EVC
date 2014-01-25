@@ -1,11 +1,11 @@
-package fr.istic.evc.Command;
+package command.create;
 
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.controller.CElasticObject;
-import fr.istic.evc.object3D.base.controller.CSubject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
-import fr.istic.evc.project.IEntity;
+import object3D.abstraction.I_AObject;
+import object3D.controller.CElasticObject;
+import object3D.controller.CSubject;
+import object3D.controller.interfaces.ICObject;
+import object3D.controller.interfaces.ICWorld;
+import project.IEntity;
 
 public class CmdCreateCElastic implements I_CreateCommand {
 

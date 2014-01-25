@@ -1,9 +1,9 @@
-package fr.istic.evc.object3D.base.presentation.interfaces;
+package object3D.presentation.interfaces;
 
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.TransformGroup;
 
-import fr.istic.evc.device.IDevice;
+import device.IDevice;
 
 
 public interface IPWorld {

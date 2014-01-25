@@ -6,7 +6,7 @@
  * 
  */
 
-package fr.istic.evc.object3D.base.abstraction;
+package object3D.abstraction;
 
 import java.io.Serializable;
 

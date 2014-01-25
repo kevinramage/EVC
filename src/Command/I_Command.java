@@ -1,11 +1,8 @@
-package fr.istic.evc.Command;
+package command;
 
 import java.io.Serializable;
-import java.util.List;
 
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
-import fr.istic.evc.project.IEntity;
+import project.IEntity;
 
 /**
  * Command for the update of an ICObject (client side)

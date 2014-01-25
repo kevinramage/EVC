@@ -1,9 +1,9 @@
-package fr.istic.evc.Command;
+package command.create;
 
 import java.io.Serializable;
 
-import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
-import fr.istic.evc.project.IEntity;
+import object3D.controller.interfaces.ICWorld;
+import project.IEntity;
 
 /**
  * Command for the creation of an ICObject (client side)

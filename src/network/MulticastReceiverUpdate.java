@@ -1,4 +1,4 @@
-package fr.istic.evc.network;
+package network;
 
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
@@ -6,9 +6,9 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 
-import fr.istic.evc.Command.I_Command;
-import fr.istic.evc.project.Client;
-import fr.istic.evc.project.IEntity;
+import project.Client;
+import project.IEntity;
+import command.I_Command;
 
 public class MulticastReceiverUpdate extends Thread implements Runnable {
 	

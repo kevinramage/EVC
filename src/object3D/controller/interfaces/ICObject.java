@@ -6,18 +6,17 @@
  * 
  */
 
-package fr.istic.evc.object3D.base.controller.interfaces;
+package object3D.controller.interfaces;
 
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
 import javax.vecmath.Quat4d;
-import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.Command.I_CreateCommand;
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
-import fr.istic.evc.project.IEntity;
+import object3D.abstraction.I_AObject;
+import object3D.presentation.interfaces.IPObject;
+import project.IEntity;
+import command.create.I_CreateCommand;
 
 
 public interface ICObject{
@@ -87,6 +86,9 @@ public interface ICObject{
 	
 
 	void reload();
+	
+	// L'entite ne connait pas le monde a se moment
+	void init(IEntity entity, ICWorld world);
 
 
 	/**
@@ -130,6 +132,7 @@ public interface ICObject{
 	Color3f getDiffuseColor();
 	Color3f getBackupColor();
 	boolean isPickable();
+	void setReferent(boolean b);
 
 
 

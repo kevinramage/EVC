@@ -1,4 +1,4 @@
-package fr.istic.evc.graphic2D;
+package graphic2D;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

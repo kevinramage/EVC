@@ -1,4 +1,4 @@
-package fr.istic.evc.device;
+package device;
 
 import java.awt.AWTEvent;
 import java.awt.event.MouseEvent;
@@ -15,12 +15,13 @@ import javax.media.j3d.WakeupCriterion;
 import javax.media.j3d.WakeupOnAWTEvent;
 import javax.media.j3d.WakeupOr;
 
+import object3D.controller.interfaces.ICObject;
+import object3D.presentation.interfaces.IPObject;
+
 import com.sun.j3d.utils.picking.PickCanvas;
 import com.sun.j3d.utils.picking.PickResult;
 
-import fr.istic.evc.graphic2D.CameraManager;
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
+import graphic2D.CameraManager;
 
 
 /**
@@ -141,6 +142,7 @@ public class Mouse extends Behavior implements IDevice {
 										if (!objectsSelected.contains(cObject)) {
 											objectsSelected.add(cObject);
 											cObject.select();
+											System.out.println("Mouse.processStimulus()  Select");
 										}
 									// Unselect
 									} else if (button3Pressed) {

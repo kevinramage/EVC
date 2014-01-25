@@ -1,10 +1,10 @@
-package fr.istic.evc.Command;
+package command.create;
 
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.controller.CAmbientLight;
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
-import fr.istic.evc.project.IEntity;
+import object3D.abstraction.I_AObject;
+import object3D.controller.CAmbientLight;
+import object3D.controller.interfaces.ICObject;
+import object3D.controller.interfaces.ICWorld;
+import project.IEntity;
 
 public class CmdCreateAmbient implements I_CreateCommand {
 

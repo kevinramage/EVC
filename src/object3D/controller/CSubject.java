@@ -1,26 +1,27 @@
-package fr.istic.evc.object3D.base.controller;
+package object3D.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.vecmath.Color3f;
 import javax.vecmath.Quat4d;
-import javax.vecmath.Vector3d;
 
-import fr.istic.evc.Command.CmdCreateCObject;
-import fr.istic.evc.Command.CmdCreateCSubject;
-import fr.istic.evc.Command.CmdUpdatePosition;
-import fr.istic.evc.Command.I_Command;
-import fr.istic.evc.Command.I_CreateCommand;
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.pattern.Observer;
-import fr.istic.evc.pattern.Subject;
-import fr.istic.evc.project.Client;
+import object3D.abstraction.I_AObject;
+import pattern.Observer;
+import pattern.Subject;
+import command.create.CmdCreateCSubject;
+import command.create.I_CreateCommand;
 
 public class CSubject extends CObject implements Subject {
+	
+	/* ---------- Attributes ---------- */
 	protected List<Observer> lo;
 
 
+	
+	
+	
+	/* ---------- Constructors ---------- */
 	public CSubject() {
 		super();
 		this.lo = new ArrayList<>();
@@ -31,9 +32,11 @@ public class CSubject extends CObject implements Subject {
 		this.lo = new ArrayList<>();
 	}
 
+	
+	
+	/* ---------- Methods ---------- */
 	@Override
 	public I_CreateCommand getCreateCommand() {
-		// TODO Auto-generated method stub
 		return new CmdCreateCSubject(getAbstraction());
 	}
 	
@@ -51,23 +54,10 @@ public class CSubject extends CObject implements Subject {
 	@Override
 	public void myNotify() {
 		for (Observer o:lo) {
-			System.out.println("CSubject.myNotify()");
 			o.update();
 		}
 	}
 	
-//	@Override
-//	public void setPosition(Vector3d position) {
-//		if ( !entity.isServer() ) {
-//			I_Command cmd = new CmdUpdatePosition(this.getId(), position, Integer.parseInt(this.getId().split("-")[0].trim()) != entity.getId());
-//			((Client)entity).changed(cmd);
-//		} else {
-//			updatePosition(position);
-//		}
-//	}
-	
-	
-
 	@Override
 	public void updateOrientation(Quat4d orientation) {
 		super.updateOrientation(orientation);

@@ -1,4 +1,4 @@
-package fr.istic.evc.graphic2D;
+package graphic2D;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,10 +8,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.vecmath.Color3f;
 
-import fr.istic.evc.object3D.base.abstraction.AObject;
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.controller.CObject;
-import fr.istic.evc.project.Client;
+import object3D.abstraction.AObject;
+import object3D.abstraction.I_AObject;
+import object3D.controller.CObject;
+import project.Client;
 
 public class CommandPanel extends JPanel{
 

@@ -1,11 +1,11 @@
-package fr.istic.evc.graphic2D;
+package graphic2D;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import fr.istic.evc.graphic2D.ViewListener.VIEW_TYPE;
-import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
+import object3D.controller.interfaces.ICWorld;
+import graphic2D.ViewListener.VIEW_TYPE;
 
 
 public class ViewPanel extends JPanel {

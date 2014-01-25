@@ -1,4 +1,4 @@
-package fr.istic.evc.graphic2D;
+package graphic2D;
 
 import javax.media.j3d.TransformGroup;
 

@@ -1,6 +1,9 @@
-package fr.istic.evc.project;
+package project;
 
-import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
+import command.I_Command;
+
+import object3D.controller.interfaces.ICObject;
+import object3D.controller.interfaces.ICWorld;
 
 public interface IEntity {
 	boolean isServer();
@@ -8,4 +11,8 @@ public interface IEntity {
 	ICWorld getWorld();
 
 	int getId();
+
+	void addObjectInWorld(ICWorld world, ICObject obj);
+
+	void broadCastUpdateCommand(I_Command cmdUpdate);
 }

@@ -1,4 +1,4 @@
-package fr.istic.evc.network;
+package network;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -9,8 +9,8 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.rmi.RemoteException;
 
-import fr.istic.evc.Command.I_Command;
-import fr.istic.evc.Command.I_CreateCommand;
+import command.I_Command;
+import command.create.I_CreateCommand;
 
 public class MulticastSender implements Serializable {
 	

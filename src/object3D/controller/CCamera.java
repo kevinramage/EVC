@@ -1,65 +1,48 @@
-package fr.istic.evc.object3D.base.controller;
+package object3D.controller;
+
+import graphic2D.CameraManager;
 
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.Command.CmdCreateCCamera;
-import fr.istic.evc.Command.CmdUpdatePosition;
-import fr.istic.evc.Command.I_Command;
-import fr.istic.evc.Command.I_CreateCommand;
-import fr.istic.evc.graphic2D.CameraManager;
-import fr.istic.evc.object3D.base.abstraction.AObject;
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.presentation.PObject;
-import fr.istic.evc.pattern.Observer;
-import fr.istic.evc.project.Client;
+import object3D.abstraction.AObject;
+import object3D.abstraction.I_AObject;
+import object3D.presentation.PObject;
+import pattern.Observer;
+
+import command.CmdReferent;
+import command.I_Command;
+import command.create.CmdCreateCCamera;
+import command.create.I_CreateCommand;
+import command.update.CmdUpdatePosition;
 
 public class CCamera extends CSubject implements Observer{
 	
+	/* ---------- Attributes ---------- */
+	
 	protected CameraManager manager;
+	
+	
+	
+	
+	
 	
 	/* ---------- Constructors ---------- */
 
-	public CCamera(CameraManager manager) {
+	public CCamera() {
 		abstraction = new AObject();
 		presentation = new PObject(this);
-		this.manager = manager;
-		manager.attach(this);
-		this.attach(manager);
-		init();
 	}
 
 	public CCamera(I_AObject abstraction) {
 		this.abstraction = abstraction;
 		presentation = new PObject(this);
-		init();
 	}
 	
-	private void init() {
-		
-		// Calculate orientation
-		Transform3D t = new Transform3D();
-		t.setEuler(new Vector3d(Math.PI / 2, 0, 0));
-		Quat4d orientation = new Quat4d();
-		t.get(orientation);
-		
-		// Init param
-		setGeometry("cone");
-		//updateDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
-		//updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
-		updateOrientation(orientation);
-	}
 	
-	private Transform3D getBasedOrientation()  {
-		
-		Transform3D t = new Transform3D();
-		t.setEuler(new Vector3d(Math.PI / 2, 0, 0));
-		Quat4d orientation = new Quat4d();
-		t.get(orientation);
-		return t;
-	}
+
 	
 	
 
@@ -99,19 +82,34 @@ public class CCamera extends CSubject implements Observer{
 	
 	@Override
 	public void setPosition(Vector3d position) {
-		if ( !entity.isServer() ) {
-			I_Command cmd = new CmdUpdatePosition(this.getId(), position, Integer.parseInt(this.getId().split("-")[0].trim()) != entity.getId());
-			((Client)entity).changed(cmd);
+		
+		// Detect if is camera owner
+		boolean cameraOwner = Integer.parseInt(this.getId().split("-")[0].trim()) != entity.getId();
+		
+		// Create update command
+		I_Command cmdUpdate = new CmdUpdatePosition(getId(), position, cameraOwner);
+		
+		// Propagate command
+		if (referent) {
+			entity.broadCastUpdateCommand(cmdUpdate);
 		} else {
-			updatePosition(position);
-			myNotify();
+			entity.broadCastUpdateCommand(new CmdReferent(getId(), entity.getId(), cmdUpdate));
 		}
 	}
+
+	public void setManager(CameraManager manager) {
+		this.manager = manager;
+		manager.attach(this);
+		this.attach(manager);
+	}
 	
-//	@Override
-//	public void setPosition(Vector3d position) {
-//		super.setPosition(position);
-//		System.out.println("CCamera.setPosition()");
-//	}
 	
+	private Transform3D getBasedOrientation()  {
+		
+		Transform3D t = new Transform3D();
+		t.setEuler(new Vector3d(Math.PI / 2, 0, 0));
+		Quat4d orientation = new Quat4d();
+		t.get(orientation);
+		return t;
+	}
 }

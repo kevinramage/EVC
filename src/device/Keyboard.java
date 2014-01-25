@@ -1,4 +1,4 @@
-package fr.istic.evc.device;
+package device;
 
 public class Keyboard{
 

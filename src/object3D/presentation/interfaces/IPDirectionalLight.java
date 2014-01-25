@@ -1,4 +1,4 @@
-package fr.istic.evc.object3D.base.presentation.interfaces;
+package object3D.presentation.interfaces;
 
 public interface IPDirectionalLight extends IPObject{
 

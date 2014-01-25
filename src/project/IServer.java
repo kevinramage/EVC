@@ -1,14 +1,11 @@
-package fr.istic.evc.project;
+package project;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import fr.istic.evc.Command.CmdCreateCObject;
-import fr.istic.evc.Command.I_Command;
-import fr.istic.evc.Command.I_CreateCommand;
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
+import command.I_Command;
+import command.create.I_CreateCommand;
 
 public interface IServer extends Remote{
 

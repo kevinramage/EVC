@@ -1,4 +1,4 @@
-package fr.istic.evc.object3D.base.presentation;
+package object3D.presentation;
 
 import java.awt.Color;
 
@@ -12,9 +12,9 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.object3D.base.controller.CElasticObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
+import object3D.controller.CElasticObject;
+import object3D.controller.interfaces.ICObject;
+import object3D.presentation.interfaces.IPObject;
 
 public class PElasticObject extends TransformGroup implements IPObject {
 	
@@ -22,17 +22,18 @@ public class PElasticObject extends TransformGroup implements IPObject {
 	protected Point3d[] tabPoints = new Point3d[8];
 	protected CElasticObject controller; 
 	
-	public PElasticObject (CElasticObject controller, Vector3d v1, Vector3d v2) {
+	public PElasticObject (CElasticObject controller) {
 		this.controller = controller;
 		
 		setCapability(ALLOW_CHILDREN_WRITE);
 		setCapability(ALLOW_CHILDREN_EXTEND);
-		
+	}
+	
+	public void init(Vector3d v1, Vector3d v2) {
 		BranchGroup branchGroup = new BranchGroup();
 		branchGroup.setCapability(BranchGroup.ALLOW_DETACH);
 		branchGroup.addChild(buildForm(v1, v2));
 		addChild(branchGroup);
-
 	}
 	
 	private Shape3D buildForm(Vector3d v1, Vector3d v2) {

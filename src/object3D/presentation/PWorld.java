@@ -1,4 +1,4 @@
-package fr.istic.evc.object3D.base.presentation;
+package object3D.presentation;
 
 import javax.media.j3d.Behavior;
 import javax.media.j3d.BoundingSphere;
@@ -7,12 +7,13 @@ import javax.media.j3d.Canvas3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Point3d;
 
+import object3D.controller.CWorld;
+import object3D.presentation.interfaces.IPObject;
+import object3D.presentation.interfaces.IPWorld;
+
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
-import fr.istic.evc.device.IDevice;
-import fr.istic.evc.object3D.base.controller.CWorld;
-import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
-import fr.istic.evc.object3D.base.presentation.interfaces.IPWorld;
+import device.IDevice;
 
 public class PWorld implements IPWorld{
 

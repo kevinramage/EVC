@@ -6,27 +6,29 @@
  * 
  */
 
-package fr.istic.evc.object3D.base.controller;
+package object3D.controller;
 
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.Command.CmdCreateCObject;
-import fr.istic.evc.Command.CmdUpdateColor;
-import fr.istic.evc.Command.CmdUpdateDiffuse;
-import fr.istic.evc.Command.CmdUpdateOrientation;
-import fr.istic.evc.Command.CmdUpdatePosition;
-import fr.istic.evc.Command.I_Command;
-import fr.istic.evc.Command.I_CreateCommand;
-import fr.istic.evc.object3D.base.abstraction.AObject;
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.presentation.PObject;
-import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
-import fr.istic.evc.project.Client;
-import fr.istic.evc.project.IEntity;
+import object3D.abstraction.AObject;
+import object3D.abstraction.I_AObject;
+import object3D.controller.interfaces.ICObject;
+import object3D.controller.interfaces.ICWorld;
+import object3D.presentation.PObject;
+import object3D.presentation.interfaces.IPObject;
+import project.IEntity;
+
+import command.CmdReferent;
+import command.I_Command;
+import command.create.CmdCreateCObject;
+import command.create.I_CreateCommand;
+import command.update.CmdUpdateColor;
+import command.update.CmdUpdateDiffuse;
+import command.update.CmdUpdateOrientation;
+import command.update.CmdUpdatePosition;
 
 
 public class CObject implements ICObject {
@@ -36,9 +38,13 @@ public class CObject implements ICObject {
 	protected I_AObject abstraction;
 	protected IPObject presentation;
 	protected IEntity entity;
+	protected boolean referent;
 	
 
 
+	
+	
+	
 	/* ---------- Constructors ---------- */
 	
 	public CObject() {
@@ -52,6 +58,10 @@ public class CObject implements ICObject {
 	}
 	
 
+	
+	
+	
+	
 
 	/* ---------- Methods ---------- */
 	
@@ -69,19 +79,26 @@ public class CObject implements ICObject {
 		presentation.setDiffuseColor(getDiffuseColor());
 	}
 	
-	
-
 	public void select() {
+		
+		// Save the current ambient color
 		abstraction.setBackupColor(getAmbientColor());
-		this.setAmbientColor(getSelectColor());
+		
+		// Change the ambient color
+		setAmbientColor(getSelectColor());
 	}
 	
 	public void unselect() {
 		this.setAmbientColor(getBackupColor());
 	}
+
+	@Override
+	public void init(IEntity entity, ICWorld world) {
+	}
+
+
 	
-
-
+	
 	/* ---------- Updaters ---------- */
 	
 
@@ -95,188 +112,158 @@ public class CObject implements ICObject {
 		presentation.setOrientation(orientation);
 	}
 	
-	/**
-	 * Update the ambient color of the object
-	 * @param ambientColor a float vector3 which contains the ambient color r, g, b of the object
-	 */
 	public void updateAmbientColor(Color3f ambientColor) {
 		abstraction.setAmbientColor(ambientColor);
 		presentation.setAmbientColor(ambientColor);
 	}
 	
-	/**
-	 * Update the diffuse color of the object
-	 * @param ambientColor a float vector3 which contains the ambient color r, g, b of the object
-	 */
-	@Override
 	public void updateDiffuseColor(Color3f diffuseColor) {
 		abstraction.setDiffuseColor(diffuseColor);
 		presentation.setDiffuseColor(diffuseColor);
 	}
 
-	
-
-	/* ---------- Setters ---------- */
-
-	/**
-	 * Set the 3D position of the object
-	 * @param position a vector3 which contains the position x, y, z of the object
-	 */
-	public void setPosition(Vector3d position) {
-		if ( !entity.isServer() ) {
-			I_Command cmd = new CmdUpdatePosition(this.getId(), position, false);
-			((Client)entity).changed(cmd);
-		} else {
-			updatePosition(position);
-		}
-	}
-	
-	/**
-	 * Set the orientation of th
-	 * e object
-	 * @param orientation a quaternion which define the orientation of the object
-	 */
-	public void setOrientation(Quat4d orientation) {
-		if(!entity.isServer()) {
-			I_Command cmd = new CmdUpdateOrientation(this.getId(), orientation);
-			((Client)entity).changed(cmd);
-		}
-		else  {
-			updateOrientation(orientation);
-		}
-	}
-	
-	/**
-	 * Set the geometry of the object
-	 * @param geometry the geometry primitive name or the geometry url of the object
-	 */
-	public void setGeometry(String geometry) {
-		abstraction.setGeometry(geometry);
-		presentation.setGeometry(geometry);
-	}
-	
-	@Override
 	public void updateGeometry(String geometry) {
 		abstraction.setGeometry(geometry);
 		presentation.setGeometry(geometry);
 	}
-
-	/**
-	 * Set the scale of the object
-	 * @param scale a vector3 which contains the scale x, y, z of the object
-	 */
-	public void setScale(Vector3d scale) {
-
-	}
+	
 	public void updateScale(Vector3d scale) {
-		
+		System.err.println("Unimplemented method");
 	}
 	
-	/**
-	 * Define if the object if pickable or not
-	 * @param b boolean which determine if object is pickable or not
-	 */
-	public void setPickable(boolean b) {
-		abstraction.setPickable(b);
-		presentation.setPickable(b);
-	}
 	public void updatePickable(boolean b) {
 		abstraction.setPickable(b);
 		presentation.setPickable(b);
 	}
 	
-	/**
-	 * Set the ambient color of the object
-	 * @param ambientColor a float vector3 which contains the ambient color r, g, b of the object
-	 */
-	public void setAmbientColor(Color3f ambientColor) {
-		if ( !entity.isServer() ) {
-			I_Command cmd = new CmdUpdateColor(this.getId(), ambientColor);
-			((Client)entity).changed(cmd);
-		} else {
-			updateAmbientColor(ambientColor);
-		}
-	}
 
-	/**
-	 * Set the diffuse color of the object
-	 * @param diffuseColor a float vector3 which contains the diffuse color r, g, b of the object
-	 */
-	public void setDiffuseColor(Color3f diffuseColor) {
-		if ( !entity.isServer() ) {
-			I_Command cmd = new CmdUpdateDiffuse(this.getId(), diffuseColor);
-			((Client)entity).changed(cmd);
+	
+	
+	/* ---------- Setters ---------- */
+
+	public void setPosition(Vector3d position) {
+		
+		// Create update command
+		I_Command cmdUpdate = new CmdUpdatePosition(getId(), position, false);
+		
+		// Propagate command
+		if (referent) {
+			entity.broadCastUpdateCommand(cmdUpdate);
 		} else {
-			updateAmbientColor(diffuseColor);
+			entity.broadCastUpdateCommand(new CmdReferent(getId(), entity.getId(), cmdUpdate));
 		}
 	}
 	
-	@Override
+	public void setOrientation(Quat4d orientation) {
+
+		// Create update command
+		I_Command cmdUpdate = new CmdUpdateOrientation(this.getId(), orientation);
+		
+		// Propagate command
+		if (referent) {
+			entity.broadCastUpdateCommand(cmdUpdate);
+		} else {
+			entity.broadCastUpdateCommand(new CmdReferent(getId(), entity.getId(), cmdUpdate));
+		}
+	}
+	
+	public void setGeometry(String geometry) {
+		System.err.println("Unimplemented method");
+	}
+	
+	public void setScale(Vector3d scale) {
+		System.err.println("Unimplemented method");
+	}
+
+	public void setPickable(boolean b) {
+		System.err.println("Unimplemented method");
+	}
+	
+	public void setAmbientColor(Color3f ambientColor) {
+
+		// Create update command
+		I_Command cmdUpdate = new CmdUpdateColor(this.getId(), ambientColor);
+		
+		// Propagate command
+		if (referent) {
+			entity.broadCastUpdateCommand(cmdUpdate);
+		} else {
+			entity.broadCastUpdateCommand(new CmdReferent(getId(), entity.getId(), cmdUpdate));
+		}
+	}
+
+	public void setDiffuseColor(Color3f diffuseColor) {
+		
+		// Create update command
+		I_Command cmdUpdate = new CmdUpdateDiffuse(this.getId(), diffuseColor);
+		
+		// Propagate command
+		if (referent) {
+			entity.broadCastUpdateCommand(cmdUpdate);
+		} else {
+			entity.broadCastUpdateCommand(new CmdReferent(getId(), entity.getId(), cmdUpdate));
+		}
+	}
+	
 	public void setId(String id) {
 		abstraction.setId(id);
 	}
-
+	
 	public void setEntity(IEntity entity) {
 		this.entity = entity;
 	}
+	
+	public void setReferent(boolean b) {
+		referent = b;
+	}
+	
+	
+	
+	
+	
+	
 	
 
 
 	/* ---------- Getters ---------- */
 	
 	
-	/**
-	 * Get the presentation layer of the object
-	 * @return the presentation layer
-	 */
 	public IPObject getPresentation() {
 		return presentation;
 	}
 
-	/**
-	 * Get the geometry of the object
-	 * @return the name of the primitve geometry or the url of the object
-	 */
 	public String getGeometry() {
 		return abstraction.getGeometry();
 	}
 
-	@Override
 	public String getId() {
 		return abstraction.getId();
 	}
 
-	@Override
 	public I_AObject getAbstraction() {
 		return abstraction;
 	}
 
-	@Override
 	public Vector3d getPosition() {
 		return abstraction.getPosition();
 	}
 	
-	@Override
 	public Quat4d getOrientation() {
 		return abstraction.getOrientation();
 	}
 
-	@Override
 	public Color3f getAmbientColor() {
 		return abstraction.getAmbientColor();
 	}
 
-	@Override
 	public Color3f getDiffuseColor() {
 		return abstraction.getDiffuseColor();
 	}
 	
-	@Override
 	public Color3f getSelectColor() {
 		return abstraction.getSelectColor();
 	}
 	
-	@Override
 	public Color3f getBackupColor() {
 		return abstraction.getBackupColor();
 	}
@@ -285,17 +272,13 @@ public class CObject implements ICObject {
 		return entity;
 	}
 	
-	@Override
 	public Transform3D getTransform() {
 		return presentation.getTransform();
 	}
 
-	@Override
 	public boolean isPickable() {
 		return abstraction.isPickable();
 	}
-
-
 
 
 }

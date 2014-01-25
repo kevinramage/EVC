@@ -1,4 +1,4 @@
-package fr.istic.evc.object3D.base.controller.interfaces;
+package object3D.controller.interfaces;
 
 public interface ICAmbientLight extends ICObject {
 

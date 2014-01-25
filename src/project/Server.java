@@ -1,5 +1,7 @@
-package fr.istic.evc.project;
+package project;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -8,202 +10,88 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.media.j3d.Transform3D;
-import javax.media.j3d.TransformGroup;
-import javax.vecmath.Color3f;
-import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.Command.I_Command;
-import fr.istic.evc.Command.I_CreateCommand;
-import fr.istic.evc.device.Mouse;
-import fr.istic.evc.graphic2D.Camera;
-import fr.istic.evc.graphic2D.CameraManager;
-import fr.istic.evc.graphic2D.IHM;
-import fr.istic.evc.network.MulticastSender;
-import fr.istic.evc.object3D.base.controller.CAmbientLight;
-import fr.istic.evc.object3D.base.controller.CDirectionalLight;
-import fr.istic.evc.object3D.base.controller.CElasticObject;
-import fr.istic.evc.object3D.base.controller.CObject;
-import fr.istic.evc.object3D.base.controller.CSubject;
-import fr.istic.evc.object3D.base.controller.CWorld;
-import fr.istic.evc.object3D.base.controller.interfaces.ICAmbientLight;
-import fr.istic.evc.object3D.base.controller.interfaces.ICDirectionalLight;
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICWorld;
+import object3D.controller.CWorld;
+import object3D.controller.interfaces.ICObject;
+import object3D.controller.interfaces.ICWorld;
+import network.ICallback;
+import network.MulticastSender;
+import network.WorldListener;
+import network.WorldSender;
+import command.I_Command;
+import command.create.I_CreateCommand;
+import device.Mouse;
+import factory.WorldBuilder;
+import graphic2D.Camera;
+import graphic2D.CameraManager;
+import graphic2D.IHM;
 
 public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	
 	private static final long serialVersionUID = 1L;
-	private static final int rmiPort = 1234;
-	private static final int createDiffusionPort = 4321;
-	private static final int updateDiffusionPort = 4322;
-	private static final String hostName = "127.0.0.1";
-	private static final String serverName = "williamServer";
-	private static final String groupName = "239.19.10.10";
-	
+	private transient MulticastSender sender ;
+	private ICWorld world;
 	private int compteur;
 	
-	transient MulticastSender sender ;
-	ICWorld world;
-	ICAmbientLight ambientLight1;
 	
 	
-	
-	public Server(String title) throws RemoteException {
+	public Server(final String worldName, String title) throws RemoteException {
 		
-		// Configuration
+		// Configure RMI object
 		try {
-            //Object serverRMIPort;
-            LocateRegistry.createRegistry (rmiPort) ;
-            Naming.rebind ("//" + hostName + ":" + rmiPort + "/" + serverName, this) ;
-            sender = new MulticastSender (groupName, createDiffusionPort, updateDiffusionPort) ;
-            compteur = 0;
+            LocateRegistry.createRegistry (Configuration.RMI_PORT) ;
+            Naming.rebind ("//" + Configuration.HOST_NAME + ":" + Configuration.RMI_PORT + "/" + Configuration.SERVER_NAME, this) ;
+            sender = new MulticastSender (Configuration.DIFFUSION_ADDRESS, Configuration.CREATE_PORT, Configuration.UPDATE_PORT) ;
         } catch (Exception e) {
             e.printStackTrace() ;
         }
 		
+		
+		
+		// IP
+		String ipAddress = "";
+		try {
+			ipAddress = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		final String ip = ipAddress;
+		
+		
+		
+		// Configure the world multicast receiver
+		ICallback callback = new ICallback() {
+			
+			@Override
+			public void call(Object data) {
+				WorldSender sender = new WorldSender(Configuration.DIFFUSION_ADDRESS, Configuration.WORLD_RESPONSE_PORT);
+				sender.diffuseMessage(worldName + "-" + ip);
+			}
+		};
+		WorldListener listener = new WorldListener(Configuration.DIFFUSION_ADDRESS, Configuration.WORLD_REQUEST_PORT, callback);
+		listener.start();
+		
 		// World
 		world = new CWorld();
-//		world.setServer(this);
-		
-		// Box1
-//		ICObject box1 = new CObject();
-//		box1.setEntity(this);
-//		box1.setId("box1");
-//		box1.updateGeometry("cube");
-//		box1.updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
-//		box1.updateDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
-//		box1.updatePosition(new Vector3d(-10, 0, -5));
-//		box1.updatePickable(true);
-//		world.add(box1);
-//		
-//		// Box2
-//		ICObject box2 = new CObject();
-//		box2.setEntity(this);
-//		box2.setId("box2");
-//		box2.setGeometry("cube");
-//		box2.updateAmbientColor(new Color3f(0.5f, 0.5f, 0.5f));
-//		box2.setDiffuseColor(new Color3f(0.5f, 0.5f, 0.5f));
-//		box2.setPosition(new Vector3d(10, 0, 5));
-//		box2.setPickable(true);
-//		world.add(box2);
-//		
-//		// Box3
-//		ICObject box3 = new CObject();
-//		box3.setEntity(this);
-//		box3.setId("box3");
-//		box3.setGeometry("cube");
-//		box3.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
-//		box3.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
-//		box3.setPosition(new Vector3d(0, 0, -5 ));
-//		box3.setPickable(true);
-//		world.add(box3);
-		
-		
-		CSubject s1 = new CSubject();
-		s1.setEntity(this);
-		s1.setId("0-21");
-		s1.setGeometry("sphere");
-		s1.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
-		s1.setDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
-		s1.setPosition(new Vector3d(-5, 0, -5 ));
-		s1.setPickable(true);
-		world.add(s1);
-		
-		CSubject s2 = new CSubject();
-		s2.setEntity(this);
-		s2.setId("0-22");
-		s2.setGeometry("sphere");
-		s2.updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
-		s2.setDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
-		s2.setPosition(new Vector3d(5, 0, -5 ));
-		s2.setPickable(true);
-		world.add(s2);
-		
-		
-		ICObject elastic = new CElasticObject(s1, s2);
-		elastic.setEntity(this);
-		elastic.setId("0-23");
-		elastic.setPickable(false);
-		world.add(elastic);
-		
-		// Box du monde
-//		ICObject boxWorld = new CObject();
-//		boxWorld.setEntity(this);
-//		boxWorld.setId("box1");
-//		boxWorld.updateGeometry("cube");
-//		boxWorld.updateAmbientColor(new Color3f(1.0f, 0.0f, 0.0f));
-//		boxWorld.updateDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
-//		boxWorld.updatePosition(new Vector3d(-10, 0, 0));
-//		boxWorld.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
-//		boxWorld.updatePickable(true);
-//		world.add(boxWorld);
-//		
-//
-//		ICObject box2 = new CObject();
-//		box2.setEntity(this);
-//		box2.setId("box2");
-//		box2.updateGeometry("cube");
-//		box2.updateAmbientColor(new Color3f(0.0f, 1.0f, 0.0f));
-//		box2.updateDiffuseColor(new Color3f(0.0f, 1.0f, 0.0f));
-//		box2.updatePosition(new Vector3d(10, 0, 0));
-//		box2.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
-//		box2.updatePickable(true);
-//		world.add(box2);
-		
-
-		ICObject box3 = new CObject();
-		box3.setEntity(this);
-		box3.setId("box3");
-		box3.updateGeometry("cube");
-		box3.updateAmbientColor(new Color3f(0.0f, 0.0f, 1.0f));
-		box3.updateDiffuseColor(new Color3f(0.0f, 0.0f, 1.0f));
-		box3.updatePosition(new Vector3d(0, 0, 10));
-		box3.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
-		box3.updatePickable(true);
-		world.add(box3);
-		
-
-		ICObject box4 = new CObject();
-		box4.setEntity(this);
-		box4.setId("box4");
-		box4.updateGeometry("cube");
-		box4.updateAmbientColor(new Color3f(0.8f, 0.8f, 0.8f));
-		box4.updateDiffuseColor(new Color3f(0.8f, 0.8f, 0.8f));
-		box4.updatePosition(new Vector3d(0, 0, -10));
-		box4.updateOrientation(new Quat4d(0, 1, 0, Math.PI/2));
-		box4.updatePickable(true);
-		world.add(box4);
-		
-		
-		// Ambient light 1
-		ICAmbientLight ambientLight1 = new CAmbientLight();
-		ambientLight1.setEntity(this);
-		ambientLight1.setId("ambientLight1");
-		ambientLight1.updateAmbientColor(new Color3f(0.2f, 0.2f, 0.2f));
-		world.add(ambientLight1);
-
-		// Directional light 1
-		ICDirectionalLight directionalLight1 = new CDirectionalLight();
-		directionalLight1.setEntity(this);
-		directionalLight1.setId("directionalLight1");
-		world.add(directionalLight1);
-		
-		
-		// World
-//		world = WorldBuiler.getInstance().load("01.xml");
+		WorldBuilder.getInstance().load(world, "resources/world/" + worldName, this);
 		
 		
 		// System camera
 		Camera systemCamera = new Camera();
 		Transform3D transform3D = new Transform3D();
-		transform3D.setTranslation(new Vector3d(0, 0, 0));
+		transform3D.setTranslation(new Vector3d(0, 0, 20));
 		systemCamera.setTransform3D(transform3D);
 		
-		// Devices
-		world.addDevice(new Mouse());
+		// Camera Manager
+		CameraManager cameraManager = new CameraManager(world.getPresentation().getWorldTransform());
+		cameraManager.changeCamera(systemCamera);
+		world.setCameraManager(cameraManager);
 		
-		world.setCameraManager(new CameraManager(new TransformGroup()));
+		// Devices
+		Mouse mouse = new Mouse();
+		mouse.setCameraManager(cameraManager);
+		world.addDevice(mouse);
 		
 		// Show world
 		world.show();
@@ -215,17 +103,17 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 
 	@Override
 	public String getDiffusionGroupName() throws RemoteException {
-		return groupName ;
+		return Configuration.DIFFUSION_ADDRESS ;
 	}
 
 	@Override
 	public Integer getCreatePort() throws RemoteException {
-		return new Integer (createDiffusionPort);
+		return new Integer (Configuration.CREATE_PORT);
 	}
 
 	@Override
 	public Integer getUpdatePort() throws RemoteException {
-		return new Integer(updateDiffusionPort);
+		return new Integer(Configuration.UPDATE_PORT);
 	}
 
 
@@ -235,6 +123,9 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 		cmd.execute(this);
 		sender.updateObject(cmd);
 	}
+	
+	
+	
 	
 	
 	
@@ -282,5 +173,16 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	@Override
 	public int getId() {
 		return -1;
+	}
+
+	@Override
+	public void addObjectInWorld(ICWorld world, ICObject obj) {
+		world.add(obj);
+	}
+
+	@Override
+	public void broadCastUpdateCommand(I_Command cmd) {
+		cmd.execute(this);
+		sender.updateObject(cmd);
 	}
 }

@@ -6,7 +6,7 @@
  * 
  */
 
-package fr.istic.evc.object3D.base.presentation;
+package object3D.presentation;
 
 import java.util.Arrays;
 
@@ -19,13 +19,13 @@ import javax.vecmath.Color3f;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
+import object3D.controller.interfaces.ICObject;
+import object3D.presentation.interfaces.IPObject;
+
 import com.sun.j3d.utils.geometry.Box;
 import com.sun.j3d.utils.geometry.Cone;
 import com.sun.j3d.utils.geometry.Primitive;
 import com.sun.j3d.utils.geometry.Sphere;
-
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.presentation.interfaces.IPObject;
 
 public class PObject extends TransformGroup implements IPObject {
 
@@ -118,6 +118,8 @@ public class PObject extends TransformGroup implements IPObject {
 	public void setPickable(boolean b) {
 		if (b) {
 			setCapability(TransformGroup.ENABLE_PICK_REPORTING);
+			setCapability(TransformGroup.ALLOW_PICKABLE_READ);
+			setCapability(TransformGroup.ALLOW_PICKABLE_WRITE);
 		} else {
 			clearCapability(TransformGroup.ENABLE_PICK_REPORTING);
 		}

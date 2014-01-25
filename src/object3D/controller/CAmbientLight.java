@@ -1,11 +1,11 @@
-package fr.istic.evc.object3D.base.controller;
+package object3D.controller;
 
-import fr.istic.evc.Command.CmdCreateAmbient;
-import fr.istic.evc.Command.I_CreateCommand;
-import fr.istic.evc.object3D.base.abstraction.AObject;
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICAmbientLight;
-import fr.istic.evc.object3D.base.presentation.PAmbientLight;
+import object3D.abstraction.AObject;
+import object3D.abstraction.I_AObject;
+import object3D.controller.interfaces.ICAmbientLight;
+import object3D.presentation.PAmbientLight;
+import command.create.CmdCreateAmbient;
+import command.create.I_CreateCommand;
 
 public class CAmbientLight extends CObject implements ICAmbientLight {
 	

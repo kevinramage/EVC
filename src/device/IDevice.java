@@ -1,8 +1,8 @@
-package fr.istic.evc.device;
+package device;
 
 import javax.media.j3d.BranchGroup;
 
-import fr.istic.evc.graphic2D.CameraManager;
+import graphic2D.CameraManager;
 
 public interface IDevice {
 	void setBranchGroup(BranchGroup branchGroup);

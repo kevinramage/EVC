@@ -7,13 +7,13 @@
  */
 
 
-package fr.istic.evc.object3D.base.controller.interfaces;
+package object3D.controller.interfaces;
 
 import java.util.List;
 
-import fr.istic.evc.device.IDevice;
-import fr.istic.evc.graphic2D.CameraManager;
-import fr.istic.evc.object3D.base.presentation.interfaces.IPWorld;
+import object3D.presentation.interfaces.IPWorld;
+import device.IDevice;
+import graphic2D.CameraManager;
 
 
 public interface ICWorld {

@@ -1,4 +1,4 @@
-package fr.istic.evc.network;
+package network;
 
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
@@ -6,13 +6,8 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 
-import fr.istic.evc.Command.CmdCreateCObject;
-import fr.istic.evc.Command.I_CreateCommand;
-import fr.istic.evc.object3D.base.abstraction.AObject;
-import fr.istic.evc.object3D.base.abstraction.I_AObject;
-import fr.istic.evc.object3D.base.controller.CObject;
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.project.Client;
+import project.Client;
+import command.create.I_CreateCommand;
 
 public class MulticastReceiverCreate extends Thread implements Runnable {
 
@@ -27,7 +22,7 @@ public class MulticastReceiverCreate extends Thread implements Runnable {
             receptionSocket = new MulticastSocket (diffusionPort) ;
             receptionSocket.joinGroup (adresseDiffusion) ;
             // pour pouvoir envoyer du multicast aussi en local
-            receptionSocket.setLoopbackMode (true) ;
+            receptionSocket.setLoopbackMode (false) ;
            // System.out.println ("reception socket : " + receptionSocket.getLocalPort() + " " + receptionSocket.getInetAddress ()) ;
         } catch (Exception e) {
             e.printStackTrace () ;

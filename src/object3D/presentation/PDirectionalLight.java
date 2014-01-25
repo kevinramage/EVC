@@ -1,4 +1,4 @@
-package fr.istic.evc.object3D.base.presentation;
+package object3D.presentation;
 
 import javax.media.j3d.DirectionalLight;
 import javax.media.j3d.Transform3D;
@@ -7,8 +7,8 @@ import javax.vecmath.Color3f;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 
-import fr.istic.evc.object3D.base.controller.interfaces.ICObject;
-import fr.istic.evc.object3D.base.presentation.interfaces.IPDirectionalLight;
+import object3D.controller.interfaces.ICObject;
+import object3D.presentation.interfaces.IPDirectionalLight;
 
 public class PDirectionalLight extends TransformGroup implements IPDirectionalLight {
 
