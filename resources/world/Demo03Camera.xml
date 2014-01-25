@@ -1,0 +1,24 @@
+<World>
+	<Objects>
+		<CObject id="box1">
+			<Geometry>cube</Geometry>
+			<AmbientColor>0 0 1</AmbientColor>
+			<DiffuseColor>0 0 1</DiffuseColor>
+			<Position>10 0 0</Position>
+			<Orientation>0 1 0 1.57</Orientation>
+			<Pickable>true</Pickable>
+		</CObject>
+		<CObject id="box2">
+			<Geometry>cube</Geometry>
+			<AmbientColor>0.8 0.8 0.8</AmbientColor>
+			<DiffuseColor>0.8 0.8 0.8</DiffuseColor>
+			<Position>-10 0 0</Position>
+			<Orientation>0 1 0 1.57</Orientation>
+			<Pickable>true</Pickable>
+		</CObject>
+		<CAmbientLight id="ambientLight1">
+			<AmbientColor>0.2 0.2 0.2</AmbientColor>
+		</CAmbientLight>	
+		<CDirectionalLight id="directionalLight1" />		
+	</Objects>
+</World>

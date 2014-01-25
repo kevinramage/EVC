@@ -1,0 +1,27 @@
+<World>
+	<Objects>
+		<CSubject id="subject1">
+			<Geometry>sphere</Geometry>
+			<AmbientColor>0 0 1</AmbientColor>
+			<DiffuseColor>0 0 1</DiffuseColor>
+			<Position>-5 0 -5</Position>
+			<Pickable>true</Pickable>
+		</CSubject>
+		<CSubject id="subject2">
+			<Geometry>sphere</Geometry>
+			<AmbientColor>1 0 0</AmbientColor>
+			<DiffuseColor>1 0 0</DiffuseColor>
+			<Position>5 0 -5</Position>
+			<Pickable>true</Pickable>
+		</CSubject>		
+		<CElasticObject id="elastic1">
+			<S1>subject1</S1>
+			<S2>subject2</S2>
+			<Pickable>false</Pickable>
+		</CElasticObject>
+		<CAmbientLight id="ambientLight1">
+			<AmbientColor>0.2 0.2 0.2</AmbientColor>
+		</CAmbientLight>	
+		<CDirectionalLight id="directionalLight1" />			
+	</Objects>
+</World>

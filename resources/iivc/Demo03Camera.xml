@@ -1,0 +1,12 @@
+<World>
+	<Objects>
+		<CCamera id="camera">
+			<Geometry>cone</Geometry>
+			<Position>0 0 20</Position>
+			<Orientation>1 0 0 1</Orientation>
+			<Pickable>true</Pickable>
+			<AmbientColor>1 0 0</AmbientColor>
+			<DiffuseColor>1 0 0</DiffuseColor>
+		</CCamera>
+	</Objects>
+</World>
