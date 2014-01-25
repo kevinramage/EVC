@@ -12,7 +12,6 @@ import command.clone.CmdAddClone;
 import command.clone.CmdChangeToClones;
 import command.clone.CmdCreateCClonable;
 import command.create.I_CreateCommand;
-import command.update.CmdUpdatePosition;
 import command.update.CmdUpdateSelected;
 
 
@@ -41,40 +40,33 @@ public class CClonable extends CObject implements Observer {
 	@Override
 	public void setSelected(boolean selected) {
 
-		// No clone
-		if (!selected) {
+		System.out.println("CClonable.setSelected() - ");
+		
+		// No clone => no conflicts
+		if (!isSelected()) {
 			
-			// Propagate cmd
-			setUpdateSelected(selected);
+			// Propagate the selection of the object
+			propagateUpdateSelected(selected);
+			System.out.println("CClonable.setSelected() - No conflict");
 		}
 		
-		// On selectionne le clonable, plusieurs cas de figure
-		else {
-			if (!entity.isServer()) {
-				System.out.println("Selection d'un clonable : ");
-				I_Command cmd = null;
-				if (!isSelected()) {
-					System.out.println("Cas 1 - Juste lui");
-					cmd = new CmdUpdateSelected(this.getId(), selected);
-				}
-				else if (isSelected() && clones.isEmpty()){
-					System.out.println("Cas 2 - Creation des clones");
-					cmd = new CmdChangeToClones(this.getId());
-				}
-				else if (isSelected() && !alreadyPick()) {
-					System.out.println("Cas 3 - Ajout de clone");
-					cmd = new CmdAddClone(this.getId());
-				}
-				if (cmd != null)
-					((Client)entity).changed(cmd);
-			}
-			else {
-				updateSelected(selected);
-			}
+		// 2 users on the same object => conflict
+		else if (isSelected() && clones.isEmpty()) {
+			
+			// Propagate the transformation of the object
+			propagateChangeToClones();
+			System.out.println("CClonable.setSelected() - One conflict");
+		}
+		
+		// Other user pick the object => conflict
+		else if (isSelected() && !alreadyPick()) {
+			
+			// Propagate the add of a clone
+			propagateAddClone();
 		}
 	}
 	
-	private void setUpdateSelected(boolean selected) {
+	private void propagateUpdateSelected(boolean selected) {
 		
 		// Create update command
 		I_Command cmdUpdate = new CmdUpdateSelected(this.getId(), selected);
@@ -86,6 +78,33 @@ public class CClonable extends CObject implements Observer {
 			entity.broadCastUpdateCommand(new CmdReferent(getId(), entity.getId(), cmdUpdate));
 		}
 	}
+	
+	private void propagateChangeToClones() {
+		
+		// Create update command
+		I_Command cmdUpdate = new CmdChangeToClones(this.getId());
+		
+		// Propagate command
+		if (referent) {
+			entity.broadCastUpdateCommand(cmdUpdate);
+		} else {
+			entity.broadCastUpdateCommand(new CmdReferent(getId(), entity.getId(), cmdUpdate));
+		}		
+	}
+	
+	private void propagateAddClone() {
+		
+		// Create update command
+		I_Command cmdUpdate = new CmdAddClone(this.getId());
+		
+		// Propagate command
+		if (referent) {
+			entity.broadCastUpdateCommand(cmdUpdate);
+		} else {
+			entity.broadCastUpdateCommand(new CmdReferent(getId(), entity.getId(), cmdUpdate));
+		}		
+	}
+	
 	
 	public void addClone(CClone clone) {
 		clones.add(clone);
