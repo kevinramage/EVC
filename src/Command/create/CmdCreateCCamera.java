@@ -2,8 +2,8 @@ package command.create;
 
 import object3D.abstraction.I_AObject;
 import object3D.controller.CCamera;
-import object3D.controller.interfaces.ICWorld;
 import project.IEntity;
+
 
 public class CmdCreateCCamera implements I_CreateCommand {
 	
@@ -21,13 +21,12 @@ public class CmdCreateCCamera implements I_CreateCommand {
 
 
 	/* ---------- Methods ---------- */
-	@Override
-	public void execute(ICWorld world, IEntity entity) {
+	public void execute(IEntity entity) {
 		CCamera controller = new CCamera(abstraction);
-		controller.setEntity(entity);
-		controller.setManager(world.getCameraManager());
+		controller.setManager(entity.getWorld().getCameraManager());
 		controller.reload();
-		world.add(controller);
+		controller.setEntity(entity);
+		entity.getWorld().add(controller);
 	}
 	
 	

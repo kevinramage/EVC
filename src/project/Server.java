@@ -32,17 +32,21 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	private static final long serialVersionUID = 1L;
 	private transient MulticastSender sender ;
 	private ICWorld world;
+	private String title;
 	private int compteur;
 	
 	
 	
 	public Server(final String worldName, String title) throws RemoteException {
 		
+		// Title
+		this.title = title;
+		
 		// Configure RMI object
 		try {
             LocateRegistry.createRegistry (Configuration.RMI_PORT) ;
             Naming.rebind ("//" + Configuration.HOST_NAME + ":" + Configuration.RMI_PORT + "/" + Configuration.SERVER_NAME, this) ;
-            sender = new MulticastSender (Configuration.DIFFUSION_ADDRESS, Configuration.CREATE_PORT, Configuration.UPDATE_PORT) ;
+            sender = new MulticastSender (Configuration.DIFFUSION_ADDRESS, Configuration.CREATE_PORT, Configuration.UPDATE_PORT, Configuration.DELETE_PORT) ;
         } catch (Exception e) {
             e.printStackTrace() ;
         }
@@ -133,7 +137,7 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	
 	@Override
 	public void addObject(I_CreateCommand cmd) throws RemoteException{
-		cmd.execute(world, this);
+		cmd.execute(this);
 		sender.createObject(cmd);
 	}
 	
@@ -184,5 +188,37 @@ public class Server extends UnicastRemoteObject implements IServer, IEntity {
 	public void broadCastUpdateCommand(I_Command cmd) {
 		cmd.execute(this);
 		sender.updateObject(cmd);
+	}
+
+	@Override
+	public void removeObjects(I_Command cmdDelete) throws RemoteException {
+		cmdDelete.execute(this);
+		sender.deleteObjects(cmdDelete);
+	}
+
+	@Override
+	public int getDeletePort() throws RemoteException {
+		return Configuration.DELETE_PORT;
+	}
+
+	@Override
+	public boolean havePick(ICObject obj) {
+		return false;
+	}
+
+	@Override
+	public String getTitle() {
+		return title;
+	}
+
+	@Override
+	public void showAllObjects() {
+		String str = "\n"+this.getTitle()+"\n";
+		str += "Liste des Objets : \n";
+		for (ICObject o:this.getWorld().getObjects()) {
+			str += "\t - "+o.getId()+" de type : "+o.getClass()+"\n";
+		}
+		
+		System.err.println(str);
 	}
 }

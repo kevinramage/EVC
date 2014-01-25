@@ -36,6 +36,7 @@ public class Mouse extends Behavior implements IDevice {
 	// 						Attributes
 	// ---------------------------------------------------------	
 	protected List<ICObject> objectsSelected;
+	protected List<ICObject> blackList;
 	protected BranchGroup scene;
 	protected WakeupOr wEvents ;
 	protected int buttonsInUse ;
@@ -58,6 +59,7 @@ public class Mouse extends Behavior implements IDevice {
 		if ( speed < 0 ) speed = 0;
 		if ( speed > 10 ) speed = 10;
 		this.objectsSelected = new ArrayList<ICObject>();
+		this.blackList = new ArrayList<ICObject>();
 		this.speed = 40.0 + (speed - 5) * 5;
 	}
 	public Mouse() {
@@ -139,16 +141,18 @@ public class Mouse extends Behavior implements IDevice {
 								
 									// Select
 									if ( button1Pressed) {
-										if (!objectsSelected.contains(cObject)) {
+										if (!objectsSelected.contains(cObject) && !blackList.contains(cObject)) {
+
 											objectsSelected.add(cObject);
-											cObject.select();
-											System.out.println("Mouse.processStimulus()  Select");
+											cObject.setSelected(true);
 										}
+//										else if (blackList.contains(cObject))
+//											System.out.println("L'objet : "+cObject.getId()+" est blacklisté");
 									// Unselect
 									} else if (button3Pressed) {
 										if (objectsSelected.contains(cObject)) {
 											objectsSelected.remove(cObject);
-											cObject.unselect();
+											cObject.setSelected(false);
 										}
 									}
 								}
@@ -216,7 +220,6 @@ public class Mouse extends Behavior implements IDevice {
 					y1 = y2;
 					
 				} else if (events[i].getID() == MouseEvent.MOUSE_WHEEL) {
-					
 					MouseWheelEvent event = (MouseWheelEvent) events[i];
 					
 					// Object selected
@@ -250,5 +253,37 @@ public class Mouse extends Behavior implements IDevice {
 			node = node.getParent();
 		}
 		return (IPObject)node;
+	}
+	@Override
+	
+	public void unselectedAll() {
+		objectsSelected.clear();
+	}
+
+	public boolean picked(ICObject obj) {
+		return objectsSelected.contains(obj);
+	}
+	
+	@Override
+	public void forceUnpick(ICObject obj) {
+		objectsSelected.remove(obj);
+	}
+	
+	@Override
+	public void forcePick(ICObject obj) {
+		objectsSelected.add(obj);
+		
+	}
+	@Override
+	public void addToBlackList(ICObject obj) {
+		blackList.add(obj);
+	}
+	@Override
+	public void removeFromBlackList(ICObject obj) {
+		blackList.remove(obj);
+	}
+	
+	public void clearBlackList() {
+		blackList.clear();
 	}
 }

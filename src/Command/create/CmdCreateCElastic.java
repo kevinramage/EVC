@@ -4,8 +4,8 @@ import object3D.abstraction.I_AObject;
 import object3D.controller.CElasticObject;
 import object3D.controller.CSubject;
 import object3D.controller.interfaces.ICObject;
-import object3D.controller.interfaces.ICWorld;
 import project.IEntity;
+
 
 public class CmdCreateCElastic implements I_CreateCommand {
 
@@ -22,13 +22,13 @@ public class CmdCreateCElastic implements I_CreateCommand {
 	}
 	
 	@Override
-	public void execute(ICWorld world, IEntity entity) {
-		CSubject s1 = (CSubject) world.getObjectById(sphere1.getId());
-		CSubject s2 = (CSubject) world.getObjectById(sphere2.getId());
+	public void execute(IEntity entity) {
+		CSubject s1 = (CSubject) entity.getWorld().getObjectById(sphere1.getId());
+		CSubject s2 = (CSubject) entity.getWorld().getObjectById(sphere2.getId());
 		
 		ICObject elastic = new CElasticObject(abstraction, s1, s2);
 		elastic.setEntity(entity);
-		world.add(elastic);
+		entity.getWorld().add(elastic);
 	}
 
 }

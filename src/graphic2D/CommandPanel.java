@@ -95,6 +95,15 @@ public class CommandPanel extends JPanel{
 		btnDelete.setIcon(new ImageIcon("resources/image/delete.png"));
 		btnDelete.setToolTipText("Delete");
 		add(btnDelete);
+		btnDelete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				client.removeObjects();
+				
+			}
+		});
+		
+		
 	}
 	private void addCubeBtn() {
 		JButton btnCube = new JButton();

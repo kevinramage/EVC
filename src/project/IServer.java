@@ -17,5 +17,7 @@ public interface IServer extends Remote{
 	void update(I_Command cmd) throws RemoteException;
 	int obtainID() throws RemoteException;
 	void addObject(I_CreateCommand cmd) throws RemoteException;
+	void removeObjects(I_Command cmdDelete) throws RemoteException;
+	int getDeletePort() throws RemoteException;
 
 }

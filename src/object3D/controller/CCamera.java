@@ -100,7 +100,6 @@ public class CCamera extends CSubject implements Observer{
 	public void setManager(CameraManager manager) {
 		this.manager = manager;
 		manager.attach(this);
-		this.attach(manager);
 	}
 	
 	

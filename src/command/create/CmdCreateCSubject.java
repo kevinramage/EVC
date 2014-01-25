@@ -1,10 +1,11 @@
+
 package command.create;
 
 import object3D.abstraction.I_AObject;
 import object3D.controller.CSubject;
 import object3D.controller.interfaces.ICObject;
-import object3D.controller.interfaces.ICWorld;
 import project.IEntity;
+
 
 public class CmdCreateCSubject implements I_CreateCommand {
 
@@ -27,11 +28,11 @@ public class CmdCreateCSubject implements I_CreateCommand {
 	/* ---------- Methods ---------- */
 
 	@Override
-	public void execute(ICWorld world, IEntity entity) {
+	public void execute(IEntity entity) {
 		ICObject controller;
 		controller = new CSubject(abstraction);
 		controller.reload();
 		controller.setEntity(entity);
-		world.add(controller);
+		entity.getWorld().add(controller);
 	}
 }

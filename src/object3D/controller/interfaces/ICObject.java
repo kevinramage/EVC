@@ -21,10 +21,6 @@ import command.create.I_CreateCommand;
 
 public interface ICObject{
 	
-	
-	void select();
-	void unselect();
-	
 	/**
 	 * Set the 3D position of the object
 	 * @param position a vector3 which contains the position x, y, z of the object
@@ -75,7 +71,8 @@ public interface ICObject{
 	void updateDiffuseColor(Color3f diffuseColor);	
 	
 	
-	
+	void setSelected(boolean selected);
+	void updateSelected(boolean selected);
 	
 
 	/**
@@ -133,6 +130,7 @@ public interface ICObject{
 	Color3f getBackupColor();
 	boolean isPickable();
 	void setReferent(boolean b);
+	boolean isSelected();
 
 
 

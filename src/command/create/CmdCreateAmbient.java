@@ -3,8 +3,8 @@ package command.create;
 import object3D.abstraction.I_AObject;
 import object3D.controller.CAmbientLight;
 import object3D.controller.interfaces.ICObject;
-import object3D.controller.interfaces.ICWorld;
 import project.IEntity;
+
 
 public class CmdCreateAmbient implements I_CreateCommand {
 
@@ -27,12 +27,12 @@ public class CmdCreateAmbient implements I_CreateCommand {
 	/* ---------- Methods ---------- */
 	
 	@Override
-	public void execute(ICWorld world, IEntity entity) {
+	public void execute(IEntity entity) {
 		ICObject controller;
 		controller = new CAmbientLight(abstraction);
 		controller.reload();
 		controller.setEntity(entity);
-		world.add(controller);
+		entity.getWorld().add(controller);
 
 	}
 

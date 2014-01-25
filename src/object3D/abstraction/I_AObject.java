@@ -77,7 +77,10 @@ public interface I_AObject extends Serializable {
 	 */
 	void setId(String id);
 	
-	
+	/**
+	 * Set the selected boolean
+	 */
+	void setSelected(boolean selected);
 	
 	
 
@@ -104,6 +107,8 @@ public interface I_AObject extends Serializable {
 	Quat4d getOrientation();
 
 	boolean isPickable();
+	
+	boolean isSelected();
 
 
 }

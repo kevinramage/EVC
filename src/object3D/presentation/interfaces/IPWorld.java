@@ -37,4 +37,6 @@ public interface IPWorld {
 	 */
 	void addDevice(IDevice device);
 
+	void remove(IPObject presentation);
+
 }

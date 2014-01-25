@@ -1,14 +1,14 @@
-
-package command.create;
+package command.clone;
 
 import object3D.abstraction.I_AObject;
-import object3D.controller.CSubject;
+import object3D.controller.CClonable;
 import object3D.controller.interfaces.ICObject;
 import project.IEntity;
 
+import command.create.I_CreateCommand;
 
-public class CmdCreateCSubject implements I_CreateCommand {
-
+public class CmdCreateCClonable implements I_CreateCommand {
+	
 	/* ---------- Attributes ---------- */
 	
 	private static final long serialVersionUID = 1L;
@@ -19,20 +19,18 @@ public class CmdCreateCSubject implements I_CreateCommand {
 
 	/* ---------- Constructors ---------- */
 	
-	public CmdCreateCSubject(I_AObject abstraction) {
+	public CmdCreateCClonable(I_AObject abstraction) {
 		this.abstraction = abstraction;
 	}
-	
-
-
-	/* ---------- Methods ---------- */
 
 	@Override
 	public void execute(IEntity entity) {
 		ICObject controller;
-		controller = new CSubject(abstraction);
+		controller = new CClonable(abstraction);
 		controller.reload();
 		controller.setEntity(entity);
 		entity.getWorld().add(controller);
+
 	}
+
 }

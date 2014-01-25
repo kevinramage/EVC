@@ -29,6 +29,8 @@ import command.update.CmdUpdateColor;
 import command.update.CmdUpdateDiffuse;
 import command.update.CmdUpdateOrientation;
 import command.update.CmdUpdatePosition;
+import command.update.CmdUpdateSelected;
+
 
 
 public class CObject implements ICObject {
@@ -91,10 +93,12 @@ public class CObject implements ICObject {
 	public void unselect() {
 		this.setAmbientColor(getBackupColor());
 	}
-
+	
 	@Override
 	public void init(IEntity entity, ICWorld world) {
 	}
+
+	
 
 
 	
@@ -104,7 +108,7 @@ public class CObject implements ICObject {
 
 	public void updatePosition(Vector3d position) {
 		abstraction.setPosition(position);
-		presentation.setPosition(position);		
+		presentation.setPosition(position);
 	}
 	
 	public void updateOrientation(Quat4d orientation) {
@@ -121,11 +125,25 @@ public class CObject implements ICObject {
 		abstraction.setDiffuseColor(diffuseColor);
 		presentation.setDiffuseColor(diffuseColor);
 	}
-
+	
+	@Override
 	public void updateGeometry(String geometry) {
 		abstraction.setGeometry(geometry);
 		presentation.setGeometry(geometry);
 	}
+	
+	@Override
+	public void updateSelected(boolean selected) {
+		abstraction.setSelected(selected);
+		if (selected) {
+			abstraction.setBackupColor(abstraction.getAmbientColor());
+			updateAmbientColor(abstraction.getSelectColor());
+		}
+		else {
+			updateAmbientColor(getBackupColor());
+		}
+	}
+
 	
 	public void updateScale(Vector3d scale) {
 		System.err.println("Unimplemented method");
@@ -153,6 +171,19 @@ public class CObject implements ICObject {
 			entity.broadCastUpdateCommand(new CmdReferent(getId(), entity.getId(), cmdUpdate));
 		}
 	}
+			
+	public void setSelected(boolean selected) {
+		
+		// Create update command
+		I_Command cmdUpdate = new CmdUpdateSelected(this.getId(), selected);
+		
+		// Propagate command
+		if (referent) {
+			entity.broadCastUpdateCommand(cmdUpdate);
+		} else {
+			entity.broadCastUpdateCommand(new CmdReferent(getId(), entity.getId(), cmdUpdate));
+		}
+	}
 	
 	public void setOrientation(Quat4d orientation) {
 
@@ -170,7 +201,7 @@ public class CObject implements ICObject {
 	public void setGeometry(String geometry) {
 		System.err.println("Unimplemented method");
 	}
-	
+
 	public void setScale(Vector3d scale) {
 		System.err.println("Unimplemented method");
 	}
@@ -278,6 +309,11 @@ public class CObject implements ICObject {
 
 	public boolean isPickable() {
 		return abstraction.isPickable();
+	}
+	
+	@Override
+	public boolean isSelected() {
+		return abstraction.isSelected();
 	}
 
 

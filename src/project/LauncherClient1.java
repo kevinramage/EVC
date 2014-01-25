@@ -6,8 +6,8 @@ public class LauncherClient1 {
 
 	public static void main(String[] args) throws RemoteException {
 		
-		String worldName = "Demo03Camera.xml";
-		
+		//String worldName = "Demo03Camera.xml";
+		String worldName = "Demo04Clone.xml";
 		
 		new Server(worldName, "William");
 		new Client(worldName, "192.168.1.50", "Domestique 1");

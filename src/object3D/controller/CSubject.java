@@ -9,8 +9,11 @@ import javax.vecmath.Quat4d;
 import object3D.abstraction.I_AObject;
 import pattern.Observer;
 import pattern.Subject;
+
 import command.create.CmdCreateCSubject;
 import command.create.I_CreateCommand;
+
+
 
 public class CSubject extends CObject implements Subject {
 	

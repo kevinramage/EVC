@@ -34,6 +34,9 @@ public class PWorld implements IPWorld{
 		scene.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
 		transformRoot = new TransformGroup();
 		transformRoot.setCapability(TransformGroup.ALLOW_CHILDREN_EXTEND);
+		transformRoot.setCapability(TransformGroup.ALLOW_CHILDREN_READ);
+		transformRoot.setCapability(TransformGroup.ALLOW_CHILDREN_WRITE);
+		transformRoot.setCapability(BranchGroup.ALLOW_DETACH);
 	}
 
 	@Override
@@ -50,9 +53,19 @@ public class PWorld implements IPWorld{
 	public void add(IPObject presentation) {
 		BranchGroup branchGroupUseless = new BranchGroup();
 		branchGroupUseless.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
+		branchGroupUseless.setCapability(BranchGroup.ALLOW_DETACH);
+		branchGroupUseless.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
+		branchGroupUseless.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
 		branchGroupUseless.addChild((TransformGroup)presentation);
 		transformRoot.addChild(branchGroupUseless);
 	}
+
+	@Override
+	public void remove(IPObject presentation) {
+		transformRoot.removeChild(((TransformGroup)presentation).getParent());
+	}
+	
+	
 
 	@Override
 	public void show() {
@@ -73,5 +86,7 @@ public class PWorld implements IPWorld{
 		b.addChild((Behavior)device);
 		scene.addChild(b);
 	}
+	
+	
 	
 }

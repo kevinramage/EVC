@@ -33,8 +33,7 @@ public class PObject extends TransformGroup implements IPObject {
 	// Attributes
 	// ---------------------------------------------------------
 
-	protected static String[] geometries = new String[] { "cube", "sphere",
-			"cone" };
+	protected static String[] geometries = new String[] { "cube", "sphere", "cone" };
 	protected ICObject controller;
 	protected BranchGroup branchGroup;
 	protected Primitive primitive;
@@ -49,6 +48,7 @@ public class PObject extends TransformGroup implements IPObject {
 
 		setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 		setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
+		setCapability(TransformGroup.ENABLE_PICK_REPORTING);
 	}
 
 	@Override
@@ -75,6 +75,7 @@ public class PObject extends TransformGroup implements IPObject {
 			branchGroup.addChild(primitive);
 			removeAllChildren();
 			addChild(branchGroup);
+			setCapability(TransformGroup.ENABLE_PICK_REPORTING);
 		} else {
 			System.err.println("PObject - Impossible to load geometry");
 		}
@@ -114,16 +115,6 @@ public class PObject extends TransformGroup implements IPObject {
 		return null;
 	}
 
-	@Override
-	public void setPickable(boolean b) {
-		if (b) {
-			setCapability(TransformGroup.ENABLE_PICK_REPORTING);
-			setCapability(TransformGroup.ALLOW_PICKABLE_READ);
-			setCapability(TransformGroup.ALLOW_PICKABLE_WRITE);
-		} else {
-			clearCapability(TransformGroup.ENABLE_PICK_REPORTING);
-		}
-	}
 
 	@Override
 	public void setOrientation(Quat4d orientation) {
@@ -143,7 +134,7 @@ public class PObject extends TransformGroup implements IPObject {
 	@Override
 	public void setScale(Vector3d scale) {
 		// TODO Auto-generated method stub
-
+		System.err.println("not implemented");
 	}
 
 	public void setShininess(float shininess) {

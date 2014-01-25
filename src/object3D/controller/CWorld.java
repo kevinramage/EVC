@@ -1,5 +1,7 @@
 package object3D.controller;
 
+import graphic2D.CameraManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,6 @@ import object3D.controller.interfaces.ICWorld;
 import object3D.presentation.PWorld;
 import object3D.presentation.interfaces.IPWorld;
 import device.IDevice;
-import graphic2D.CameraManager;
 
 public class CWorld implements ICWorld{
 	
@@ -16,7 +17,7 @@ public class CWorld implements ICWorld{
 
 	protected IPWorld presentation;
 	protected List<ICObject> objects;
-	protected List<IDevice> device;
+	protected List<IDevice> devices;
 	protected CameraManager cameraManager;
 	
 
@@ -26,6 +27,7 @@ public class CWorld implements ICWorld{
 	public CWorld() {
 		presentation = new PWorld(this);
 		objects = new ArrayList<ICObject>();
+		devices = new ArrayList<>();
 	}
 	
 
@@ -69,6 +71,7 @@ public class CWorld implements ICWorld{
 
 	@Override
 	public void addDevice(IDevice device) {
+		devices.add(device);
 		presentation.addDevice(device);
 	}
 
@@ -76,9 +79,20 @@ public class CWorld implements ICWorld{
 	public List<ICObject> getObjects() {
 		return objects;
 	}
+	
+	@Override
+	public List<IDevice> getDevices() {
+		return devices;
+	}
 
 	@Override
 	public void setCameraManager(CameraManager cameraManager) {
 		this.cameraManager = cameraManager;
+	}
+
+	@Override
+	public void removeObject(ICObject controller) {
+		objects.remove(controller);
+		presentation.remove(controller.getPresentation());
 	}
 }

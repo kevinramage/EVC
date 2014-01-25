@@ -1,5 +1,10 @@
 package project;
 
+import factory.WorldBuilder;
+import graphic2D.Camera;
+import graphic2D.CameraManager;
+import graphic2D.IHM;
+
 import java.awt.Color;
 import java.io.File;
 import java.rmi.Naming;
@@ -10,19 +15,20 @@ import javax.media.j3d.Transform3D;
 import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 
+import network.MulticastReceiverCreate;
+import network.MulticastReceiverDelete;
+import network.MulticastReceiverUpdate;
 import object3D.controller.CCamera;
 import object3D.controller.CWorld;
 import object3D.controller.interfaces.ICObject;
 import object3D.controller.interfaces.ICWorld;
-import network.MulticastReceiverCreate;
-import network.MulticastReceiverUpdate;
+
 import command.I_Command;
 import command.create.I_CreateCommand;
+import command.delete.CmdDeleteCObject;
+
 import device.Mouse;
-import factory.WorldBuilder;
-import graphic2D.Camera;
-import graphic2D.CameraManager;
-import graphic2D.IHM;
+
 
 
 public class Client implements IEntity{
@@ -30,7 +36,7 @@ public class Client implements IEntity{
 	// ---------------------------------------------------------
 	// 						Attributes
 	// ---------------------------------------------------------
-	public String title;
+	private String title;
 	private int id;
 	private ICWorld world;
 	private Camera systemCamera;
@@ -38,7 +44,12 @@ public class Client implements IEntity{
     private IServer is ;
     private MulticastReceiverUpdate multUpdate;
     private MulticastReceiverCreate multCreate;
+    private MulticastReceiverDelete multDelete;
     private Color3f color;
+   
+    
+    //TODO a supprimer
+    public IHM ihm;
 	
 
 	
@@ -67,6 +78,10 @@ public class Client implements IEntity{
         	// Update
         	multUpdate = new MulticastReceiverUpdate(this, is.getDiffusionGroupName(), is.getUpdatePort());
         	multUpdate.start();
+
+        	// Delete
+        	multDelete = new MulticastReceiverDelete(this, is.getDiffusionGroupName(), is.getDeletePort());
+        	multDelete.start();
         	
         } catch (Exception e) {
             e.printStackTrace () ;
@@ -101,7 +116,8 @@ public class Client implements IEntity{
 		world.addDevice(mouse);
 		
 		// IHM
-		IHM ihm = new IHM(world, systemCamera, this);
+//		IHM ihm = new IHM(world, systemCamera, this);
+		ihm = new IHM(world, systemCamera, this);
 		ihm.setTitle(title);
 		
 		// Get server object
@@ -128,7 +144,6 @@ public class Client implements IEntity{
 	}
 
 
-
 	// ---------------------------------------------------------
 	// 						Methods
 	// ---------------------------------------------------------
@@ -150,7 +165,7 @@ public class Client implements IEntity{
 	private void recuperateObjects() throws RemoteException {
 		List<I_CreateCommand> lc = is.getListObjs();
 		for (I_CreateCommand cmd: lc) {
-			cmd.execute(world, this);
+			cmd.execute(this);
 		}
 	}
 
@@ -163,7 +178,7 @@ public class Client implements IEntity{
 	}
 
 	public void addObject(I_CreateCommand cmd) {
-		cmd.execute(world, this);
+		cmd.execute(this);
 	}
 	
 	public List<ICObject> getObjects() {
@@ -185,16 +200,13 @@ public class Client implements IEntity{
 		}
 	}
 	
-	
-
 	@Override
 	public ICWorld getWorld() {
 		return this.world;
 	}
 	
-	@Override
-	public int getId() {
-		return this.id;
+	public int getId(){
+		return id;
 	}
 
 	@Override
@@ -211,5 +223,50 @@ public class Client implements IEntity{
 		}
 	}
 	
+	public void removeObjects() {
+		I_Command cmdDelete = new CmdDeleteCObject();
+		for (ICObject obj : world.getObjects()) {
+			if (obj.isSelected())
+				((CmdDeleteCObject)cmdDelete).addObjectToRemove(obj);
+		}
+		try {
+			is.removeObjects(cmdDelete);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
 	
+	public void removeObjects(I_Command cmdDelete) {
+		cmdDelete.execute(this);
+	}
+	
+	public void removeClone(I_Command cmdDelete){
+		try {
+			is.removeObjects(cmdDelete);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Override
+	public boolean havePick(ICObject obj) {
+		return world.getDevices().contains(obj);
+	}
+
+	@Override
+	public String getTitle() {
+		return title;
+	}
+	
+	@Override
+	public void showAllObjects() {
+		String str = "\n"+this.getTitle()+"\n";
+		str += "Liste des Objets : \n";
+		for (ICObject o:this.getWorld().getObjects()) {
+			str += "\t - "+o.getId()+" de type : "+o.getClass()+"\n";
+		}
+		
+		System.err.println(str);
+	}	
 }

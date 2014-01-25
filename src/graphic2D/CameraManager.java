@@ -13,7 +13,7 @@ import object3D.controller.interfaces.ICObject;
 import pattern.Observer;
 import pattern.Subject;
 
-public class CameraManager implements Subject, Observer {
+public class CameraManager implements Subject{
 	private Camera camera;
 	private NavigationMode navigationMode;
 	private TransformGroup transformGroup;
@@ -146,10 +146,6 @@ public class CameraManager implements Subject, Observer {
 //		result.get(position);
 //		object.setPosition(position);
 		
-	}
-
-	@Override
-	public void update() {
 	}
 
 	@Override

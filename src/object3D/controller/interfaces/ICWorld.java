@@ -9,11 +9,12 @@
 
 package object3D.controller.interfaces;
 
+import graphic2D.CameraManager;
+
 import java.util.List;
 
 import object3D.presentation.interfaces.IPWorld;
 import device.IDevice;
-import graphic2D.CameraManager;
 
 
 public interface ICWorld {
@@ -49,6 +50,10 @@ public interface ICWorld {
 	void setCameraManager(CameraManager cameraManager);
 
 	CameraManager getCameraManager();
+
+	void removeObject(ICObject controller);
+
+	List<IDevice> getDevices();
 
 //	void setServer(Server server);
 }

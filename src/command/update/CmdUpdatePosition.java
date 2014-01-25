@@ -37,8 +37,15 @@ public class CmdUpdatePosition implements I_Command {
 		
 		// Get object
 		ICObject obj = entity.getWorld().getObjectById(id);
-		obj.updatePosition(position);
-		if (bindWithCamera && Integer.parseInt(obj.getId().split("-")[0]) == entity.getId())
-			entity.getWorld().getCameraManager().refresh((CSubject) obj);
+		try {
+			obj.updatePosition(position);
+			if (bindWithCamera && Integer.parseInt(obj.getId().split("-")[0]) == entity.getId())
+				entity.getWorld().getCameraManager().refresh((CSubject) obj);
+		}
+		catch(Exception e) {
+			System.err.println("Object recherché "+id+" not found");
+			entity.showAllObjects();
+		}
+		
 	}
 }
