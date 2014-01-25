@@ -8,6 +8,7 @@
 
 package object3D.presentation;
 
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 import javax.media.j3d.Appearance;
@@ -23,6 +24,9 @@ import javax.vecmath.Vector3d;
 import object3D.controller.interfaces.ICObject;
 import object3D.presentation.interfaces.IPObject;
 
+import org.jdesktop.j3d.loaders.vrml97.VrmlLoader;
+
+import com.sun.j3d.loaders.Scene;
 import com.sun.j3d.utils.geometry.Box;
 import com.sun.j3d.utils.geometry.Cone;
 import com.sun.j3d.utils.geometry.Primitive;
@@ -64,6 +68,14 @@ public class PObject extends TransformGroup implements IPObject {
 	public void setGeometry(String geometry) {
 		if (geometry.endsWith(".wrl")) {
 
+			VrmlLoader loader = new VrmlLoader () ;
+			 try { 
+				 Scene scene = loader.load ("resources/object/" + geometry) ;
+				 addChild(scene.getSceneGroup());
+			 
+			 } catch (FileNotFoundException e) { e.printStackTrace () ; }
+
+			
 		} else if (Arrays.asList(geometries).contains(geometry)) {
 			primitive = getPrimitive(geometry);
 			primitive.setCapability(javax.media.j3d.Geometry.ALLOW_INTERSECT);
@@ -84,16 +96,20 @@ public class PObject extends TransformGroup implements IPObject {
 
 	@Override
 	public void setAmbientColor(Color3f ambientColor) {
-		Material material = primitive.getAppearance().getMaterial();
-		material.setAmbientColor(ambientColor);
-		primitive.getAppearance().setMaterial(material);
+		if ( primitive != null) {
+			Material material = primitive.getAppearance().getMaterial();
+			material.setAmbientColor(ambientColor);
+			primitive.getAppearance().setMaterial(material);
+		}
 	}
 
 	@Override
 	public void setDiffuseColor(Color3f diffuseColor) {
-		Material material = primitive.getAppearance().getMaterial();
-		material.setDiffuseColor(diffuseColor);
-		primitive.getAppearance().setMaterial(material);
+		if ( primitive != null) {
+			Material material = primitive.getAppearance().getMaterial();
+			material.setDiffuseColor(diffuseColor);
+			primitive.getAppearance().setMaterial(material);
+		}
 	}
 
 	@Override
@@ -106,11 +122,12 @@ public class PObject extends TransformGroup implements IPObject {
 	
 	@Override
 	public void setTransparency(float transparency) {
-		TransparencyAttributes ta = new TransparencyAttributes();
-		ta.setTransparencyMode(TransparencyAttributes.BLEND_ONE);
-		System.out.println("Transparency: " + transparency);
-		ta.setTransparency(transparency);
-		primitive.getAppearance().setTransparencyAttributes(ta);
+		if( primitive != null) {
+			TransparencyAttributes ta = new TransparencyAttributes();
+			ta.setTransparencyMode(TransparencyAttributes.BLEND_ONE);
+			ta.setTransparency(transparency);
+			primitive.getAppearance().setTransparencyAttributes(ta);
+		}
 	}
 
 	private static Primitive getPrimitive(String geometry) {

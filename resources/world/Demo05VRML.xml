@@ -1,0 +1,13 @@
+<World>
+	<Objects>
+		<CObject id="william1">
+			<Geometry>william.wrl</Geometry>
+			<Position>0 0 0</Position>
+			<Pickable>true</Pickable>
+		</CObject>
+		<CAmbientLight id="ambientLight1">
+			<AmbientColor>0.2 0.2 0.2</AmbientColor>
+		</CAmbientLight>	
+		<CDirectionalLight id="directionalLight1" />			
+	</Objects>
+</World>
