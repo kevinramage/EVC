@@ -281,6 +281,8 @@ public class Launcher extends JFrame{
 			
 			@Override
 			public void call(Object data) {
+				System.out
+						.println("Launcher.getServerAvailable().new ICallback() {...}.call()");
 				model.addElement(data.toString());
 			}
 		};
@@ -288,14 +290,10 @@ public class Launcher extends JFrame{
 		listener.start();
 		
 		// Send request
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		WorldSender sender = new WorldSender(Configuration.DIFFUSION_ADDRESS, Configuration.WORLD_REQUEST_PORT);
 		sender.diffuseMessage("world please ?");
+		
+		System.out.println("Launcher.getServerAvailable()");
 	}
 	
 	

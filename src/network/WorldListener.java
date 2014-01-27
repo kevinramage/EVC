@@ -22,7 +22,7 @@ public class WorldListener extends Thread implements Runnable {
         	this.diffusionAddress = InetAddress.getByName (diffusionAddress) ;
             socket = new MulticastSocket (port) ;
             socket.joinGroup (this.diffusionAddress) ;
-            socket.setLoopbackMode (true) ;
+            socket.setLoopbackMode (false) ;
         } catch (Exception e) {
             e.printStackTrace () ;
         }
@@ -33,6 +33,8 @@ public class WorldListener extends Thread implements Runnable {
         try {
             byte [] message = new byte [1024] ;
             
+            System.out.println("WorldListener.receiveMessage()");
+            
             // Receive a client request
             DatagramPacket paquet = new DatagramPacket (message, message.length) ;
             socket.receive (paquet) ;
@@ -42,6 +44,8 @@ public class WorldListener extends Thread implements Runnable {
             // Send the world name
             String worldName = ois.readObject().toString();
             callback.call(worldName);
+            
+            System.out.println("WorldListener.receiveMessage()2");
             
             
         } catch (Exception e) {

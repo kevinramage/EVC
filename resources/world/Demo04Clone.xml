@@ -1,13 +1,5 @@
 <World>
 	<Objects>
-		<CObject id="box1">
-			<Geometry>cube</Geometry>
-			<AmbientColor>0 0 1</AmbientColor>
-			<DiffuseColor>0 0 1</DiffuseColor>
-			<Position>0 0 -10</Position>
-			<Orientation>0 1 0 1.57</Orientation>
-			<Pickable>true</Pickable>
-		</CObject>
 		<CClonable id="cloneable1">
 			<Geometry>cube</Geometry>
 			<AmbientColor>1 0 0</AmbientColor>

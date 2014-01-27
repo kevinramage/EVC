@@ -1,13 +1,13 @@
 <World>
 	<Objects>
-		<CObject id="william1">
+		<CClonable id="william1">
 			<Geometry>william.wrl</Geometry>
 			<Position>0 0 0</Position>
 			<Pickable>true</Pickable>
-		</CObject>
+		</CClonable>
 		<CAmbientLight id="ambientLight1">
-			<AmbientColor>0.2 0.2 0.2</AmbientColor>
+			<AmbientColor>0.1 0.1 0.1</AmbientColor>
 		</CAmbientLight>	
-		<CDirectionalLight id="directionalLight1" />			
+		<CDirectionalLight id="directionalLight1" />				
 	</Objects>
 </World>

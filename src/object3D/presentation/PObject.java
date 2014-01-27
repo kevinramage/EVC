@@ -10,10 +10,12 @@ package object3D.presentation;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.Enumeration;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Material;
+import javax.media.j3d.Node;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.media.j3d.TransparencyAttributes;

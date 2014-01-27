@@ -4,7 +4,7 @@ public class Configuration {
 	
 	public static final int WORLD_REQUEST_PORT = 4319;
 	public static final int WORLD_RESPONSE_PORT = 4320;
-	public static final String DIFFUSION_ADDRESS = "239.19.10.10";
+	public static final String DIFFUSION_ADDRESS = "239.19.10.30";
 	
 	//public static final int RMI_PORT = 1234;
 	//public static final int CREATE_PORT = 4321;
